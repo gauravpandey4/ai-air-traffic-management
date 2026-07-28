@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T21:11:15Z
+- Last updated (UTC): 2026-07-28T21:12:00Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: Commit `f4ecac5` recorded the scoped degraded-mode guard, settled offline flow, browser fixes, and their evidence.
-- Exact next action: Commit this immediate ledger entry, then run the complete clean exact-head non-browser/browser/audit release gate.
+- Last completed action: Exact clean branch head `e23962f` passed the complete local release gate: 177/177 coverage, build/base/PWA/privacy verification, 16/16 Chromium, production audit zero, and clean cumulative diff.
+- Exact next action: Commit exact-head verification evidence, run final repository/security/publication guards, then publish the PR 7 branch without deployment.
 - Blockers: None.
 
 ## Fixed project facts
@@ -232,3 +232,5 @@ Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been e
 - 2026-07-28T21:10:45Z — Offline-weather flow now awaits service-worker readiness before disconnecting. Formatting, lint, and the focused browser case passed with the strict console/page-error guard.
 - 2026-07-28T21:11:00Z — Full local production Playwright passed 16/16 with strict unexpected console/page-error guarding, including the explicitly proven tile-abort fallback, service-worker-settled offline weather, warm offline reload, Axe, keyboard, reduced motion, 200% reflow, and 1440/768/390/320 layouts.
 - 2026-07-28T21:11:15Z — Commit `f4ecac5` (`fix: resolve release candidate audit findings`) recorded the scoped degraded-mode runtime guard, service-worker-settled offline flow, browser debug fixes, and complete failure/fix evidence.
+- 2026-07-28T21:11:30Z — Commit `e23962f` (`docs: record release browser verification`) made the browser failure/fix/pass ledger durable and returned the branch clean.
+- 2026-07-28T21:12:00Z — Exact clean head `e23962fd8c3ccb5200c4096f59dd93ee8d278a45` passed `npm run check` and all 16 Chromium flows: 177/177 tests, 91.04/88.85/88.78/92.88 coverage, exact Pages-base/PWA verification at 104,980 compressed initial-script bytes, privacy, production audit zero, and cumulative whitespace review.

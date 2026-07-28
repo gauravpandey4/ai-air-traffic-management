@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T21:11:15Z
+- Last updated (UTC): 2026-07-28T21:12:00Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: Commit `f4ecac5` recorded the scoped degraded-mode guard, settled offline flow, browser fixes, and their evidence.
-- Exact next action: Commit this immediate ledger entry, then run the complete clean exact-head non-browser/browser/audit release gate.
+- Last completed action: Exact clean branch head `e23962f` passed the complete local release gate: 177/177 coverage, build/base/PWA/privacy verification, 16/16 Chromium, production audit zero, and clean cumulative diff.
+- Exact next action: Commit exact-head verification evidence, run final repository/security/publication guards, then publish the PR 7 branch without deployment.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -580,6 +580,8 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T21:10:45Z | Fix/Check | Offline-weather browser flow | Awaited worker readiness before disconnect; formatting, lint, and focused strict-console Playwright case passed |
 | 2026-07-28T21:11:00Z | Browser check | Full PR 7 local production Playwright | 16/16 passed with strict unexpected console/page-error guard, explicit tile-failure allowance/occurrence, settled offline weather, warm offline, Axe, keyboard, motion, zoom, and 1440/768/390/320 reflow |
 | 2026-07-28T21:11:15Z | Commit | `f4ecac5` | Scoped degraded-mode guard, settled offline flow, browser debug fixes, and complete failure/fix evidence committed |
+| 2026-07-28T21:11:30Z | Commit | `e23962f` | Browser failure/fix/pass ledger made durable; branch returned clean |
+| 2026-07-28T21:12:00Z | Check | Exact PR 7 branch `e23962fd8c3ccb5200c4096f59dd93ee8d278a45` | Full quality passed: 177/177 tests at 91.04/88.85/88.78/92.88, build/base/PWA/privacy, 16/16 Chromium, production audit zero, and clean cumulative whitespace review |
 
 ## Errors and verification
 
