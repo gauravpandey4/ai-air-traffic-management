@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T21:12:00Z
+- Last updated (UTC): 2026-07-28T21:12:30Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: Exact clean branch head `e23962f` passed the complete local release gate: 177/177 coverage, build/base/PWA/privacy verification, 16/16 Chromium, production audit zero, and clean cumulative diff.
-- Exact next action: Commit exact-head verification evidence, run final repository/security/publication guards, then publish the PR 7 branch without deployment.
+- Last completed action: Final publication guards passed on clean head `6e0bbbf`: format/privacy/cumulative diff, no Co-Authored-By or PDF, dependency licences verified, and no open PR/deployment/release variable.
+- Exact next action: Commit this publication decision and push `test/release-hardening` with upstream, without invoking Pages.
 - Blockers: None.
 
 ## Fixed project facts
@@ -234,3 +234,5 @@ Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been e
 - 2026-07-28T21:11:15Z — Commit `f4ecac5` (`fix: resolve release candidate audit findings`) recorded the scoped degraded-mode runtime guard, service-worker-settled offline flow, browser debug fixes, and complete failure/fix evidence.
 - 2026-07-28T21:11:30Z — Commit `e23962f` (`docs: record release browser verification`) made the browser failure/fix/pass ledger durable and returned the branch clean.
 - 2026-07-28T21:12:00Z — Exact clean head `e23962fd8c3ccb5200c4096f59dd93ee8d278a45` passed `npm run check` and all 16 Chromium flows: 177/177 tests, 91.04/88.85/88.78/92.88 coverage, exact Pages-base/PWA verification at 104,980 compressed initial-script bytes, privacy, production audit zero, and cumulative whitespace review.
+- 2026-07-28T21:12:15Z — Commit `6e0bbbf` (`docs: record exact release verification`) made the complete exact-head local gate durable.
+- 2026-07-28T21:12:30Z — Final publication guards passed: formatting/privacy and cumulative diff clean; expected ten-file scope; no Co-Authored-By trailer or tracked PDF; Leaflet BSD-2-Clause and React/ReactDOM/Zod MIT metadata verified; no open PRs, deployments, or repository variables. Publication is authorized without Pages invocation.
