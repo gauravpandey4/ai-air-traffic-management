@@ -163,12 +163,18 @@ export type ScenarioDefinition = {
 
 export type SimulationStatistics = {
   totalAircraft: number;
-  airborneAircraft: number;
-  arrivals: number;
-  emergencies: number;
-  lowFuelAircraft: number;
-  averageAltitudeFt: number;
-  averageGroundSpeedKt: number;
+  airborneAircraft: StatisticMetric;
+  arrivals: StatisticMetric;
+  emergencies: StatisticMetric;
+  lowFuelAircraft: StatisticMetric;
+  averageAltitudeFt: StatisticMetric;
+  averageGroundSpeedKt: StatisticMetric;
+};
+
+export type StatisticMetric = {
+  value: number | null;
+  observationCount: number;
+  totalCount: number;
 };
 
 export type FuelAssessment = {

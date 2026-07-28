@@ -267,8 +267,9 @@ describe('simulation movement and reducer', () => {
     const emergency = createInitialSimulationState('emergency');
     const statistics = deriveSimulationStatistics(emergency.aircraft);
     expect(statistics.totalAircraft).toBe(emergency.aircraft.length);
-    expect(statistics.emergencies).toBe(1);
-    expect(statistics.averageAltitudeFt).toBeGreaterThan(0);
+    expect(statistics.emergencies.value).toBe(1);
+    expect(statistics.averageAltitudeFt.value).not.toBeNull();
+    expect(statistics.averageAltitudeFt.value ?? 0).toBeGreaterThan(0);
     expect(getSimulationTimestamp(emergency)).toBe('2026-01-01T12:00:00.000Z');
 
     const aircraft = emergency.aircraft[0];
@@ -295,16 +296,58 @@ describe('simulation movement and reducer', () => {
             humanAction: 'Test',
           },
         },
-      }).lowFuelAircraft,
+      }).lowFuelAircraft.value,
     ).toBeGreaterThan(0);
     expect(deriveSimulationStatistics([])).toEqual({
       totalAircraft: 0,
-      airborneAircraft: 0,
-      arrivals: 0,
-      emergencies: 0,
-      lowFuelAircraft: 0,
-      averageAltitudeFt: 0,
-      averageGroundSpeedKt: 0,
+      airborneAircraft: { value: null, observationCount: 0, totalCount: 0 },
+      arrivals: { value: null, observationCount: 0, totalCount: 0 },
+      emergencies: { value: null, observationCount: 0, totalCount: 0 },
+      lowFuelAircraft: { value: null, observationCount: 0, totalCount: 0 },
+      averageAltitudeFt: { value: null, observationCount: 0, totalCount: 0 },
+      averageGroundSpeedKt: { value: null, observationCount: 0, totalCount: 0 },
     });
+  });
+
+  it('discloses valid denominators for partial and unsupported datasets', () => {
+    const state = createInitialSimulationState();
+    const first = state.aircraft[0];
+    const second = state.aircraft[1];
+    expect(first).toBeDefined();
+    expect(second).toBeDefined();
+    if (first === undefined || second === undefined) return;
+
+    const partial = deriveSimulationStatistics([
+      first,
+      {
+        ...second,
+        altitudeFt: Number.NaN,
+        groundSpeedKt: Number.NaN,
+        phase: 'Unavailable',
+        simulatedFuelMinutes: null,
+        source: {
+          mode: 'External',
+          provider: 'adsb.fi',
+          observedAtIso: '2026-01-01T12:00:00.000Z',
+          fetchedAtIso: '2026-01-01T12:00:00.000Z',
+          freshness: 'Fresh',
+          limitation: 'Test fixture.',
+        },
+      },
+    ]);
+
+    expect(partial.averageAltitudeFt).toEqual({
+      value: first.altitudeFt,
+      observationCount: 1,
+      totalCount: 2,
+    });
+    expect(partial.averageGroundSpeedKt).toEqual({
+      value: first.groundSpeedKt,
+      observationCount: 1,
+      totalCount: 2,
+    });
+    expect(partial.arrivals.observationCount).toBe(1);
+    expect(partial.emergencies.observationCount).toBe(1);
+    expect(partial.lowFuelAircraft.observationCount).toBe(1);
   });
 });
