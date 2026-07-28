@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T17:26:46Z
+- Last updated (UTC): 2026-07-28T17:31:40Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: Authenticated `gh` fallback created PR 1 (`https://github.com/gauravpandey4/ai-air-traffic-management/pull/1`) from `chore/repository-foundation` to `main`; it was promoted from draft to ready for review and the Quality check queued.
-- Exact next action: Commit/push the PR-publication ledger, then wait for the new head's Quality check and inspect any findings before squash merge.
+- Last completed action: PR 1 post-merge verification passed the complete quality suite and 4/4 Chromium checks on refreshed `main`; GitHub reports zero deployments and no Pages workflow runs.
+- Exact next action: Create `feat/simulation-dashboard` from merge SHA `aec3feb`, commit the carried PR 1 completion ledger/PR 2 start marker, then implement the deterministic region, scenarios, reducer, dashboard, map/schematic, tracking, and details contracts.
 - Blockers: None.
 
 ## Fixed project facts

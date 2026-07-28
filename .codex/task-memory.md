@@ -323,6 +323,12 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T17:26:00Z | Error      | GitHub integration PR creation                               | HTTP 403 `Resource not accessible by integration`; no PR created, authenticated `gh` fallback selected                                                |
 | 2026-07-28T17:26:46Z | PR         | `#1`                                                         | Draft created by authenticated `gh` fallback, then marked ready; targets `main`, Quality check queued                                                 |
 | 2026-07-28T17:26:46Z | Commit     | This PR-publication ledger commit                            | Records PR 1 URL/state before the final remote check run                                                                                              |
+| 2026-07-28T17:29:11Z | CI         | PR `#1`, run `30382940537`                                   | Quality passed all 12 steps at verified head `8e2520f`; PR mergeable with no comments or unresolved review feedback                                   |
+| 2026-07-28T17:29:59Z | Merge      | PR `#1`, `aec3feb3d80e3ff665e20560ec74b322e76fc62e`          | Squash merge succeeded with expected-head guard                                                                                                       |
+| 2026-07-28T17:30:29Z | Cleanup    | `origin/chore/repository-foundation`                         | Exact remote PR 1 branch resolved and deleted after confirmed merge                                                                                   |
+| 2026-07-28T17:30:59Z | Cleanup    | Local `chore/repository-foundation` and refreshed `main`     | Local branch deleted; `main` fast-forwarded to `aec3feb`; post-merge memory ledger restored                                                           |
+| 2026-07-28T17:31:40Z | Check      | PR 1 post-merge verification                                 | Full quality suite and 4/4 Chromium checks passed on refreshed `main`; GitHub reports zero deployments and no Pages runs                              |
+| 2026-07-28T17:31:40Z | Branch     | `feat/simulation-dashboard`                                  | Authorized next branch to be created from verified merge SHA `aec3feb`; PR 2 begins                                                                   |
 
 ## Errors and verification
 
