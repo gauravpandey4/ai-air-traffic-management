@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T20:53:00Z
+- Last updated (UTC): 2026-07-28T20:54:30Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: Exact branch head `8a09250330915fd90597b15cc5a99b122554f5cd` passed the full PR 6 verification and pre-publication guards.
-- Exact next action: Commit this exact-verification record, push the branch, open a draft PR, and wait for exact-head CI/review guards.
+- Last completed action: Publication-ledger commit `da07bf6` and branch `feat/learning-accessibility` were pushed successfully.
+- Exact next action: Commit/push this publication record, create PR 6 as draft, then wait for exact-head CI/review guards.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -556,6 +556,7 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T20:51:00Z | Commit | `9e25a8b` | `docs: record learning accessibility validation`; complete local evidence ledger committed |
 | 2026-07-28T20:53:00Z | Check | Exact PR 6 branch `8a09250330915fd90597b15cc5a99b122554f5cd` | Format/lint/types, 176/176 tests, 91.04/88.85/88.78/92.88 coverage, build/privacy, 12-entry shell precache boundaries, 16/16 Chromium, production audit, clean cumulative review, zero deployments/variables/open PRs passed |
 | 2026-07-28T20:53:30Z | Commit | `afa109a` | Exact PR 6 branch verification ledger committed; branch publication next |
+| 2026-07-28T20:54:30Z | Commit/Push | `da07bf6`, `feat/learning-accessibility` | Publication ledger committed; new remote branch pushed with upstream tracking |
 
 ## Errors and verification
 
