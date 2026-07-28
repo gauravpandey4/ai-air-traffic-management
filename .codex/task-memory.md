@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T19:09:03Z
+- Last updated (UTC): 2026-07-28T19:09:27Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: Commit `5f73472` (`docs: record weather integration validation`) created; the branch was clean immediately afterward.
-- Exact next action: Commit this commit record, then run the exact branch quality/browser/diff review and publish.
+- Last completed action: Commit `054ff74` (`docs: record weather integration commits`) created.
+- Exact next action: Run the exact branch quality/browser/diff review, record it once, and publish.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -468,6 +468,8 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T19:08:39Z | Commit | `825fe9d` | `test: cover weather thresholds caching and fallback`; staged scope and whitespace review passed |
 
 | 2026-07-28T19:09:03Z | Commit | `5f73472` | `docs: record weather integration validation`; branch clean immediately afterward |
+
+| 2026-07-28T19:09:27Z | Commit | `054ff74` | `docs: record weather integration commits`; exact branch verification begins |
 
 ## Errors and verification
 
