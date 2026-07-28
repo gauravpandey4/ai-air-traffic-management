@@ -5,8 +5,8 @@
 **Project:** AI-Assisted Air Traffic Management Simulator<br>
 **Academic report:** Emerging Technologies in Air Traffic Management: Role of AI and Automation in Future ATC<br>
 **Institution:** Amity University Uttar Pradesh, Lucknow<br>
-**Document version:** 1.0<br>
-**Status:** Gate 2 approval candidate<br>
+**Document version:** 1.1<br>
+**Status:** Approved requirements synchronized with the Gate 4 release candidate<br>
 **Prepared:** 28 July 2026
 
 > **Required safety statement:** “This is an academic simulation for educational demonstration only. It is not an operational air traffic control, navigation, collision-avoidance, flight-planning, or safety system.”
@@ -776,7 +776,7 @@ Sources were checked on 28 July 2026. Provider terms can change and must be rech
 - Required visible map attribution: `© OpenStreetMap contributors`.
 - Use only the documented HTTPS tile URL, preserve normal browser Referer behavior, honour caching, and do not prefetch, bulk-download, scrape, or offer offline tile downloads.
 - [Leaflet stable-download information](https://leafletjs.com/download.html)
-- Leaflet is a candidate open-source browser map library; final dependency version and licence metadata must be reverified during Gate 3 planning and Gate 4 installation.
+- Leaflet 1.9.4 is the implemented open-source browser map library; its BSD-2-Clause licence and installed version were verified during Gate 4.
 
 ### 25.4 Hosting and scheduling
 
@@ -792,6 +792,10 @@ Sources were checked on 28 July 2026. Provider terms can change and must be rech
 
 ## Approval Control
 
-This specification is the Gate 2 approval candidate. It authorizes requirements only. It does not authorize Git initialization, package installation, application code, GitHub repository creation, pull requests, or deployment.
+The user approved this requirements specification at Gate 2 and the implementation plan at Gate 3.
+The requirements remain the controlling public scope for the locally verified Gate 4 release
+candidate.
 
-After approval, Gate 3 will convert these requirements into the implementation architecture, data flow, state machine, test strategy, deployment strategy, and complete branch/commit/PR checklist.
+Production deployment remains separately locked until the user explicitly approves Gate 4. Gate 5
+will recheck provider terms, activate the release variable and GitHub Pages workflow, and verify the
+public URL independently.

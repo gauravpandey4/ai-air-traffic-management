@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T21:04:30Z
+- Last updated (UTC): 2026-07-28T21:08:30Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: Created `test/release-hardening` from verified main `b01235a`; the carried PR 6 post-merge ledger is ready for its first branch commit.
-- Exact next action: Commit the carried PR 6 ledger, then audit and complete PR 7 release-candidate hardening/evidence without deployment.
+- Last completed action: Commit `f802548` recorded the release artifact verifier, all-flow runtime-error guard, and quality-gate wiring.
+- Exact next action: Commit the reviewed final README/evidence and synchronized requirements/DOCX with the current ledger, then run local Playwright for final debugging.
 - Blockers: None.
 
 ## Fixed project facts
@@ -217,3 +217,10 @@ Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been e
 - 2026-07-28T21:01:30Z — Named two-file ledger stash was created, local `main` fast-forwarded to `b01235a`, and the stash restored without conflicts after the pull. Verified merged PR/head, then deleted exact local and remote `feat/learning-accessibility` refs; local/origin main remain synchronized.
 - 2026-07-28T21:04:00Z — PR 6 post-merge verification passed on exact main `b01235a`: format/lint/types, 176/176 tests at 91.04/88.85/88.78/92.88 coverage, build/privacy, 16/16 Chromium, production audit zero, GitHub Quality run `30398355924` success, no open PRs, branches, deployments, or variables.
 - 2026-07-28T21:04:30Z — Created `test/release-hardening` directly from verified main `b01235a`; Gate 5 deployment remains locked and the carried PR 6 post-merge ledger is the only pending change.
+- 2026-07-28T21:05:00Z — Commit `028027c` (`docs: record learning accessibility merge`) made the carried PR 6 post-merge evidence and PR 7 branch creation durable.
+- 2026-07-28T21:06:00Z — PR 7 audit found no new feature need: 16 browser flows already cover five scenarios, seven learning capabilities, external success/empty/expiry, offline, accessibility, and four responsive widths; unit/integration suites cover the complete external failure matrix. Focused gaps are a final README/evidence trace, deterministic built Pages-base verification, console/page-error guarding across every browser flow, and stale Gate 2/Leaflet wording synchronized in requirements Markdown/DOCX. GitHub has no open PR, deployment, or release variable.
+- 2026-07-28T21:06:30Z — User requested an urgent first version with no in-app browser use before the build, followed only by fast local browser debugging. The functional first version already existed, so PR 7 documentation/tooling was completed without opening the app browser; only the existing local Playwright production suite is authorized for the final debug cycle.
+- 2026-07-28T21:07:00Z — Completed the non-browser PR 7 implementation: final README, acceptance/failure evidence, deterministic Pages-base/PWA/bundle verifier, all-flow runtime-error guard, and synchronized requirements Markdown/DOCX. The 27-page DOCX was rendered and every page visually inspected without new layout defects. First validation stopped at lint because synchronous `beforeEach`/`afterEach` hooks carried unnecessary `async`; no typecheck/build command ran after lint.
+- 2026-07-28T21:07:30Z — Removed the unnecessary async hook modifiers. Corrected non-browser verification passed format, lint, strict types, production build, privacy, and the new artifact verifier: all four HTML references exist below the Pages base, PWA scope/start URL match, dynamic snapshot/duplicate registration are excluded, and initial JavaScript is 104,980 compressed bytes.
+- 2026-07-28T21:08:00Z — Full PR 7 coverage passed: 20 files and 177/177 tests, with 91.04% statements, 88.85% branches, 88.78% functions, and 92.88% lines.
+- 2026-07-28T21:08:30Z — Commit `f802548` (`test: harden release candidate and evidence`) recorded the deterministic production artifact verifier, mandatory quality-gate wiring, and console/page-error guard across every Playwright flow.

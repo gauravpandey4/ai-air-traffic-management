@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T21:04:30Z
+- Last updated (UTC): 2026-07-28T21:08:30Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: Created `test/release-hardening` from verified main `b01235a`; the carried PR 6 post-merge ledger is ready for its first branch commit.
-- Exact next action: Commit the carried PR 6 ledger, then audit and complete PR 7 release-candidate hardening/evidence without deployment.
+- Last completed action: Commit `f802548` recorded the release artifact verifier, all-flow runtime-error guard, and quality-gate wiring.
+- Exact next action: Commit the reviewed final README/evidence and synchronized requirements/DOCX with the current ledger, then run local Playwright for final debugging.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -565,6 +565,13 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T21:01:30Z | Cleanup | PR `#10`, merge `b01235a8622f4c8f8b1e3640187bb983db8a51c2` | Two-file ledger stash restored cleanly after main fast-forward; merged state verified; exact local/remote PR 6 refs deleted; local/origin main synchronized |
 | 2026-07-28T21:04:00Z | Check | PR 6 post-merge main `b01235a8622f4c8f8b1e3640187bb983db8a51c2` | Local full quality, 176/176 tests, 91.04/88.85/88.78/92.88 coverage, build/privacy, 16/16 Chromium, production audit, and GitHub Quality `30398355924` passed; no open PRs/branches/deployments/variables |
 | 2026-07-28T21:04:30Z | Branch | `test/release-hardening` from `b01235a8622f4c8f8b1e3640187bb983db8a51c2` | PR 7 release-hardening branch created from verified main; Gate 5 deployment remains locked |
+| 2026-07-28T21:05:00Z | Commit | `028027c` | PR 6 merge/post-merge evidence and PR 7 branch creation made durable |
+| 2026-07-28T21:06:00Z | Audit/Decision | PR 7 release candidate and live GitHub state | Existing automated matrix covers five scenarios, seven modules, external success/empty/expiry/failure cases, offline/a11y/reflow; focused gaps are final docs/evidence, built-base verification, all-flow runtime-error guard, and stale synchronized requirements wording; no open PR/deployment/variable |
+| 2026-07-28T21:06:30Z | User instruction/Decision | Urgent release-hardening workflow | User requested no in-app browser before first build and only fast local browser debugging afterward; functional first version already exists, so finish non-browser work first and use only the local Playwright production suite for final UI iteration |
+| 2026-07-28T21:07:00Z | Check/Failure | First PR 7 non-browser validation | Formatting completed; lint stopped on two unnecessary async Playwright hooks, so later type/build steps did not run; remove async and rerun |
+| 2026-07-28T21:07:30Z | Fix/Check | PR 7 non-browser implementation | Removed unnecessary async hooks; format/lint/types/build/privacy passed; production verifier confirmed four base-path assets, manifest/PWA boundaries, no dynamic snapshot/duplicate registration in precache, and 104,980-byte compressed initial JS |
+| 2026-07-28T21:08:00Z | Check | PR 7 coverage | 20 files and 177/177 tests passed at 91.04/88.85/88.78/92.88 coverage |
+| 2026-07-28T21:08:30Z | Commit | `f802548` | Deterministic production artifact verifier, quality-gate wiring, and all-flow Playwright runtime-error guard committed |
 
 ## Errors and verification
 
