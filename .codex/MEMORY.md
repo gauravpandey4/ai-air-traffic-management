@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T19:11:32Z
+- Last updated (UTC): 2026-07-28T19:12:10Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: Commit `be8d756` (`docs: record weather branch publication`) was pushed successfully.
-- Exact next action: Commit this record, push it, and create the draft PR from the resulting exact head.
+- Last completed action: Commit `9dbc779` was pushed and draft PR `#8` was created at that exact head; GitHub reports it MERGEABLE and Quality is queued.
+- Exact next action: Commit/push the PR-creation record, mark PR `#8` ready, then record final readiness before exact-head CI polling.
 - Blockers: None.
 
 ## Fixed project facts
@@ -145,3 +145,4 @@ Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been e
 - 2026-07-28T19:10:21Z — Exact branch head `d345e2627bfecac230b7291e91e138940d04c1fb` passed full quality, 118/118 tests, 95.9/90.71/94.47/96.61 coverage, build/privacy, 10/10 Chromium, cumulative diff review, production audit zero, zero deployments, and no open PRs.
 - 2026-07-28T19:10:53Z — Commit `83507fa` recorded exact branch verification; `feat/weather-integration` was pushed with upstream tracking at that head.
 - 2026-07-28T19:11:32Z — Commit `be8d756` (`docs: record weather branch publication`) was pushed successfully.
+- 2026-07-28T19:12:10Z — Commit `9dbc779` finalized the publication ledger and was pushed; draft PR `#8` was created at exact head `9dbc77992fea6de5d35c9b596886c8d0deeccd10`, MERGEABLE, with Quality queued.

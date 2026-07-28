@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T19:11:32Z
+- Last updated (UTC): 2026-07-28T19:12:10Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: Commit `be8d756` (`docs: record weather branch publication`) was pushed successfully.
-- Exact next action: Commit this record, push it, and create the draft PR from the resulting exact head.
+- Last completed action: Commit `9dbc779` was pushed and draft PR `#8` was created at that exact head; GitHub reports it MERGEABLE and Quality is queued.
+- Exact next action: Commit/push the PR-creation record, mark PR `#8` ready, then record final readiness before exact-head CI polling.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -476,6 +476,8 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T19:10:53Z | Commit/Push | `83507fa297b273f868433a2cd3fe1508c722c0af` | Exact verification ledger committed; `feat/weather-integration` pushed with upstream tracking |
 
 | 2026-07-28T19:11:32Z | Commit/Push | `be8d756e4aeec2b1d83960b6280f83ed3b3ccd9d` | `docs: record weather branch publication` pushed successfully |
+
+| 2026-07-28T19:12:10Z | Commit/Push/PR | `9dbc77992fea6de5d35c9b596886c8d0deeccd10`, PR `#8` | Final publication ledger pushed; draft PR created MERGEABLE with Quality queued |
 
 ## Errors and verification
 
