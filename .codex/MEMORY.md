@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T21:13:30Z
+- Last updated (UTC): 2026-07-28T21:14:00Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: Commit `40934db` recorded the branch push; draft PR `#11` was opened at that exact head with no deployment.
-- Exact next action: Commit/push the PR ledger, mark PR `#11` ready, verify exact local/remote/PR head, and wait for exact-head Quality.
+- Last completed action: Commit `1e763d2` recorded the PR; local/remote/PR head match, PR `#11` is ready/open with no reviews/comments/deployments/variables, and Quality is propagating.
+- Exact next action: Commit/push this exact PR-state ledger, then wait for the exact-head Quality run and complete final review guards.
 - Blockers: None.
 
 ## Fixed project facts
@@ -238,3 +238,4 @@ Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been e
 - 2026-07-28T21:12:30Z — Final publication guards passed: formatting/privacy and cumulative diff clean; expected ten-file scope; no Co-Authored-By trailer or tracked PDF; Leaflet BSD-2-Clause and React/ReactDOM/Zod MIT metadata verified; no open PRs, deployments, or repository variables. Publication is authorized without Pages invocation.
 - 2026-07-28T21:13:00Z — Commit `d31fc2a` (`docs: record release branch publication`) recorded the publication guard, then the new `origin/test/release-hardening` branch was pushed with upstream tracking. No deployment workflow was invoked.
 - 2026-07-28T21:13:30Z — Commit `40934db` (`docs: record release branch push`) was pushed, then draft PR `#11` (`Harden Gate 4 release candidate`) was opened at exact head `40934dbdd082cba0bc6ac8dcd786a21b20396409`; no deployment occurred.
+- 2026-07-28T21:14:00Z — Commit `1e763d2` (`docs: record release pull request`) was pushed and PR `#11` marked ready. Local, remote, and PR head match `1e763d2c3ac12aca084f2409d1e0881b5076a79e`; PR is OPEN with no comments/reviews, zero deployments, no variables, and exact-head Quality still propagating.
