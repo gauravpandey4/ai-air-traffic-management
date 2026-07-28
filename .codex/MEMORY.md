@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T20:50:30Z
+- Last updated (UTC): 2026-07-28T20:51:00Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: PR 6 implementation is complete and locally validated; focused product commits through `1b8349c` are created.
-- Exact next action: Commit the PR 6 validation ledger, verify the exact branch, push, open a draft PR, and wait for exact-head CI/review guards.
+- Last completed action: Commit `9e25a8b` records the complete PR 6 local validation and focused commit ledger.
+- Exact next action: Verify the exact committed branch, record/push it, open a draft PR, and wait for exact-head CI/review guards.
 - Blockers: None.
 
 ## Fixed project facts
@@ -205,3 +205,4 @@ Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been e
 - 2026-07-28T20:49:30Z — Commit `3cae2de` (`feat: add offline shell and update handling`) created after staged scope and whitespace review.
 - 2026-07-28T20:50:00Z — Commit `f9763e1` (`style: polish evaluator-ready dashboard`) created after staged scope and whitespace review.
 - 2026-07-28T20:50:30Z — Commit `1b8349c` (`test: add accessibility offline and responsive coverage`) created after staged scope and whitespace review.
+- 2026-07-28T20:51:00Z — Commit `9e25a8b` (`docs: record learning accessibility validation`) created; only the immediate commit record is now pending.
