@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T19:12:10Z
+- Last updated (UTC): 2026-07-28T19:17:48Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: Commit `9dbc779` was pushed and draft PR `#8` was created at that exact head; GitHub reports it MERGEABLE and Quality is queued.
-- Exact next action: Commit/push the PR-creation record, mark PR `#8` ready, then record final readiness before exact-head CI polling.
+- Last completed action: Commit `1ada4e3` recorded PR creation, was pushed, and PR `#8` was marked ready; Quality passed at that exact head and the PR is MERGEABLE.
+- Exact next action: Commit/push this final readiness record, then wait for Quality on the resulting exact head and independently review PR metadata/comments.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -478,6 +478,8 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T19:11:32Z | Commit/Push | `be8d756e4aeec2b1d83960b6280f83ed3b3ccd9d` | `docs: record weather branch publication` pushed successfully |
 
 | 2026-07-28T19:12:10Z | Commit/Push/PR | `9dbc77992fea6de5d35c9b596886c8d0deeccd10`, PR `#8` | Final publication ledger pushed; draft PR created MERGEABLE with Quality queued |
+
+| 2026-07-28T19:17:48Z | Commit/Push/CI | `1ada4e3f2e1f256a311567378776926834b7f5cc`, PR `#8`, run `30390948155` | PR-creation ledger pushed; PR marked ready; Quality passed and PR MERGEABLE |
 
 ## Errors and verification
 
