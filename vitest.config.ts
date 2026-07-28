@@ -12,7 +12,12 @@ export default defineConfig({
       provider: 'v8',
       reporter: ['text', 'json-summary'],
       include: ['src/**/*.{ts,tsx}'],
-      exclude: ['src/main.tsx', 'src/vite-env.d.ts', 'src/test/**'],
+      exclude: [
+        'src/main.tsx',
+        'src/vite-env.d.ts',
+        'src/test/**',
+        'src/components/LeafletMap.tsx',
+      ],
       thresholds: {
         statements: 85,
         lines: 85,

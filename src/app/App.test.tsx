@@ -1,4 +1,5 @@
-import { fireEvent, render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { vi } from 'vitest';
 
 import { App } from './App';
@@ -8,13 +9,16 @@ function BrokenPanel(): never {
   throw new Error('test display failure');
 }
 
-describe('App foundation', () => {
-  it('shows the project identity and simulation status', () => {
+describe('App simulation dashboard', () => {
+  it('opens in the deterministic normal scenario with persistent safety context', () => {
     render(<App />);
 
     expect(screen.getByRole('heading', { level: 1, name: 'FutureATC Lab' })).toBeVisible();
-    expect(screen.getByText(/simulated data/i)).toBeVisible();
+    expect(screen.getByText('Simulated data')).toBeVisible();
+    expect(screen.getByRole('heading', { name: 'Normal traffic' })).toBeVisible();
     expect(screen.getByLabelText(/academic safety notice/i)).toBeVisible();
+    expect(screen.getByRole('heading', { name: 'Local schematic' })).toBeVisible();
+    expect(screen.getByLabelText('Region')).toHaveValue('lucknow');
   });
 
   it('shows the exact required academic disclaimer', () => {
@@ -27,13 +31,40 @@ describe('App foundation', () => {
     ).toBeVisible();
   });
 
-  it('exposes the planned module regions', () => {
+  it('changes scenarios atomically and exposes synthetic aircraft details', async () => {
+    const user = userEvent.setup();
     render(<App />);
 
-    expect(screen.getByRole('heading', { name: 'Traffic picture' })).toBeVisible();
-    expect(screen.getByRole('heading', { name: 'Decision support' })).toBeVisible();
-    expect(screen.getByRole('heading', { name: 'Weather context' })).toBeVisible();
-    expect(screen.getByRole('heading', { name: 'Explainable statistics' })).toBeVisible();
+    await user.selectOptions(screen.getByLabelText('Scenario'), 'emergency');
+
+    expect(screen.getByRole('heading', { name: 'Emergency' })).toBeVisible();
+    expect(screen.getByText('Declared simulated events').previousElementSibling).toHaveTextContent(
+      '1',
+    );
+
+    const table = screen.getByRole('table');
+    const flightButtons = within(table).getAllByRole('button');
+    const secondFlight = flightButtons.at(1);
+    if (secondFlight === undefined) {
+      throw new Error('Expected a second synthetic flight.');
+    }
+    await user.click(secondFlight);
+
+    expect(screen.getByRole('heading', { name: secondFlight.textContent })).toBeVisible();
+  });
+
+  it('supports play, playback-rate, and reset controls', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.click(screen.getByRole('button', { name: 'Play' }));
+    expect(screen.getByRole('button', { name: 'Pause' })).toHaveAttribute('aria-pressed', 'true');
+
+    await user.click(screen.getByRole('button', { name: '4×' }));
+    expect(screen.getByRole('button', { name: '4×' })).toHaveAttribute('aria-pressed', 'true');
+
+    await user.click(screen.getByRole('button', { name: 'Reset' }));
+    expect(screen.getByText('FATC-NORMAL-2401')).toBeVisible();
   });
 });
 

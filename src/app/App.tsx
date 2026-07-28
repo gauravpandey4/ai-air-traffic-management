@@ -1,33 +1,22 @@
-import { Activity, CloudSun, Plane, Radar, ShieldCheck } from 'lucide-react';
+import { BookOpen, Plane, ShieldCheck, WifiOff } from 'lucide-react';
+
+import { defaultRegion } from '../config/regions';
+import { AircraftDetail } from '../components/AircraftDetail';
+import { AircraftList } from '../components/AircraftList';
+import { ScenarioBrief } from '../components/ScenarioBrief';
+import { SimulationControls } from '../components/SimulationControls';
+import { TrafficMap } from '../components/TrafficMap';
+import { TrafficStatistics } from '../components/TrafficStatistics';
 
 import { ErrorBoundary } from './ErrorBoundary';
+import { SimulatorProvider } from './SimulatorProvider';
+import { useSimulator } from './simulator-context';
 
-const modules = [
-  {
-    icon: Radar,
-    title: 'Traffic picture',
-    text: 'A deterministic scenario and synchronized aircraft detail surface will appear here.',
-  },
-  {
-    icon: ShieldCheck,
-    title: 'Decision support',
-    text: 'Conflict, runway, fuel, and emergency recommendations always await human review.',
-  },
-  {
-    icon: CloudSun,
-    title: 'Weather context',
-    text: 'Seeded weather remains available when optional external observations cannot be used.',
-  },
-  {
-    icon: Activity,
-    title: 'Explainable statistics',
-    text: 'Every value will identify its source, units, time, and educational derivation.',
-  },
-] as const;
+function Dashboard() {
+  const { state } = useSimulator();
 
-export function App() {
   return (
-    <ErrorBoundary>
+    <>
       <a className="skip-link" href="#main-content">
         Skip to simulator
       </a>
@@ -44,7 +33,9 @@ export function App() {
           </div>
           <div className="status-cluster" aria-label="System status">
             <span className="status-badge status-badge--simulation">Simulated data</span>
-            <span className="status-badge status-badge--ready">System ready</span>
+            <span className="status-badge status-badge--ready">
+              {state.isPlaying ? 'Simulation running' : 'Simulation paused'}
+            </span>
           </div>
         </header>
 
@@ -56,36 +47,50 @@ export function App() {
           </p>
         </aside>
 
-        <main id="main-content" className="workspace">
-          <section className="hero-panel" aria-labelledby="overview-title">
-            <div>
-              <p className="eyebrow">Lucknow demonstration region · Foundation preview</p>
-              <h2 id="overview-title">
-                A clear, explainable view of future air traffic decisions.
-              </h2>
-              <p className="hero-copy">
-                The approved implementation will combine deterministic flight movement, projected
-                separation, weather risk, runway scoring, fuel monitoring, emergency priority, and
-                live-derived statistics in one responsive learning environment.
-              </p>
-            </div>
-            <div className="radar-preview" aria-label="Decorative schematic radar preview">
-              <span className="radar-ring radar-ring--outer" />
-              <span className="radar-ring radar-ring--inner" />
-              <span className="radar-sweep" />
-              <Plane className="radar-aircraft" size={26} aria-hidden="true" />
-              <span className="radar-label">SIM · LUCKNOW</span>
-            </div>
-          </section>
+        <SimulationControls />
 
-          <section className="module-grid" aria-label="Planned simulator modules">
-            {modules.map(({ icon: Icon, title, text }) => (
-              <article className="module-card" key={title}>
-                <Icon aria-hidden="true" size={22} />
-                <h2>{title}</h2>
-                <p>{text}</p>
-              </article>
-            ))}
+        <main id="main-content" className="dashboard">
+          <ScenarioBrief />
+          <TrafficStatistics />
+
+          <div className="traffic-layout">
+            <TrafficMap />
+            <AircraftDetail />
+          </div>
+
+          <AircraftList />
+
+          <section className="future-modules" aria-label="Upcoming decision support">
+            <article className="panel">
+              <ShieldCheck aria-hidden="true" size={20} />
+              <div>
+                <h2>Decision support</h2>
+                <p>
+                  Conflict, fuel, runway, and priority recommendations arrive in the next reviewed
+                  module. Current scenario flags are visible but never presented as a clearance.
+                </p>
+              </div>
+            </article>
+            <article className="panel">
+              <BookOpen aria-hidden="true" size={20} />
+              <div>
+                <h2>How this movement works</h2>
+                <p>
+                  Each synthetic aircraft advances from its heading and ground speed on a
+                  deterministic clock. Crossing the configured bounds wraps the track predictably.
+                </p>
+              </div>
+            </article>
+            <article className="panel">
+              <WifiOff aria-hidden="true" size={20} />
+              <div>
+                <h2>Offline-first map</h2>
+                <p>
+                  The local schematic, aircraft list, selection, and simulation need no provider.
+                  Connected OpenStreetMap tiles are optional and attributed when requested.
+                </p>
+              </div>
+            </article>
           </section>
         </main>
 
@@ -95,9 +100,19 @@ export function App() {
             operational air traffic control, navigation, collision-avoidance, flight-planning, or
             safety system.
           </p>
-          <p>Amity University Uttar Pradesh, Lucknow</p>
+          <p>{defaultRegion.displayName} · Amity University Uttar Pradesh, Lucknow</p>
         </footer>
       </div>
+    </>
+  );
+}
+
+export function App() {
+  return (
+    <ErrorBoundary>
+      <SimulatorProvider>
+        <Dashboard />
+      </SimulatorProvider>
     </ErrorBoundary>
   );
 }
