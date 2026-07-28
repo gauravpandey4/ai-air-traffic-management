@@ -9,6 +9,7 @@ export default defineConfig({
   plugins: [
     react(),
     VitePWA({
+      injectRegister: null,
       registerType: 'prompt',
       includeAssets: ['favicon.svg'],
       manifest: {

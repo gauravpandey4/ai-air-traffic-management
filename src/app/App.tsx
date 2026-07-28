@@ -1,4 +1,4 @@
-import { BookOpen, Plane, ShieldCheck, WifiOff } from 'lucide-react';
+import { Plane, ShieldCheck } from 'lucide-react';
 
 import { defaultRegion } from '../config/regions';
 import { AircraftDetail } from '../components/AircraftDetail';
@@ -10,8 +10,10 @@ import { SimulationControls } from '../components/SimulationControls';
 import { TrafficMap } from '../components/TrafficMap';
 import { TrafficStatistics } from '../components/TrafficStatistics';
 import { WeatherPanel } from '../components/WeatherPanel';
+import { LearningCenter } from '../components/LearningCenter';
 
 import { ErrorBoundary } from './ErrorBoundary';
+import { PwaStatus } from './PwaStatus';
 import { SimulatorProvider } from './SimulatorProvider';
 import { useSimulator } from './simulator-context';
 
@@ -56,6 +58,7 @@ function Dashboard() {
           </p>
         </aside>
 
+        <PwaStatus />
         <SimulationControls />
         <AircraftDataPanel />
 
@@ -73,37 +76,23 @@ function Dashboard() {
 
           <DecisionSupportPanels />
 
-          <section className="future-modules" aria-label="Simulation guidance">
-            <article className="panel">
-              <BookOpen aria-hidden="true" size={20} />
-              <div>
-                <h2>How this movement works</h2>
-                <p>
-                  Each synthetic aircraft advances from its heading and ground speed on a
-                  deterministic clock. Crossing the configured bounds wraps the track predictably.
-                </p>
-              </div>
-            </article>
-            <article className="panel">
-              <WifiOff aria-hidden="true" size={20} />
-              <div>
-                <h2>Offline-first map</h2>
-                <p>
-                  The local schematic, aircraft list, selection, and simulation need no provider.
-                  Connected OpenStreetMap tiles are optional and attributed when requested.
-                </p>
-              </div>
-            </article>
-          </section>
+          <LearningCenter />
         </main>
 
         <footer className="footer">
-          <p>
-            This is an academic simulation for educational demonstration only. It is not an
-            operational air traffic control, navigation, collision-avoidance, flight-planning, or
-            safety system.
-          </p>
-          <p>{defaultRegion.displayName} · Amity University Uttar Pradesh, Lucknow</p>
+          <div>
+            <p>
+              This is an academic simulation for educational demonstration only. It is not an
+              operational air traffic control, navigation, collision-avoidance, flight-planning, or
+              safety system.
+            </p>
+            <p>{defaultRegion.displayName} · Amity University Uttar Pradesh, Lucknow</p>
+          </div>
+          <nav aria-label="Data source attribution">
+            <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>
+            <a href="https://open-meteo.com/">Open-Meteo</a>
+            <a href="https://adsb.fi/">adsb.fi</a>
+          </nav>
         </footer>
       </div>
     </>
