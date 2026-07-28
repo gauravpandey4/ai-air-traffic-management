@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T21:12:30Z
+- Last updated (UTC): 2026-07-28T21:13:00Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: Final publication guards passed on clean head `6e0bbbf`: format/privacy/cumulative diff, no Co-Authored-By or PDF, dependency licences verified, and no open PR/deployment/release variable.
-- Exact next action: Commit this publication decision and push `test/release-hardening` with upstream, without invoking Pages.
+- Last completed action: Commit `d31fc2a` recorded the publication guard and the new remote `test/release-hardening` branch was pushed with upstream.
+- Exact next action: Commit/push this exact branch-publication ledger, then open PR 7 as draft and wait for exact-head Quality.
 - Blockers: None.
 
 ## Fixed project facts
@@ -236,3 +236,4 @@ Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been e
 - 2026-07-28T21:12:00Z — Exact clean head `e23962fd8c3ccb5200c4096f59dd93ee8d278a45` passed `npm run check` and all 16 Chromium flows: 177/177 tests, 91.04/88.85/88.78/92.88 coverage, exact Pages-base/PWA verification at 104,980 compressed initial-script bytes, privacy, production audit zero, and cumulative whitespace review.
 - 2026-07-28T21:12:15Z — Commit `6e0bbbf` (`docs: record exact release verification`) made the complete exact-head local gate durable.
 - 2026-07-28T21:12:30Z — Final publication guards passed: formatting/privacy and cumulative diff clean; expected ten-file scope; no Co-Authored-By trailer or tracked PDF; Leaflet BSD-2-Clause and React/ReactDOM/Zod MIT metadata verified; no open PRs, deployments, or repository variables. Publication is authorized without Pages invocation.
+- 2026-07-28T21:13:00Z — Commit `d31fc2a` (`docs: record release branch publication`) recorded the publication guard, then the new `origin/test/release-hardening` branch was pushed with upstream tracking. No deployment workflow was invoked.

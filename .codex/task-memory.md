@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T21:12:30Z
+- Last updated (UTC): 2026-07-28T21:13:00Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: Final publication guards passed on clean head `6e0bbbf`: format/privacy/cumulative diff, no Co-Authored-By or PDF, dependency licences verified, and no open PR/deployment/release variable.
-- Exact next action: Commit this publication decision and push `test/release-hardening` with upstream, without invoking Pages.
+- Last completed action: Commit `d31fc2a` recorded the publication guard and the new remote `test/release-hardening` branch was pushed with upstream.
+- Exact next action: Commit/push this exact branch-publication ledger, then open PR 7 as draft and wait for exact-head Quality.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -584,6 +584,7 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T21:12:00Z | Check | Exact PR 7 branch `e23962fd8c3ccb5200c4096f59dd93ee8d278a45` | Full quality passed: 177/177 tests at 91.04/88.85/88.78/92.88, build/base/PWA/privacy, 16/16 Chromium, production audit zero, and clean cumulative whitespace review |
 | 2026-07-28T21:12:15Z | Commit | `6e0bbbf` | Exact PR 7 local release-gate evidence made durable |
 | 2026-07-28T21:12:30Z | Review/Deployment guard | Clean PR 7 branch `6e0bbbf` | Format/privacy/cumulative diff, expected scope, commit trailers, tracked-PDF check, core dependency licences, no open PRs/deployments/variables all passed; publication allowed without Pages |
+| 2026-07-28T21:13:00Z | Commit/Push | `d31fc2a`, `test/release-hardening` | Publication guard committed; new remote branch pushed with upstream; no deployment invoked |
 
 ## Errors and verification
 
