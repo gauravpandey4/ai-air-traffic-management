@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T20:06:21Z
+- Last updated (UTC): 2026-07-28T20:07:36Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: Commit `9732d9c` recorded final local PR 5 validation and left the implementation branch clean.
-- Exact next action: Commit this commit ledger, then run exact-head full validation before publication.
+- Last completed action: Exact clean branch head `8da33411b617fd24fb02af993b8140c4d6ecdb3c` passed full quality, 172/172 tests, 95.7/91.91/94.65/96.62 coverage, build/privacy, 12/12 Chromium, precache exclusion, production audit, and cumulative diff review.
+- Exact next action: Commit this exact-head verification record, push `feat/external-aircraft`, and open the PR.
 - Blockers: None.
 
 ## Fixed project facts
@@ -173,3 +173,4 @@ Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been e
 - 2026-07-28T20:05:22Z — Commit `d4e6068` (`ci: integrate guarded aircraft snapshots with Pages`) created after explicit staged-file and whitespace review.
 - 2026-07-28T20:05:49Z — Commit `f474ca0` (`test: cover external success freshness quotas and fallback`) created after explicit staged-file and whitespace review.
 - 2026-07-28T20:06:21Z — Commit `9732d9c` (`docs: record external aircraft validation`) created; the branch was clean immediately afterward.
+- 2026-07-28T20:07:36Z — Exact branch head `8da33411b617fd24fb02af993b8140c4d6ecdb3c` passed full format/lint/types, 172/172 tests, 95.7/91.91/94.65/96.62 coverage, build/privacy, 12/12 Chromium, dynamic snapshot precache exclusion, production audit zero, clean status, and cumulative main diff/commit review.
