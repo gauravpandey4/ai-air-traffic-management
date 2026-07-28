@@ -3,6 +3,7 @@ import { BookOpen, Plane, ShieldCheck, WifiOff } from 'lucide-react';
 import { defaultRegion } from '../config/regions';
 import { AircraftDetail } from '../components/AircraftDetail';
 import { AircraftList } from '../components/AircraftList';
+import { DecisionSupportPanels } from '../components/DecisionSupport';
 import { ScenarioBrief } from '../components/ScenarioBrief';
 import { SimulationControls } from '../components/SimulationControls';
 import { TrafficMap } from '../components/TrafficMap';
@@ -60,17 +61,9 @@ function Dashboard() {
 
           <AircraftList />
 
-          <section className="future-modules" aria-label="Upcoming decision support">
-            <article className="panel">
-              <ShieldCheck aria-hidden="true" size={20} />
-              <div>
-                <h2>Decision support</h2>
-                <p>
-                  Conflict, fuel, runway, and priority recommendations arrive in the next reviewed
-                  module. Current scenario flags are visible but never presented as a clearance.
-                </p>
-              </div>
-            </article>
+          <DecisionSupportPanels />
+
+          <section className="future-modules" aria-label="Simulation guidance">
             <article className="panel">
               <BookOpen aria-hidden="true" size={20} />
               <div>

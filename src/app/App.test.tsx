@@ -66,6 +66,46 @@ describe('App simulation dashboard', () => {
     await user.click(screen.getByRole('button', { name: 'Reset' }));
     expect(screen.getByText('FATC-NORMAL-2401')).toBeVisible();
   });
+
+  it('explains a Critical collision projection with facts, rule, limitation, and human action', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.selectOptions(screen.getByLabelText('Scenario'), 'collision-risk');
+    expect(screen.getByRole('heading', { name: 'Alert center' })).toBeVisible();
+    expect(screen.getAllByText('Critical projected separation').length).toBeGreaterThan(0);
+
+    const explanationButtons = screen.getAllByText('Why this result?');
+    const firstExplanation = explanationButtons[0];
+    expect(firstExplanation).toBeDefined();
+    if (firstExplanation === undefined) return;
+    await user.click(firstExplanation);
+
+    expect(screen.getAllByText('Facts and units').length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/10-minute constant-velocity CPA/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/educational simplification/i).length).toBeGreaterThan(0);
+    expect(screen.getAllByText(/human controller must verify/i).length).toBeGreaterThan(0);
+  });
+
+  it('updates simulated review and emergency controls without operational wording', async () => {
+    const user = userEvent.setup();
+    render(<App />);
+
+    await user.selectOptions(screen.getByLabelText('Scenario'), 'emergency');
+    expect(screen.getAllByText('Suggested runway SIM-27').length).toBeGreaterThan(0);
+    expect(screen.getByText('Unavailable')).toBeVisible();
+
+    await user.click(screen.getByRole('button', { name: 'Confirm simulation' }));
+    expect(screen.getByText('Confirmed in simulation')).toBeVisible();
+    await user.click(screen.getByRole('button', { name: 'Reject simulation' }));
+    expect(screen.getByText('Rejected in simulation')).toBeVisible();
+
+    await user.click(screen.getByRole('button', { name: 'Clear simulated emergency' }));
+    expect(screen.getByText('No simulated emergency is active.')).toBeVisible();
+    await user.click(screen.getByRole('button', { name: 'Declare simulated emergency' }));
+    expect(screen.getByText('A simulated emergency is active.')).toBeVisible();
+    expect(screen.queryByText(/clearance issued/i)).not.toBeInTheDocument();
+  });
 });
 
 describe('ErrorBoundary', () => {

@@ -11,7 +11,7 @@ const LeafletMap = lazy(async () => {
 });
 
 export function TrafficMap() {
-  const { state, dispatch } = useSimulator();
+  const { state, aircraft, dispatch } = useSimulator();
   const selectAircraft = useCallback(
     (aircraftId: string) => dispatch({ type: 'aircraft-selected', aircraftId }),
     [dispatch],
@@ -54,7 +54,7 @@ export function TrafficMap() {
         {state.mapMode === 'connected' ? (
           <Suspense fallback={<div className="map-loading">Preparing connected map…</div>}>
             <LeafletMap
-              aircraft={state.aircraft}
+              aircraft={aircraft}
               selectedAircraftId={state.selectedAircraftId}
               onSelect={selectAircraft}
               onUnavailable={restoreSchematic}
@@ -62,7 +62,7 @@ export function TrafficMap() {
           </Suspense>
         ) : (
           <SchematicMap
-            aircraft={state.aircraft}
+            aircraft={aircraft}
             selectedAircraftId={state.selectedAircraftId}
             onSelect={selectAircraft}
           />

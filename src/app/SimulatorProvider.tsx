@@ -7,6 +7,10 @@ import {
   getSimulationTimestamp,
   simulationReducer,
 } from '../domain/simulation';
+import {
+  decorateAircraftForDecisionSupport,
+  deriveDecisionSupport,
+} from '../domain/decision-support';
 
 import { SimulatorContext } from './simulator-context';
 
@@ -29,16 +33,21 @@ export function SimulatorProvider({ children }: { children: ReactNode }) {
     };
   }, [state.isPlaying, state.playbackRate]);
 
-  const value = useMemo(
-    () => ({
+  const value = useMemo(() => {
+    const decisionSupport = deriveDecisionSupport(state);
+    const aircraft = decorateAircraftForDecisionSupport(state.aircraft, decisionSupport);
+    const selectedAircraft =
+      aircraft.find((item) => item.id === state.selectedAircraftId) ?? getSelectedAircraft(state);
+    return {
       state,
-      selectedAircraft: getSelectedAircraft(state),
-      statistics: deriveSimulationStatistics(state.aircraft),
+      aircraft,
+      selectedAircraft,
+      statistics: deriveSimulationStatistics(aircraft, decisionSupport.fuelByAircraftId),
+      decisionSupport,
       simulationTimestamp: getSimulationTimestamp(state),
       dispatch,
-    }),
-    [state],
-  );
+    };
+  }, [state]);
 
   return <SimulatorContext.Provider value={value}>{children}</SimulatorContext.Provider>;
 }
