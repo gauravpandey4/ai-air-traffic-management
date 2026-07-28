@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T20:07:36Z
+- Last updated (UTC): 2026-07-28T20:08:10Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: Exact clean branch head `8da33411b617fd24fb02af993b8140c4d6ecdb3c` passed full quality, 172/172 tests, 95.7/91.91/94.65/96.62 coverage, build/privacy, 12/12 Chromium, precache exclusion, production audit, and cumulative diff review.
-- Exact next action: Commit this exact-head verification record, push `feat/external-aircraft`, and open the PR.
+- Last completed action: Commit `84514aa` recorded exact local verification and `feat/external-aircraft` was pushed with upstream tracking at that head.
+- Exact next action: Commit/push this publication ledger, then open a draft PR through the GitHub connector.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -522,6 +522,7 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T20:05:49Z | Commit | `f474ca0` | `test: cover external success freshness quotas and fallback`; explicit staged scope and whitespace review passed |
 | 2026-07-28T20:06:21Z | Commit | `9732d9c` | `docs: record external aircraft validation`; branch clean immediately afterward |
 | 2026-07-28T20:07:36Z | Check | Exact branch `8da33411b617fd24fb02af993b8140c4d6ecdb3c` | Full quality, 172/172 tests, 95.7/91.91/94.65/96.62 coverage, build/privacy, 12/12 Chromium, precache exclusion, production audit zero, clean status, and cumulative review passed |
+| 2026-07-28T20:08:10Z | Commit/Push | `84514aa`, `feat/external-aircraft` | Exact-verification ledger committed; new remote branch pushed with upstream tracking |
 
 ## Errors and verification
 
