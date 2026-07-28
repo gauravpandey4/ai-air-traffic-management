@@ -1,5 +1,24 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 import { AxeBuilder } from '@axe-core/playwright';
+
+const runtimeErrors = new WeakMap<Page, string[]>();
+
+test.beforeEach(({ page }) => {
+  const errors: string[] = [];
+  runtimeErrors.set(page, errors);
+  page.on('console', (message) => {
+    if (message.type() === 'error') {
+      errors.push(`console: ${message.text()}`);
+    }
+  });
+  page.on('pageerror', (error) => {
+    errors.push(`page: ${error.message}`);
+  });
+});
+
+test.afterEach(({ page }) => {
+  expect(runtimeErrors.get(page) ?? []).toEqual([]);
+});
 
 function createCurrentWeatherFixture() {
   const current = new Date();
@@ -103,13 +122,6 @@ function createCurrentAircraftSnapshot(
 }
 
 test('loads the branded shell under the repository base path', async ({ page }) => {
-  const errors: string[] = [];
-  page.on('console', (message) => {
-    if (message.type() === 'error') {
-      errors.push(message.text());
-    }
-  });
-
   await page.goto('.');
 
   await expect(page).toHaveTitle('FutureATC Lab');
@@ -121,7 +133,6 @@ test('loads the branded shell under the repository base path', async ({ page }) 
   await expect(page.getByRole('heading', { name: 'Local schematic' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'How FutureATC Lab works' })).toBeVisible();
   await expect(page.getByRole('table')).toBeVisible();
-  expect(errors).toEqual([]);
 });
 
 test('changes scenarios and keeps map, list, and details synchronized', async ({ page }) => {

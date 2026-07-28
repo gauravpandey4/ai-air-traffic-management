@@ -12,6 +12,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "verify:build": "tsx scripts/verify-production-build.ts",
     "preview": "vite preview --host 127.0.0.1",
     "typecheck": "tsc -b --pretty false",
     "lint": "eslint . --max-warnings=0",
@@ -22,7 +23,7 @@
     "test:e2e": "playwright test",
     "privacy:scan": "tsx scripts/privacy-scan.ts",
     "snapshot:aircraft": "tsx scripts/fetch-aircraft-snapshot.ts",
-    "check": "npm run format:check && npm run lint && npm run typecheck && npm run test:coverage && npm run build && npm run privacy:scan"
+    "check": "npm run format:check && npm run lint && npm run typecheck && npm run test:coverage && npm run build && npm run verify:build && npm run privacy:scan"
   },
   "dependencies": {
     "leaflet": "1.9.4",
