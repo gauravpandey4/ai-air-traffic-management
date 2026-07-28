@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T19:10:21Z
+- Last updated (UTC): 2026-07-28T19:10:53Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: Exact branch head `d345e2627bfecac230b7291e91e138940d04c1fb` passed the full quality suite, 118/118 tests, 10/10 browser cases, diff/privacy/production-audit review, with zero deployments and no open PRs.
-- Exact next action: Commit this exact verification record and push `feat/weather-integration`.
+- Last completed action: Commit `83507fa` recorded exact branch verification and `feat/weather-integration` was pushed with upstream tracking at that head.
+- Exact next action: Commit and push this publication record, then create the draft PR.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -472,6 +472,8 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T19:09:27Z | Commit | `054ff74` | `docs: record weather integration commits`; exact branch verification begins |
 
 | 2026-07-28T19:10:21Z | Check | Exact PR 4 branch head `d345e2627bfecac230b7291e91e138940d04c1fb` | Full quality, 118/118 tests, 95.9/90.71/94.47/96.61 coverage, build/privacy, 10/10 Chromium, cumulative diff, production audit zero, zero deployments, and no open PRs passed |
+
+| 2026-07-28T19:10:53Z | Commit/Push | `83507fa297b273f868433a2cd3fe1508c722c0af` | Exact verification ledger committed; `feat/weather-integration` pushed with upstream tracking |
 
 ## Errors and verification
 
