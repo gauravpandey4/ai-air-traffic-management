@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T17:31:40Z
+- Last updated (UTC): 2026-07-28T17:56:45Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: PR 1 post-merge verification passed the complete quality suite and 4/4 Chromium checks on refreshed `main`; GitHub reports zero deployments and no Pages workflow runs.
-- Exact next action: Create `feat/simulation-dashboard` from merge SHA `aec3feb`, commit the carried PR 1 completion ledger/PR 2 start marker, then implement the deterministic region, scenarios, reducer, dashboard, map/schematic, tracking, and details contracts.
+- Last completed action: PR 2's deterministic, scenario, reducer, dashboard integration, all-five-scenarios, movement, map/list synchronization, tile-fallback, Axe, keyboard, reduced-motion, and responsive browser tests passed staged review and were committed as `b4cede6` (`test: verify deterministic traffic dashboard`).
+- Exact next action: Commit the final PR 2 ledger, inspect the cumulative branch diff, push, open PR 2, and wait for exact-head CI.
 - Blockers: None.
 
 ## Fixed project facts
