@@ -39,6 +39,7 @@ export default defineConfig({
         cleanupOutdatedCaches: true,
         navigateFallback: `${repositoryBase}index.html`,
         globPatterns: ['**/*.{html,js,css,svg,json,woff2}'],
+        globIgnores: ['**/data/aircraft-snapshot.json'],
       },
       devOptions: {
         enabled: false,

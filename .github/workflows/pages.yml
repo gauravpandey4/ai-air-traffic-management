@@ -27,6 +27,20 @@ jobs:
           cache: npm
       - name: Install locked dependencies
         run: npm ci
+      - name: Restore aircraft snapshot cooldown state
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .workflow-cache/aircraft-cooldown.json
+          key: aircraft-snapshot-${{ github.run_id }}-${{ github.run_attempt }}
+          restore-keys: |
+            aircraft-snapshot-
+      - name: Fetch one guarded regional aircraft snapshot
+        run: npm run snapshot:aircraft
+      - name: Save aircraft snapshot cooldown state
+        uses: actions/cache/save@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: .workflow-cache/aircraft-cooldown.json
+          key: aircraft-snapshot-${{ github.run_id }}-${{ github.run_attempt }}
       - name: Run quality checks
         run: npm run check
       - name: Configure Pages
