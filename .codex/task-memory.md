@@ -312,6 +312,10 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T17:18:50Z | Commit     | `d7d575b`                                                    | `chore: establish strict project toolchain`; staged whitespace/file review passed                                                                     |
 | 2026-07-28T17:19:09Z | Commit     | `53e9c77`                                                    | `feat: add FutureATC foundation shell`; staged whitespace/file review passed                                                                          |
 | 2026-07-28T17:19:30Z | Error      | PR 1 documentation staged review                             | Markdown metadata hard-break spaces triggered trailing-whitespace checks; commit stopped before creation                                              |
+| 2026-07-28T17:20:56Z | Commit     | `7d83dd8`                                                    | `docs: record approved project baseline`; HTML breaks replaced trailing whitespace and staged review passed                                           |
+| 2026-07-28T17:21:43Z | Check      | PR 1 final local suite                                       | Format, lint, types, 5/5 tests, 100% coverage, build/PWA, privacy, 4/4 Playwright, and whitespace checks passed                                       |
+| 2026-07-28T17:22:19Z | Finding    | PR 1 separate cumulative self-review                         | Scanner covered classic/fine-grained PATs incompletely; expanded to all current GitHub token prefixes and minimum lengths                             |
+| 2026-07-28T17:23:25Z | Check      | PR 1 post-review full suite                                  | All quality/browser checks passed again; production dependency audit reported zero vulnerabilities                                                    |
 
 ## Errors and verification
 

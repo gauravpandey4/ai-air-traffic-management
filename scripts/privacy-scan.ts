@@ -28,7 +28,10 @@ const textExtensions = new Set([
 const excludedFiles = new Set(['package-lock.json']);
 const forbidden = [
   { label: 'macOS user path', pattern: /\/Users\/[^/\s]+/u },
-  { label: 'GitHub token', pattern: /\b(?:ghp|github_pat)_[A-Za-z0-9_]+\b/u },
+  {
+    label: 'GitHub token',
+    pattern: /\b(?:gh[pousr]_[A-Za-z0-9_]{20,}|github_pat_[A-Za-z0-9_]{20,})\b/u,
+  },
   { label: 'private key', pattern: /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/u },
   { label: 'email address', pattern: /\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/iu },
   {
