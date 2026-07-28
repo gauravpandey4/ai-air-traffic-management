@@ -12,6 +12,10 @@ export type FuelState = 'Normal' | 'Low' | 'Critical' | 'Unavailable';
 export type ReviewDecision =
   'Awaiting review' | 'Confirmed in simulation' | 'Rejected in simulation';
 
+export type WeatherRisk = 'Normal' | 'Elevated' | 'Severe';
+
+export type WeatherMode = 'Simulated' | 'Checking' | 'Observed' | 'Cached' | 'Fallback';
+
 export type Explanation = {
   facts: string[];
   source: string;
@@ -20,6 +24,34 @@ export type Explanation = {
   factors: string[];
   limitation: string;
   humanAction: string;
+};
+
+export type WeatherObservation = {
+  timeIso: string;
+  windSpeedKt: number;
+  windGustKt: number;
+  windDirectionDeg: number;
+  visibilityKm: number;
+  precipitationMmPerHour: number;
+  weatherCode: number;
+};
+
+export type WeatherRiskAssessment = {
+  severity: WeatherRisk;
+  factors: string[];
+  trend: 'Improving' | 'Stable' | 'Deteriorating';
+  explanation: Explanation;
+};
+
+export type WeatherSnapshot = {
+  mode: 'Simulated' | 'Observed' | 'Cached';
+  provider: string;
+  current: WeatherObservation;
+  outlook: WeatherObservation[];
+  risk: WeatherRiskAssessment;
+  fetchedAtIso: string;
+  generatedAtIso: string;
+  limitation: string;
 };
 
 export type SimulationBounds = {
@@ -178,4 +210,8 @@ export type SimulationState = {
   mapStatus: string;
   acknowledgedAlertIds: string[];
   reviewDecisions: Record<string, ReviewDecision>;
+  weatherMode: WeatherMode;
+  weatherSnapshot: WeatherSnapshot;
+  weatherStatus: string;
+  weatherRetryAtIso: string | null;
 };
