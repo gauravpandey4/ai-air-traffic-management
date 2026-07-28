@@ -4,6 +4,7 @@ export type ScenarioId =
 export type PlaybackRate = 1 | 2 | 4;
 
 export type AircraftPhase = 'Arrival' | 'Departure' | 'Overflight';
+export type AircraftDataMode = 'Simulation' | 'Checking' | 'External Active';
 
 export type AircraftSeverity = 'Normal' | 'Monitor' | 'Warning' | 'Critical';
 
@@ -93,22 +94,60 @@ export type Aircraft = {
   groundSpeedKt: number;
   headingDeg: number;
   verticalRateFpm: number;
-  phase: AircraftPhase;
+  phase: AircraftPhase | 'Unavailable';
   severity: AircraftSeverity;
-  simulatedFuelMinutes: number;
-  aircraftCategory: 'Light' | 'Medium' | 'Heavy';
-  initialFuelKg: number;
-  fuelBurnKgPerHour: number;
-  elapsedFlightMinutes: number;
+  simulatedFuelMinutes: number | null;
+  aircraftCategory: 'Light' | 'Medium' | 'Heavy' | 'Unavailable';
+  initialFuelKg: number | null;
+  fuelBurnKgPerHour: number | null;
+  elapsedFlightMinutes: number | null;
   simulatedEmergency: boolean;
   status: string;
-  source: {
-    mode: 'Simulated';
-    generator: 'FutureATC deterministic engine';
-    generatedAtIso: string;
-    freshness: 'Fresh';
-    limitation: string;
-  };
+  source:
+    | {
+        mode: 'Simulated';
+        generator: 'FutureATC deterministic engine';
+        generatedAtIso: string;
+        freshness: 'Fresh';
+        limitation: string;
+      }
+    | {
+        mode: 'External';
+        provider: 'adsb.fi';
+        observedAtIso: string;
+        fetchedAtIso: string;
+        freshness: 'Fresh';
+        limitation: string;
+      };
+};
+
+export type ExternalAircraftRecord = {
+  id: string;
+  callsign: string;
+  latitude: number;
+  longitude: number;
+  altitudeFt: number;
+  groundSpeedKt: number;
+  headingDeg: number;
+  verticalRateFpm: number;
+  observedAtIso: string;
+  status: string;
+};
+
+export type AircraftSnapshot = {
+  schemaVersion: 1;
+  availability: 'available' | 'unavailable';
+  provider: 'adsb.fi';
+  endpointClass: 'regional-v3';
+  generatedAt: string | null;
+  fetchedAt: string | null;
+  freshForMinutes: number;
+  validation:
+    'valid' | 'not-fetched' | 'provider-unavailable' | 'rate-limited' | 'invalid-response';
+  recordCount: number;
+  retryAt: string | null;
+  reason: string;
+  aircraft: ExternalAircraftRecord[];
 };
 
 export type ScenarioDefinition = {
@@ -202,7 +241,11 @@ export type DecisionSupport = {
 export type SimulationState = {
   scenarioId: ScenarioId;
   aircraft: Aircraft[];
-  selectedAircraftId: string;
+  selectedAircraftId: string | null;
+  aircraftMode: AircraftDataMode;
+  aircraftStatus: string;
+  externalSnapshot: AircraftSnapshot | null;
+  aircraftRetryAtIso: string | null;
   isPlaying: boolean;
   playbackRate: PlaybackRate;
   elapsedSeconds: number;
