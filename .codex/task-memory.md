@@ -320,6 +320,9 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T17:24:21Z | Commit     | This ledger commit                                           | Records the reviewed PR 1 branch state immediately before push                                                                                        |
 | 2026-07-28T17:24:51Z | Push       | `chore/repository-foundation`                                | New remote branch published with upstream tracking at head `68b52cf`                                                                                  |
 | 2026-07-28T17:24:51Z | Commit     | This publication-ledger commit                               | Records PR 1 branch publication before pull-request creation                                                                                          |
+| 2026-07-28T17:26:00Z | Error      | GitHub integration PR creation                               | HTTP 403 `Resource not accessible by integration`; no PR created, authenticated `gh` fallback selected                                                |
+| 2026-07-28T17:26:46Z | PR         | `#1`                                                         | Draft created by authenticated `gh` fallback, then marked ready; targets `main`, Quality check queued                                                 |
+| 2026-07-28T17:26:46Z | Commit     | This PR-publication ledger commit                            | Records PR 1 URL/state before the final remote check run                                                                                              |
 
 ## Errors and verification
 
