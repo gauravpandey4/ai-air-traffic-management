@@ -348,6 +348,8 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T17:56:24Z | Commit         | `a0b20aa`                                                    | `feat: build responsive traffic dashboard and maps`; staged whitespace/scope review passed                                                                  |
 | 2026-07-28T17:56:45Z | Commit         | `b4cede6`                                                    | `test: verify deterministic traffic dashboard`; staged whitespace/scope review passed                                                                       |
 | 2026-07-28T17:56:45Z | Commit         | This PR 2 validation-ledger commit                           | Records reviewed branch status before cumulative diff inspection and publication                                                                            |
+| 2026-07-28T17:57:28Z | Push           | `feat/simulation-dashboard`                                  | New remote PR 2 branch published with upstream tracking at head `639621e`                                                                                   |
+| 2026-07-28T17:57:28Z | Commit         | This PR 2 publication-ledger commit                          | Records branch publication before PR creation                                                                                                               |
 
 ## Errors and verification
 

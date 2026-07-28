@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T17:56:45Z
+- Last updated (UTC): 2026-07-28T17:57:28Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: PR 2's deterministic, scenario, reducer, dashboard integration, all-five-scenarios, movement, map/list synchronization, tile-fallback, Axe, keyboard, reduced-motion, and responsive browser tests passed staged review and were committed as `b4cede6` (`test: verify deterministic traffic dashboard`).
-- Exact next action: Commit the final PR 2 ledger, inspect the cumulative branch diff, push, open PR 2, and wait for exact-head CI.
+- Last completed action: The clean five-commit PR 2 branch passed cumulative whitespace/scope review and was pushed to `origin/feat/simulation-dashboard` at head `639621e`.
+- Exact next action: Commit/push this publication ledger, open PR 2 against `main`, mark it ready, and wait for exact-head CI.
 - Blockers: None.
 
 ## Fixed project facts
