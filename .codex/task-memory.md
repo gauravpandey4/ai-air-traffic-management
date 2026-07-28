@@ -318,6 +318,8 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T17:23:25Z | Check      | PR 1 post-review full suite                                  | All quality/browser checks passed again; production dependency audit reported zero vulnerabilities                                                    |
 | 2026-07-28T17:24:21Z | Commit     | `712b251`                                                    | `chore: harden privacy validation`; self-review finding resolved and all local checks green                                                           |
 | 2026-07-28T17:24:21Z | Commit     | This ledger commit                                           | Records the reviewed PR 1 branch state immediately before push                                                                                        |
+| 2026-07-28T17:24:51Z | Push       | `chore/repository-foundation`                                | New remote branch published with upstream tracking at head `68b52cf`                                                                                  |
+| 2026-07-28T17:24:51Z | Commit     | This publication-ledger commit                               | Records PR 1 branch publication before pull-request creation                                                                                          |
 
 ## Errors and verification
 

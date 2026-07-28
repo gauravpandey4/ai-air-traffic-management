@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T17:24:21Z
+- Last updated (UTC): 2026-07-28T17:24:51Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: The reviewed privacy hardening and final local-validation ledger were committed as `712b251` (`chore: harden privacy validation`).
-- Exact next action: Push `chore/repository-foundation`, open PR 1 against `main`, mark it ready for review, and wait for required checks.
+- Last completed action: The clean reviewed branch `chore/repository-foundation` was pushed to `origin` with upstream tracking at head `68b52cf`.
+- Exact next action: Commit/push this publication ledger, open PR 1 against `main`, mark it ready for review, and wait for required checks.
 - Blockers: None.
 
 ## Fixed project facts
