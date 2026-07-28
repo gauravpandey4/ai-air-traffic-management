@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T20:19:30Z
+- Last updated (UTC): 2026-07-28T20:50:30Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: Created `feat/learning-accessibility` from verified `main` merge `78b700f`.
-- Exact next action: Commit the carried PR 5 ledger, remove its temporary safety stashes, then implement and validate PR 6.
+- Last completed action: PR 6 implementation is complete and locally validated; focused product commits through `1b8349c` are created.
+- Exact next action: Commit the PR 6 validation ledger, verify the exact branch, push, open a draft PR, and wait for exact-head CI/review guards.
 - Blockers: None.
 
 ## Fixed project facts
@@ -187,3 +187,21 @@ Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been e
 - 2026-07-28T20:17:30Z — Post-cleanup guards passed: only remote `main` exists at `78b700f`, no open PRs, deployments, repository variables, or listeners on preview ports 4173/4174. The only worktree changes are both restored ledgers; two named safety stashes remain.
 - 2026-07-28T20:19:00Z — PR 5 post-merge verification passed on exact `main` merge `78b700f`: format/lint/types, 172/172 tests at 95.7/91.91/94.65/96.62 coverage, production build/privacy, dynamic-aircraft precache exclusion, 12/12 Chromium, and production audit zero. No deployment occurred.
 - 2026-07-28T20:19:30Z — Created `feat/learning-accessibility` from verified `main` merge `78b700f1c108d94196e538537f6d779da8178df4`; the restored PR 5 ledger is the only pending change.
+- 2026-07-28T20:20:00Z — Commit `bb5461b` (`docs: record external aircraft merge`) preserved the complete restored PR 5 audit trail after staged scope and whitespace review.
+- 2026-07-28T20:20:30Z — Removed both temporary ledger safety stashes after commit `bb5461b` made their complete contents durable; no user or application files were removed.
+- 2026-07-28T20:28:00Z — First PR 6 focused verification passed lint and strict types; 11 domain/learning tests passed, but three suites could not import `virtual:pwa-register/react` during Vitest transform. A native service-worker registration/update layer was selected to preserve prompt behavior without a test-only build virtual dependency.
+- 2026-07-28T20:30:00Z — Native PWA-layer lint found one stylistic `Array<T>` violation; it was changed to the repository-required `T[]` form before any further check.
+- 2026-07-28T20:31:30Z — Second PR 6 focused verification passed lint/types and 24/26 tests. Failures showed zero supported observations still appeared as numeric zero and the prior “Declared simulated events” label was replaced. Zero-denominator metrics now resolve to `Unavailable`, with the simulated label retained.
+- 2026-07-28T20:32:30Z — Third focused run passed 25/26. The remaining legacy assertion requires “Declared simulated events” as its own detail line immediately after the value; metric details were converted to line arrays so the exact label and denominator are both preserved.
+- 2026-07-28T20:34:30Z — Full PR 6 non-browser gate passed with 176/176 tests, 91.04/88.85/88.78/92.88 coverage, build, and privacy scan. Built HTML inspection found the PWA plugin auto-injected `registerSW.js` in addition to the native lifecycle handler; `injectRegister: null` was selected so registration and update prompts have one owner.
+- 2026-07-28T20:36:00Z — Expanded Chromium passed 13/16. Failures were an ambiguous `Unavailable` query, a warm offline reload served through an older locally reused worker lifecycle, and genuine horizontal overflow at 200% text size. Exact matching, fresh service-worker isolation, and element-level overflow inspection were selected.
+- 2026-07-28T20:39:00Z — Overflow inspection showed the 200% test doubled root text while retaining a 1280 CSS-pixel layout viewport, unlike browser zoom, so desktop grids intentionally exceeded the viewport. The check now models 1440-at-200%-zoom as a 720 CSS-pixel layout. Offline evidence also confirmed service-worker navigation can succeed while `navigator.onLine` remains advisory after reload; offline status is asserted on the live connectivity event before the warm reload.
+- 2026-07-28T20:40:30Z — Corrected external and warm-offline browser cases passed. The 720 CSS-pixel zoom model still exposed the table's intentional 48rem internal width; the existing accessible card-table breakpoint was promoted from 38rem to 45rem so the 200% view does not require horizontal table scrolling.
+- 2026-07-28T20:43:00Z — Full expanded Chromium passed 16/16. Manual in-app browser review on a fresh local origin confirmed current statistics denominators, seven learning modules, visible keyboard focus, readable expanded input/rule/output/limitation content, permanent provider attribution, Emergency state, no page overflow, and no console warnings/errors. Initial fresh-tab navigation probes used unsupported nested methods before the documented root `tab.goto` method succeeded; the browser viewport override stayed at 1280, so automated Playwright remains the authoritative 768/390/320 responsive evidence.
+- 2026-07-28T20:45:00Z — Final PR 6 gate stopped at lint because the new overflow diagnostic used an unnecessary optional chain/null fallback on non-null `HTMLElement.textContent`. Direct non-null string handling selected; no type, test, build, or privacy command ran in that chain.
+- 2026-07-28T20:46:30Z — Corrected final non-browser gate passed: format/lint/types, 176/176 tests, 91.04/88.85/88.78/92.88 coverage, production build with a 12-entry local-asset precache and no auto-injected registration script, plus privacy scan.
+- 2026-07-28T20:47:30Z — Final built-site browser gate passed 16/16 at the current source state, including warm offline reload, seven-module keyboard disclosure, 200% zoom modeling, Axe, reduced motion, and 1440/768/390/320 reflow. Production dependency audit reported zero vulnerabilities.
+- 2026-07-28T20:49:00Z — Commit `85f89b9` (`feat: add live-derived statistics and learning content`) created after staged scope and whitespace review.
+- 2026-07-28T20:49:30Z — Commit `3cae2de` (`feat: add offline shell and update handling`) created after staged scope and whitespace review.
+- 2026-07-28T20:50:00Z — Commit `f9763e1` (`style: polish evaluator-ready dashboard`) created after staged scope and whitespace review.
+- 2026-07-28T20:50:30Z — Commit `1b8349c` (`test: add accessibility offline and responsive coverage`) created after staged scope and whitespace review.

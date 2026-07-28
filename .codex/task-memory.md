@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T20:19:30Z
+- Last updated (UTC): 2026-07-28T20:50:30Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: Created `feat/learning-accessibility` from verified `main` merge `78b700f`.
-- Exact next action: Commit the carried PR 5 ledger, remove its temporary safety stashes, then implement and validate PR 6.
+- Last completed action: PR 6 implementation is complete and locally validated; focused product commits through `1b8349c` are created.
+- Exact next action: Commit the PR 6 validation ledger, verify the exact branch, push, open a draft PR, and wait for exact-head CI/review guards.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -535,6 +535,24 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T20:17:30Z | Check | PR `#9` post-cleanup guards | Only remote main at `78b700f`; no open PRs, deployments, repository variables, preview listeners, or non-ledger worktree changes |
 | 2026-07-28T20:19:00Z | Check | PR 5 post-merge main `78b700f1c108d94196e538537f6d779da8178df4` | Format/lint/types, 172/172 tests, 95.7/91.91/94.65/96.62 coverage, build/privacy, dynamic snapshot precache exclusion, 12/12 Chromium, and production audit zero passed; no deployment |
 | 2026-07-28T20:19:30Z | Branch | `feat/learning-accessibility` from `78b700f1c108d94196e538537f6d779da8178df4` | Created PR 6 branch; restored PR 5 ledger is the only pending change |
+| 2026-07-28T20:20:00Z | Commit | `bb5461b` | `docs: record external aircraft merge`; complete PR 5 ledger preserved after staged scope and whitespace review |
+| 2026-07-28T20:20:30Z | Cleanup | Temporary PR 5 ledger safety stashes | Both dropped only after their complete contents were committed as `bb5461b`; no user/application files removed |
+| 2026-07-28T20:28:00Z | Error/Check | PR 6 first focused verification | Lint/types and 11 tests passed; three suites failed at transform because Vitest could not resolve `virtual:pwa-register/react`, so a directly testable native service-worker registration/update layer was selected |
+| 2026-07-28T20:30:00Z | Error | PR 6 native PWA lint | One repository-style violation required `T[]` instead of `Array<T>`; corrected before further checks |
+| 2026-07-28T20:31:30Z | Error/Check | PR 6 second focused verification | Lint/types and 24/26 tests passed; zero supported observations rendered as zero and an existing simulated-emergency label disappeared, so zero-denominator metrics now return `Unavailable` and retain the explicit label |
+| 2026-07-28T20:32:30Z | Error/Check | PR 6 third focused verification | 25/26 tests passed; the remaining legacy assertion required “Declared simulated events” as its own line immediately after the value, so detail lines now preserve both exact label and disclosed denominator |
+| 2026-07-28T20:34:30Z | Check/Finding | PR 6 full non-browser gate and built PWA | 176/176 tests, 91.04/88.85/88.78/92.88 coverage, build/privacy passed; auto-injected `registerSW.js` duplicated native registration, so plugin injection was disabled with one lifecycle owner retained |
+| 2026-07-28T20:36:00Z | Error/Check | PR 6 expanded Chromium | 13/16 passed; failures were one ambiguous `Unavailable` locator, warm offline reuse of an older worker lifecycle, and genuine 200% text overflow; exact matching, fresh SW isolation, and overflow inspection selected |
+| 2026-07-28T20:39:00Z | Finding/Fix | PR 6 zoom/offline browser diagnostics | Root-font doubling retained a desktop layout viewport and did not model browser zoom; check now uses a 720 CSS-pixel layout for 1440-at-200%. Warm SW navigation can leave `navigator.onLine` advisory after reload, so offline status is asserted before reload while cached-shell success is asserted afterward |
+| 2026-07-28T20:40:30Z | Error/Fix | PR 6 targeted browser rerun | External and warm-offline passed; 720 CSS-pixel zoom still exposed the table's 48rem internal width, so the accessible card-table/mobile layout breakpoint was promoted to 45rem |
+| 2026-07-28T20:43:00Z | Check/Manual UI | PR 6 built site on fresh local origin | 16/16 Chromium passed; browser review confirmed denominators, seven modules, focus, expanded explanations, attribution, Emergency state, zero page overflow, and no console warnings/errors. Unsupported nested navigation probes were replaced by documented `tab.goto`; responsive authority remains Playwright because the in-app override stayed at 1280 |
+| 2026-07-28T20:45:00Z | Error | PR 6 final gate lint | New overflow diagnostic had an unnecessary optional chain/null fallback on non-null `HTMLElement.textContent`; direct string handling selected and later commands did not run |
+| 2026-07-28T20:46:30Z | Check | PR 6 corrected final non-browser gate | Format/lint/types, 176/176 tests, 91.04/88.85/88.78/92.88 coverage, build with 12-entry local precache/no injected registration script, and privacy passed |
+| 2026-07-28T20:47:30Z | Check/Security | PR 6 final browser and production audit | 16/16 Chromium passed with offline, keyboard, zoom, Axe, motion, and 1440/768/390/320 checks; production audit reported zero |
+| 2026-07-28T20:49:00Z | Commit | `85f89b9` | `feat: add live-derived statistics and learning content`; staged scope and whitespace review passed |
+| 2026-07-28T20:49:30Z | Commit | `3cae2de` | `feat: add offline shell and update handling`; staged scope and whitespace review passed |
+| 2026-07-28T20:50:00Z | Commit | `f9763e1` | `style: polish evaluator-ready dashboard`; staged scope and whitespace review passed |
+| 2026-07-28T20:50:30Z | Commit | `1b8349c` | `test: add accessibility offline and responsive coverage`; staged scope and whitespace review passed |
 
 ## Errors and verification
 
