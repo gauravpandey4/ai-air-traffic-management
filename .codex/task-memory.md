@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T18:34:38Z
+- Last updated (UTC): 2026-07-28T18:35:11Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: Commit `2ef3b3a` recorded PR 3 commits; the exact branch quality suite, 66/66 tests, 8/8 browser checks, whitespace, and six-commit cumulative diff review passed.
-- Exact next action: Commit this final branch-verification ledger and push `feat/decision-support` for PR creation.
+- Last completed action: Committed branch verification as `730a8f4`, then published `feat/decision-support` with upstream tracking at exact head `730a8f4ac4fb7db5cdfcd61186d80bafcaf4eb64`.
+- Exact next action: Commit/push this publication ledger, create the draft PR against `main`, mark it ready, and wait for exact-head CI.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -405,6 +405,10 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T18:34:38Z | Commit | `2ef3b3a` | `docs: record decision support commits`; branch exact-suite verification began afterward |
 | 2026-07-28T18:34:38Z | Check | PR 3 exact branch verification | Full quality, 66/66 tests, 8/8 browser, whitespace, and six-commit cumulative diff review passed |
 | 2026-07-28T18:34:38Z | Commit | This PR 3 branch-verification ledger | Records the exact green branch state before push |
+
+| 2026-07-28T18:35:11Z | Commit | `730a8f4` | `docs: record decision support branch verification`; staged whitespace passed |
+| 2026-07-28T18:35:11Z | Push | `feat/decision-support` | New remote branch published with upstream tracking at exact head `730a8f4ac4fb7db5cdfcd61186d80bafcaf4eb64` |
+| 2026-07-28T18:35:11Z | Commit | This PR 3 publication-ledger commit | Records branch publication before pull-request creation |
 
 ## Errors and verification
 

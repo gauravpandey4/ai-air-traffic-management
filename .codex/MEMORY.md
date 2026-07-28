@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T18:34:38Z
+- Last updated (UTC): 2026-07-28T18:35:11Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: Commit `2ef3b3a` recorded PR 3 commits; the exact branch quality suite, 66/66 tests, 8/8 browser checks, whitespace, and six-commit cumulative diff review passed.
-- Exact next action: Commit this final branch-verification ledger and push `feat/decision-support` for PR creation.
+- Last completed action: Committed branch verification as `730a8f4`, then published `feat/decision-support` with upstream tracking at exact head `730a8f4ac4fb7db5cdfcd61186d80bafcaf4eb64`.
+- Exact next action: Commit/push this publication ledger, create the draft PR against `main`, mark it ready, and wait for exact-head CI.
 - Blockers: None.
 
 ## Fixed project facts
@@ -110,3 +110,5 @@ Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been e
 - 2026-07-28T18:33:38Z — Commit `8c1f0c1` (`docs: record decision support validation`) created; branch clean immediately afterward.
 - 2026-07-28T18:34:38Z — Commit `2ef3b3a` (`docs: record decision support commits`) created; exact branch quality/browser suite and cumulative diff review passed afterward.
 - 2026-07-28T18:34:38Z — This branch-verification ledger will be committed before publishing `feat/decision-support`.
+- 2026-07-28T18:35:11Z — Commit `730a8f4` recorded exact branch verification; `feat/decision-support` was pushed with upstream tracking at that head.
+- 2026-07-28T18:35:11Z — This publication-ledger update will be committed and pushed before PR creation.
