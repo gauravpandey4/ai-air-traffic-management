@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T20:10:04Z
+- Last updated (UTC): 2026-07-28T20:19:30Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: Connector-fallback ledger commit `d747242` was pushed; draft PR `#9` was created with authenticated `gh`, is MERGEABLE, and Quality is in progress at that head.
-- Exact next action: Commit/push this PR ledger, mark PR `#9` ready, and wait for exact-head Quality.
+- Last completed action: Created `feat/learning-accessibility` from verified `main` merge `78b700f`.
+- Exact next action: Commit the carried PR 5 ledger, remove its temporary safety stashes, then implement and validate PR 6.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -525,6 +525,16 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T20:08:10Z | Commit/Push | `84514aa`, `feat/external-aircraft` | Exact-verification ledger committed; new remote branch pushed with upstream tracking |
 | 2026-07-28T20:09:02Z | Commit/Push/Error | `0272faf`, GitHub connector | Publication ledger pushed; connector PR creation returned 403 `Resource not accessible by integration`, so authenticated `gh` fallback was selected |
 | 2026-07-28T20:10:04Z | Commit/Push/PR/CI | `d747242`, PR `#9`, run `30395127589` | Connector-fallback ledger pushed; draft PR created through authenticated `gh`, OPEN/MERGEABLE, Quality in progress |
+| 2026-07-28T20:10:49Z | Commit/Push/PR/CI | `b51c111`, PR `#9`, run `30395177619` | PR ledger pushed; PR marked ready and MERGEABLE; exact-head Quality queued |
+| 2026-07-28T20:13:00Z | CI | PR `#9`, run `30395177619`, exact head `b51c111535560e3ef6910a1b7e6318b70b4ec59b` | Quality passed in 1m35s, including format, lint, types, coverage, build, privacy, and essential Chromium |
+| 2026-07-28T20:14:00Z | Review/Deployment | PR `#9`, exact head `b51c111535560e3ef6910a1b7e6318b70b4ec59b` | OPEN/ready/CLEAN/MERGEABLE; exact-head check successful; no comments, reviews, inline comments, or review threads; zero deployments and no repository variables |
+| 2026-07-28T20:15:00Z | Error | PR `#9` local merge cleanup | Remote merge succeeded, but CLI checkout failed because intentionally dirty ledgers would be overwritten; no ledger data discarded |
+| 2026-07-28T20:15:30Z | Merge | PR `#9`, merge `78b700f1c108d94196e538537f6d779da8178df4` | Read-only verification confirmed exact-head squash merge; only branch cleanup remained |
+| 2026-07-28T20:16:00Z | Error/Resolution | Two-file ledger stash on local `main` | Restore conflicted before the main fast-forward; Git retained both safety stashes, complete newer ledger histories were resolved, and main then fast-forwarded without application-code conflicts |
+| 2026-07-28T20:17:00Z | Cleanup | PR `#9`, merge `78b700f1c108d94196e538537f6d779da8178df4` | Local/origin main matched; exact resolved local and remote `feat/external-aircraft` refs deleted; two named safety stashes retained until next-branch ledger commit |
+| 2026-07-28T20:17:30Z | Check | PR `#9` post-cleanup guards | Only remote main at `78b700f`; no open PRs, deployments, repository variables, preview listeners, or non-ledger worktree changes |
+| 2026-07-28T20:19:00Z | Check | PR 5 post-merge main `78b700f1c108d94196e538537f6d779da8178df4` | Format/lint/types, 172/172 tests, 95.7/91.91/94.65/96.62 coverage, build/privacy, dynamic snapshot precache exclusion, 12/12 Chromium, and production audit zero passed; no deployment |
+| 2026-07-28T20:19:30Z | Branch | `feat/learning-accessibility` from `78b700f1c108d94196e538537f6d779da8178df4` | Created PR 6 branch; restored PR 5 ledger is the only pending change |
 
 ## Errors and verification
 

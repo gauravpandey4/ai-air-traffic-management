@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T20:10:04Z
+- Last updated (UTC): 2026-07-28T20:19:30Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: Connector-fallback ledger commit `d747242` was pushed; draft PR `#9` was created with authenticated `gh`, is MERGEABLE, and Quality is in progress at that head.
-- Exact next action: Commit/push this PR ledger, mark PR `#9` ready, and wait for exact-head Quality.
+- Last completed action: Created `feat/learning-accessibility` from verified `main` merge `78b700f`.
+- Exact next action: Commit the carried PR 5 ledger, remove its temporary safety stashes, then implement and validate PR 6.
 - Blockers: None.
 
 ## Fixed project facts
@@ -177,3 +177,13 @@ Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been e
 - 2026-07-28T20:08:10Z — Commit `84514aa` recorded exact local verification; branch `feat/external-aircraft` was pushed successfully with upstream tracking.
 - 2026-07-28T20:09:02Z — Commit `0272faf` recorded branch publication and was pushed. GitHub connector PR creation failed with HTTP 403 `Resource not accessible by integration`; authenticated `gh` fallback selected.
 - 2026-07-28T20:10:04Z — Connector-fallback ledger commit `d747242` was pushed. Draft PR `#9` was created through authenticated `gh`; it is OPEN/MERGEABLE at head `d7472427cbb0696dd9ee9df318aef6c8ca37e19b`, with Quality run `30395127589` in progress.
+- 2026-07-28T20:10:49Z — PR-ledger commit `b51c111` was pushed and PR `#9` marked ready. PR is MERGEABLE; Quality run `30395177619` is queued at exact head `b51c111535560e3ef6910a1b7e6318b70b4ec59b`.
+- 2026-07-28T20:13:00Z — Exact-head Quality run `30395177619` passed in 1m35s at `b51c111535560e3ef6910a1b7e6318b70b4ec59b`, including format, lint, strict types, coverage, production build, privacy scan, and essential Chromium tests.
+- 2026-07-28T20:14:00Z — PR `#9` final guards passed: OPEN/ready/CLEAN/MERGEABLE at exact remote head, successful exact-head Quality, no comments/reviews/inline comments/review threads, zero deployments, and no repository variables.
+- 2026-07-28T20:15:00Z — `gh pr merge` completed the remote merge but its local checkout step failed because the intentionally uncommitted Gate ledger would be overwritten. No ledger data was discarded.
+- 2026-07-28T20:15:30Z — Read-only resolution confirmed PR `#9` squash-merged at the exact guarded head as `78b700f1c108d94196e538537f6d779da8178df4`; the remote feature branch remained because only cleanup failed.
+- 2026-07-28T20:16:00Z — Restoring the named two-file ledger stash before local `main` fast-forwarded caused conflicts limited to both memory files. Git retained two safety stashes; complete newer histories were manually resolved, then `main` fast-forwarded to the merge without application-code conflicts.
+- 2026-07-28T20:17:00Z — Verified local `main` and `origin/main` both equal merge `78b700f1c108d94196e538537f6d779da8178df4`; deleted the exact resolved local and remote `feat/external-aircraft` refs. Two named safety stashes remain temporarily until the restored ledger is committed on the next branch.
+- 2026-07-28T20:17:30Z — Post-cleanup guards passed: only remote `main` exists at `78b700f`, no open PRs, deployments, repository variables, or listeners on preview ports 4173/4174. The only worktree changes are both restored ledgers; two named safety stashes remain.
+- 2026-07-28T20:19:00Z — PR 5 post-merge verification passed on exact `main` merge `78b700f`: format/lint/types, 172/172 tests at 95.7/91.91/94.65/96.62 coverage, production build/privacy, dynamic-aircraft precache exclusion, 12/12 Chromium, and production audit zero. No deployment occurred.
+- 2026-07-28T20:19:30Z — Created `feat/learning-accessibility` from verified `main` merge `78b700f1c108d94196e538537f6d779da8178df4`; the restored PR 5 ledger is the only pending change.
