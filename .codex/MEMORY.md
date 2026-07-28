@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T20:10:04Z
+- Last updated (UTC): 2026-07-28T20:56:00Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: Connector-fallback ledger commit `d747242` was pushed; draft PR `#9` was created with authenticated `gh`, is MERGEABLE, and Quality is in progress at that head.
-- Exact next action: Commit/push this PR ledger, mark PR `#9` ready, and wait for exact-head Quality.
+- Last completed action: Branch-push ledger `31e0732` was pushed; draft PR `#10` is OPEN/MERGEABLE at that exact head with Quality run `30398084386` in progress.
+- Exact next action: Commit/push the PR record, mark PR `#10` ready, then wait for the resulting exact-head Quality and review/deployment guards.
 - Blockers: None.
 
 ## Fixed project facts
@@ -177,3 +177,36 @@ Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been e
 - 2026-07-28T20:08:10Z — Commit `84514aa` recorded exact local verification; branch `feat/external-aircraft` was pushed successfully with upstream tracking.
 - 2026-07-28T20:09:02Z — Commit `0272faf` recorded branch publication and was pushed. GitHub connector PR creation failed with HTTP 403 `Resource not accessible by integration`; authenticated `gh` fallback selected.
 - 2026-07-28T20:10:04Z — Connector-fallback ledger commit `d747242` was pushed. Draft PR `#9` was created through authenticated `gh`; it is OPEN/MERGEABLE at head `d7472427cbb0696dd9ee9df318aef6c8ca37e19b`, with Quality run `30395127589` in progress.
+- 2026-07-28T20:10:49Z — PR-ledger commit `b51c111` was pushed and PR `#9` marked ready. PR is MERGEABLE; Quality run `30395177619` is queued at exact head `b51c111535560e3ef6910a1b7e6318b70b4ec59b`.
+- 2026-07-28T20:13:00Z — Exact-head Quality run `30395177619` passed in 1m35s at `b51c111535560e3ef6910a1b7e6318b70b4ec59b`, including format, lint, strict types, coverage, production build, privacy scan, and essential Chromium tests.
+- 2026-07-28T20:14:00Z — PR `#9` final guards passed: OPEN/ready/CLEAN/MERGEABLE at exact remote head, successful exact-head Quality, no comments/reviews/inline comments/review threads, zero deployments, and no repository variables.
+- 2026-07-28T20:15:00Z — `gh pr merge` completed the remote merge but its local checkout step failed because the intentionally uncommitted Gate ledger would be overwritten. No ledger data was discarded.
+- 2026-07-28T20:15:30Z — Read-only resolution confirmed PR `#9` squash-merged at the exact guarded head as `78b700f1c108d94196e538537f6d779da8178df4`; the remote feature branch remained because only cleanup failed.
+- 2026-07-28T20:16:00Z — Restoring the named two-file ledger stash before local `main` fast-forwarded caused conflicts limited to both memory files. Git retained two safety stashes; complete newer histories were manually resolved, then `main` fast-forwarded to the merge without application-code conflicts.
+- 2026-07-28T20:17:00Z — Verified local `main` and `origin/main` both equal merge `78b700f1c108d94196e538537f6d779da8178df4`; deleted the exact resolved local and remote `feat/external-aircraft` refs. Two named safety stashes remain temporarily until the restored ledger is committed on the next branch.
+- 2026-07-28T20:17:30Z — Post-cleanup guards passed: only remote `main` exists at `78b700f`, no open PRs, deployments, repository variables, or listeners on preview ports 4173/4174. The only worktree changes are both restored ledgers; two named safety stashes remain.
+- 2026-07-28T20:19:00Z — PR 5 post-merge verification passed on exact `main` merge `78b700f`: format/lint/types, 172/172 tests at 95.7/91.91/94.65/96.62 coverage, production build/privacy, dynamic-aircraft precache exclusion, 12/12 Chromium, and production audit zero. No deployment occurred.
+- 2026-07-28T20:19:30Z — Created `feat/learning-accessibility` from verified `main` merge `78b700f1c108d94196e538537f6d779da8178df4`; the restored PR 5 ledger is the only pending change.
+- 2026-07-28T20:20:00Z — Commit `bb5461b` (`docs: record external aircraft merge`) preserved the complete restored PR 5 audit trail after staged scope and whitespace review.
+- 2026-07-28T20:20:30Z — Removed both temporary ledger safety stashes after commit `bb5461b` made their complete contents durable; no user or application files were removed.
+- 2026-07-28T20:28:00Z — First PR 6 focused verification passed lint and strict types; 11 domain/learning tests passed, but three suites could not import `virtual:pwa-register/react` during Vitest transform. A native service-worker registration/update layer was selected to preserve prompt behavior without a test-only build virtual dependency.
+- 2026-07-28T20:30:00Z — Native PWA-layer lint found one stylistic `Array<T>` violation; it was changed to the repository-required `T[]` form before any further check.
+- 2026-07-28T20:31:30Z — Second PR 6 focused verification passed lint/types and 24/26 tests. Failures showed zero supported observations still appeared as numeric zero and the prior “Declared simulated events” label was replaced. Zero-denominator metrics now resolve to `Unavailable`, with the simulated label retained.
+- 2026-07-28T20:32:30Z — Third focused run passed 25/26. The remaining legacy assertion requires “Declared simulated events” as its own detail line immediately after the value; metric details were converted to line arrays so the exact label and denominator are both preserved.
+- 2026-07-28T20:34:30Z — Full PR 6 non-browser gate passed with 176/176 tests, 91.04/88.85/88.78/92.88 coverage, build, and privacy scan. Built HTML inspection found the PWA plugin auto-injected `registerSW.js` in addition to the native lifecycle handler; `injectRegister: null` was selected so registration and update prompts have one owner.
+- 2026-07-28T20:36:00Z — Expanded Chromium passed 13/16. Failures were an ambiguous `Unavailable` query, a warm offline reload served through an older locally reused worker lifecycle, and genuine horizontal overflow at 200% text size. Exact matching, fresh service-worker isolation, and element-level overflow inspection were selected.
+- 2026-07-28T20:39:00Z — Overflow inspection showed the 200% test doubled root text while retaining a 1280 CSS-pixel layout viewport, unlike browser zoom, so desktop grids intentionally exceeded the viewport. The check now models 1440-at-200%-zoom as a 720 CSS-pixel layout. Offline evidence also confirmed service-worker navigation can succeed while `navigator.onLine` remains advisory after reload; offline status is asserted on the live connectivity event before the warm reload.
+- 2026-07-28T20:40:30Z — Corrected external and warm-offline browser cases passed. The 720 CSS-pixel zoom model still exposed the table's intentional 48rem internal width; the existing accessible card-table breakpoint was promoted from 38rem to 45rem so the 200% view does not require horizontal table scrolling.
+- 2026-07-28T20:43:00Z — Full expanded Chromium passed 16/16. Manual in-app browser review on a fresh local origin confirmed current statistics denominators, seven learning modules, visible keyboard focus, readable expanded input/rule/output/limitation content, permanent provider attribution, Emergency state, no page overflow, and no console warnings/errors. Initial fresh-tab navigation probes used unsupported nested methods before the documented root `tab.goto` method succeeded; the browser viewport override stayed at 1280, so automated Playwright remains the authoritative 768/390/320 responsive evidence.
+- 2026-07-28T20:45:00Z — Final PR 6 gate stopped at lint because the new overflow diagnostic used an unnecessary optional chain/null fallback on non-null `HTMLElement.textContent`. Direct non-null string handling selected; no type, test, build, or privacy command ran in that chain.
+- 2026-07-28T20:46:30Z — Corrected final non-browser gate passed: format/lint/types, 176/176 tests, 91.04/88.85/88.78/92.88 coverage, production build with a 12-entry local-asset precache and no auto-injected registration script, plus privacy scan.
+- 2026-07-28T20:47:30Z — Final built-site browser gate passed 16/16 at the current source state, including warm offline reload, seven-module keyboard disclosure, 200% zoom modeling, Axe, reduced motion, and 1440/768/390/320 reflow. Production dependency audit reported zero vulnerabilities.
+- 2026-07-28T20:49:00Z — Commit `85f89b9` (`feat: add live-derived statistics and learning content`) created after staged scope and whitespace review.
+- 2026-07-28T20:49:30Z — Commit `3cae2de` (`feat: add offline shell and update handling`) created after staged scope and whitespace review.
+- 2026-07-28T20:50:00Z — Commit `f9763e1` (`style: polish evaluator-ready dashboard`) created after staged scope and whitespace review.
+- 2026-07-28T20:50:30Z — Commit `1b8349c` (`test: add accessibility offline and responsive coverage`) created after staged scope and whitespace review.
+- 2026-07-28T20:51:00Z — Commit `9e25a8b` (`docs: record learning accessibility validation`) created; only the immediate commit record is now pending.
+- 2026-07-28T20:53:00Z — Exact clean branch head `8a09250330915fd90597b15cc5a99b122554f5cd` passed format/lint/types, 176/176 tests at 91.04/88.85/88.78/92.88 coverage, production build/privacy, 12-entry app-shell precache with no injected registration/dynamic snapshot, 16/16 Chromium, production audit zero, cumulative diff/commit review, zero deployments, no release variable, and no open PRs.
+- 2026-07-28T20:53:30Z — Commit `afa109a` recorded exact PR 6 verification; branch publication is next.
+- 2026-07-28T20:54:30Z — Commit `da07bf6` (`docs: record learning branch publication`) created and pushed with new upstream `origin/feat/learning-accessibility`.
+- 2026-07-28T20:56:00Z — Commit `31e0732` (`docs: record learning branch push`) was pushed. Draft PR `#10` was created at exact head `31e0732aca98e0c98741a6ab13e2ed7e2c587a72`; it is OPEN/MERGEABLE with Quality run `30398084386` in progress and no deployment.

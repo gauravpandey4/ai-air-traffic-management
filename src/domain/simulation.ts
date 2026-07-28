@@ -328,39 +328,60 @@ export function deriveSimulationStatistics(
   fuelByAircraftId?: Readonly<Record<string, FuelAssessment>>,
 ): SimulationStatistics {
   const totalAircraft = aircraft.length;
-  if (totalAircraft === 0) {
-    return {
-      totalAircraft: 0,
-      airborneAircraft: 0,
-      arrivals: 0,
-      emergencies: 0,
-      lowFuelAircraft: 0,
-      averageAltitudeFt: 0,
-      averageGroundSpeedKt: 0,
-    };
-  }
-
-  const totals = aircraft.reduce(
-    (result, item) => ({
-      altitudeFt: result.altitudeFt + item.altitudeFt,
-      groundSpeedKt: result.groundSpeedKt + item.groundSpeedKt,
-    }),
-    { altitudeFt: 0, groundSpeedKt: 0 },
-  );
+  const altitudeObservations = aircraft
+    .map((item) => item.altitudeFt)
+    .filter((value) => Number.isFinite(value) && value >= 0);
+  const speedObservations = aircraft
+    .map((item) => item.groundSpeedKt)
+    .filter((value) => Number.isFinite(value) && value >= 0);
+  const intentObservations = aircraft.filter((item) => item.phase !== 'Unavailable');
+  const emergencyObservations = aircraft.filter((item) => item.source.mode === 'Simulated');
+  const fuelObservations = aircraft.flatMap((item) => {
+    const assessment = fuelByAircraftId?.[item.id];
+    if (assessment !== undefined) {
+      return assessment.state === 'Unavailable' ? [] : [assessment.state];
+    }
+    if (item.simulatedFuelMinutes === null || !Number.isFinite(item.simulatedFuelMinutes)) {
+      return [];
+    }
+    return [
+      item.simulatedFuelMinutes < 15
+        ? 'Critical'
+        : item.simulatedFuelMinutes < 30
+          ? 'Low'
+          : 'Normal',
+    ];
+  });
+  const average = (values: readonly number[]): number | null =>
+    values.length === 0
+      ? null
+      : Math.round(values.reduce((total, value) => total + value, 0) / values.length);
+  const metric = (value: number | null, observationCount: number) => ({
+    value: observationCount === 0 ? null : value,
+    observationCount,
+    totalCount: totalAircraft,
+  });
 
   return {
     totalAircraft,
-    airborneAircraft: aircraft.filter((item) => item.altitudeFt > 0).length,
-    arrivals: aircraft.filter((item) => item.phase === 'Arrival').length,
-    emergencies: aircraft.filter((item) => item.simulatedEmergency).length,
-    lowFuelAircraft: aircraft.filter((item) => {
-      const state = fuelByAircraftId?.[item.id]?.state;
-      return state === undefined
-        ? item.simulatedFuelMinutes !== null && item.simulatedFuelMinutes < 30
-        : state === 'Low' || state === 'Critical';
-    }).length,
-    averageAltitudeFt: Math.round(totals.altitudeFt / totalAircraft),
-    averageGroundSpeedKt: Math.round(totals.groundSpeedKt / totalAircraft),
+    airborneAircraft: metric(
+      altitudeObservations.filter((altitudeFt) => altitudeFt > 0).length,
+      altitudeObservations.length,
+    ),
+    arrivals: metric(
+      intentObservations.filter((item) => item.phase === 'Arrival').length,
+      intentObservations.length,
+    ),
+    emergencies: metric(
+      emergencyObservations.filter((item) => item.simulatedEmergency).length,
+      emergencyObservations.length,
+    ),
+    lowFuelAircraft: metric(
+      fuelObservations.filter((state) => state === 'Low' || state === 'Critical').length,
+      fuelObservations.length,
+    ),
+    averageAltitudeFt: metric(average(altitudeObservations), altitudeObservations.length),
+    averageGroundSpeedKt: metric(average(speedObservations), speedObservations.length),
   };
 }
 

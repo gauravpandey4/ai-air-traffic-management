@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T20:10:04Z
+- Last updated (UTC): 2026-07-28T20:56:00Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: Connector-fallback ledger commit `d747242` was pushed; draft PR `#9` was created with authenticated `gh`, is MERGEABLE, and Quality is in progress at that head.
-- Exact next action: Commit/push this PR ledger, mark PR `#9` ready, and wait for exact-head Quality.
+- Last completed action: Branch-push ledger `31e0732` was pushed; draft PR `#10` is OPEN/MERGEABLE at that exact head with Quality run `30398084386` in progress.
+- Exact next action: Commit/push the PR record, mark PR `#10` ready, then wait for the resulting exact-head Quality and review/deployment guards.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -525,6 +525,39 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T20:08:10Z | Commit/Push | `84514aa`, `feat/external-aircraft` | Exact-verification ledger committed; new remote branch pushed with upstream tracking |
 | 2026-07-28T20:09:02Z | Commit/Push/Error | `0272faf`, GitHub connector | Publication ledger pushed; connector PR creation returned 403 `Resource not accessible by integration`, so authenticated `gh` fallback was selected |
 | 2026-07-28T20:10:04Z | Commit/Push/PR/CI | `d747242`, PR `#9`, run `30395127589` | Connector-fallback ledger pushed; draft PR created through authenticated `gh`, OPEN/MERGEABLE, Quality in progress |
+| 2026-07-28T20:10:49Z | Commit/Push/PR/CI | `b51c111`, PR `#9`, run `30395177619` | PR ledger pushed; PR marked ready and MERGEABLE; exact-head Quality queued |
+| 2026-07-28T20:13:00Z | CI | PR `#9`, run `30395177619`, exact head `b51c111535560e3ef6910a1b7e6318b70b4ec59b` | Quality passed in 1m35s, including format, lint, types, coverage, build, privacy, and essential Chromium |
+| 2026-07-28T20:14:00Z | Review/Deployment | PR `#9`, exact head `b51c111535560e3ef6910a1b7e6318b70b4ec59b` | OPEN/ready/CLEAN/MERGEABLE; exact-head check successful; no comments, reviews, inline comments, or review threads; zero deployments and no repository variables |
+| 2026-07-28T20:15:00Z | Error | PR `#9` local merge cleanup | Remote merge succeeded, but CLI checkout failed because intentionally dirty ledgers would be overwritten; no ledger data discarded |
+| 2026-07-28T20:15:30Z | Merge | PR `#9`, merge `78b700f1c108d94196e538537f6d779da8178df4` | Read-only verification confirmed exact-head squash merge; only branch cleanup remained |
+| 2026-07-28T20:16:00Z | Error/Resolution | Two-file ledger stash on local `main` | Restore conflicted before the main fast-forward; Git retained both safety stashes, complete newer ledger histories were resolved, and main then fast-forwarded without application-code conflicts |
+| 2026-07-28T20:17:00Z | Cleanup | PR `#9`, merge `78b700f1c108d94196e538537f6d779da8178df4` | Local/origin main matched; exact resolved local and remote `feat/external-aircraft` refs deleted; two named safety stashes retained until next-branch ledger commit |
+| 2026-07-28T20:17:30Z | Check | PR `#9` post-cleanup guards | Only remote main at `78b700f`; no open PRs, deployments, repository variables, preview listeners, or non-ledger worktree changes |
+| 2026-07-28T20:19:00Z | Check | PR 5 post-merge main `78b700f1c108d94196e538537f6d779da8178df4` | Format/lint/types, 172/172 tests, 95.7/91.91/94.65/96.62 coverage, build/privacy, dynamic snapshot precache exclusion, 12/12 Chromium, and production audit zero passed; no deployment |
+| 2026-07-28T20:19:30Z | Branch | `feat/learning-accessibility` from `78b700f1c108d94196e538537f6d779da8178df4` | Created PR 6 branch; restored PR 5 ledger is the only pending change |
+| 2026-07-28T20:20:00Z | Commit | `bb5461b` | `docs: record external aircraft merge`; complete PR 5 ledger preserved after staged scope and whitespace review |
+| 2026-07-28T20:20:30Z | Cleanup | Temporary PR 5 ledger safety stashes | Both dropped only after their complete contents were committed as `bb5461b`; no user/application files removed |
+| 2026-07-28T20:28:00Z | Error/Check | PR 6 first focused verification | Lint/types and 11 tests passed; three suites failed at transform because Vitest could not resolve `virtual:pwa-register/react`, so a directly testable native service-worker registration/update layer was selected |
+| 2026-07-28T20:30:00Z | Error | PR 6 native PWA lint | One repository-style violation required `T[]` instead of `Array<T>`; corrected before further checks |
+| 2026-07-28T20:31:30Z | Error/Check | PR 6 second focused verification | Lint/types and 24/26 tests passed; zero supported observations rendered as zero and an existing simulated-emergency label disappeared, so zero-denominator metrics now return `Unavailable` and retain the explicit label |
+| 2026-07-28T20:32:30Z | Error/Check | PR 6 third focused verification | 25/26 tests passed; the remaining legacy assertion required “Declared simulated events” as its own line immediately after the value, so detail lines now preserve both exact label and disclosed denominator |
+| 2026-07-28T20:34:30Z | Check/Finding | PR 6 full non-browser gate and built PWA | 176/176 tests, 91.04/88.85/88.78/92.88 coverage, build/privacy passed; auto-injected `registerSW.js` duplicated native registration, so plugin injection was disabled with one lifecycle owner retained |
+| 2026-07-28T20:36:00Z | Error/Check | PR 6 expanded Chromium | 13/16 passed; failures were one ambiguous `Unavailable` locator, warm offline reuse of an older worker lifecycle, and genuine 200% text overflow; exact matching, fresh SW isolation, and overflow inspection selected |
+| 2026-07-28T20:39:00Z | Finding/Fix | PR 6 zoom/offline browser diagnostics | Root-font doubling retained a desktop layout viewport and did not model browser zoom; check now uses a 720 CSS-pixel layout for 1440-at-200%. Warm SW navigation can leave `navigator.onLine` advisory after reload, so offline status is asserted before reload while cached-shell success is asserted afterward |
+| 2026-07-28T20:40:30Z | Error/Fix | PR 6 targeted browser rerun | External and warm-offline passed; 720 CSS-pixel zoom still exposed the table's 48rem internal width, so the accessible card-table/mobile layout breakpoint was promoted to 45rem |
+| 2026-07-28T20:43:00Z | Check/Manual UI | PR 6 built site on fresh local origin | 16/16 Chromium passed; browser review confirmed denominators, seven modules, focus, expanded explanations, attribution, Emergency state, zero page overflow, and no console warnings/errors. Unsupported nested navigation probes were replaced by documented `tab.goto`; responsive authority remains Playwright because the in-app override stayed at 1280 |
+| 2026-07-28T20:45:00Z | Error | PR 6 final gate lint | New overflow diagnostic had an unnecessary optional chain/null fallback on non-null `HTMLElement.textContent`; direct string handling selected and later commands did not run |
+| 2026-07-28T20:46:30Z | Check | PR 6 corrected final non-browser gate | Format/lint/types, 176/176 tests, 91.04/88.85/88.78/92.88 coverage, build with 12-entry local precache/no injected registration script, and privacy passed |
+| 2026-07-28T20:47:30Z | Check/Security | PR 6 final browser and production audit | 16/16 Chromium passed with offline, keyboard, zoom, Axe, motion, and 1440/768/390/320 checks; production audit reported zero |
+| 2026-07-28T20:49:00Z | Commit | `85f89b9` | `feat: add live-derived statistics and learning content`; staged scope and whitespace review passed |
+| 2026-07-28T20:49:30Z | Commit | `3cae2de` | `feat: add offline shell and update handling`; staged scope and whitespace review passed |
+| 2026-07-28T20:50:00Z | Commit | `f9763e1` | `style: polish evaluator-ready dashboard`; staged scope and whitespace review passed |
+| 2026-07-28T20:50:30Z | Commit | `1b8349c` | `test: add accessibility offline and responsive coverage`; staged scope and whitespace review passed |
+| 2026-07-28T20:51:00Z | Commit | `9e25a8b` | `docs: record learning accessibility validation`; complete local evidence ledger committed |
+| 2026-07-28T20:53:00Z | Check | Exact PR 6 branch `8a09250330915fd90597b15cc5a99b122554f5cd` | Format/lint/types, 176/176 tests, 91.04/88.85/88.78/92.88 coverage, build/privacy, 12-entry shell precache boundaries, 16/16 Chromium, production audit, clean cumulative review, zero deployments/variables/open PRs passed |
+| 2026-07-28T20:53:30Z | Commit | `afa109a` | Exact PR 6 branch verification ledger committed; branch publication next |
+| 2026-07-28T20:54:30Z | Commit/Push | `da07bf6`, `feat/learning-accessibility` | Publication ledger committed; new remote branch pushed with upstream tracking |
+| 2026-07-28T20:56:00Z | Commit/Push/PR/CI | `31e0732`, PR `#10`, run `30398084386` | Branch-push ledger pushed; draft PR created OPEN/MERGEABLE at exact head with Quality in progress; no deployment |
 
 ## Errors and verification
 
