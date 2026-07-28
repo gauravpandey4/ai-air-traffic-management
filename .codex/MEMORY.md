@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T21:08:30Z
+- Last updated (UTC): 2026-07-28T21:11:00Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: Commit `f802548` recorded the release artifact verifier, all-flow runtime-error guard, and quality-gate wiring.
-- Exact next action: Commit the reviewed final README/evidence and synchronized requirements/DOCX with the current ledger, then run local Playwright for final debugging.
+- Last completed action: All 16 production-browser flows passed with strict unexpected console/page-error guarding.
+- Exact next action: Commit the browser hardening/fix ledger, then run the complete exact-head non-browser and browser release gate.
 - Blockers: None.
 
 ## Fixed project facts
@@ -224,3 +224,10 @@ Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been e
 - 2026-07-28T21:07:30Z — Removed the unnecessary async hook modifiers. Corrected non-browser verification passed format, lint, strict types, production build, privacy, and the new artifact verifier: all four HTML references exist below the Pages base, PWA scope/start URL match, dynamic snapshot/duplicate registration are excluded, and initial JavaScript is 104,980 compressed bytes.
 - 2026-07-28T21:08:00Z — Full PR 7 coverage passed: 20 files and 177/177 tests, with 91.04% statements, 88.85% branches, 88.78% functions, and 92.88% lines.
 - 2026-07-28T21:08:30Z — Commit `f802548` (`test: harden release candidate and evidence`) recorded the deterministic production artifact verifier, mandatory quality-gate wiring, and console/page-error guard across every Playwright flow.
+- 2026-07-28T21:09:00Z — Commit `58105f0` (`docs: finalize README and evaluator guidance`) recorded the final README, acceptance/failure evidence trace, and requirements Markdown/DOCX version 1.1. The 27-page DOCX passed complete render inspection and binary privacy/stale-text scan.
+- 2026-07-28T21:09:30Z — First local production Playwright pass completed 15/16. The only failure was intentional degraded-mode traffic: the map-fallback test aborts OpenStreetMap requests, and the new global runtime guard captured twelve expected `net::ERR_FAILED` console entries. Scope an allowlist to that one test while keeping every other flow strict and assert the expected error actually occurs.
+- 2026-07-28T21:09:45Z — Added a per-page allowlist used only by the deliberate tile-abort case plus an assertion that `net::ERR_FAILED` occurred. Focused validation stopped at Prettier on the edited E2E file; lint and browser test did not run.
+- 2026-07-28T21:10:00Z — Formatted the scoped degraded-mode guard; lint passed and the focused tile-failure test passed while proving its expected resource failure and local schematic recovery.
+- 2026-07-28T21:10:30Z — Second full local Playwright pass completed 15/16. The tile fix passed. Offline weather toggled the context before service-worker installation settled, causing one `An unknown error occurred when fetching the script` console entry; its visible weather fallback and simulator assertions passed. Await worker readiness before taking that case offline instead of masking the error.
+- 2026-07-28T21:10:45Z — Offline-weather flow now awaits service-worker readiness before disconnecting. Formatting, lint, and the focused browser case passed with the strict console/page-error guard.
+- 2026-07-28T21:11:00Z — Full local production Playwright passed 16/16 with strict unexpected console/page-error guarding, including the explicitly proven tile-abort fallback, service-worker-settled offline weather, warm offline reload, Axe, keyboard, reduced motion, 200% reflow, and 1440/768/390/320 layouts.

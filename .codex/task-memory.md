@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T21:08:30Z
+- Last updated (UTC): 2026-07-28T21:11:00Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: Commit `f802548` recorded the release artifact verifier, all-flow runtime-error guard, and quality-gate wiring.
-- Exact next action: Commit the reviewed final README/evidence and synchronized requirements/DOCX with the current ledger, then run local Playwright for final debugging.
+- Last completed action: All 16 production-browser flows passed with strict unexpected console/page-error guarding.
+- Exact next action: Commit the browser hardening/fix ledger, then run the complete exact-head non-browser and browser release gate.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -572,6 +572,13 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T21:07:30Z | Fix/Check | PR 7 non-browser implementation | Removed unnecessary async hooks; format/lint/types/build/privacy passed; production verifier confirmed four base-path assets, manifest/PWA boundaries, no dynamic snapshot/duplicate registration in precache, and 104,980-byte compressed initial JS |
 | 2026-07-28T21:08:00Z | Check | PR 7 coverage | 20 files and 177/177 tests passed at 91.04/88.85/88.78/92.88 coverage |
 | 2026-07-28T21:08:30Z | Commit | `f802548` | Deterministic production artifact verifier, quality-gate wiring, and all-flow Playwright runtime-error guard committed |
+| 2026-07-28T21:09:00Z | Commit | `58105f0` | Final README/evaluator evidence and synchronized requirements Markdown/DOCX committed after 27-page render and privacy/stale-text inspection |
+| 2026-07-28T21:09:30Z | Browser check/Failure | First PR 7 local Playwright pass | 15/16 passed; deliberate OSM route abort produced twelve expected `net::ERR_FAILED` console entries caught by the new global guard; scope an explicit allowance to only that degraded-mode test and assert occurrence |
+| 2026-07-28T21:09:45Z | Check/Failure | Scoped tile-error guard | Focused validation stopped at E2E formatting; lint/browser commands did not run; format and retry |
+| 2026-07-28T21:10:00Z | Fix/Check | Scoped tile-error guard | Formatting and lint passed; focused production-browser tile-failure case proved expected resource failure plus local schematic recovery |
+| 2026-07-28T21:10:30Z | Browser check/Failure | Second full PR 7 Playwright pass | 15/16 passed; offline-weather case toggled offline before worker install settled, creating one worker script-fetch console error although visible fallback passed; await worker readiness rather than allowlist it |
+| 2026-07-28T21:10:45Z | Fix/Check | Offline-weather browser flow | Awaited worker readiness before disconnect; formatting, lint, and focused strict-console Playwright case passed |
+| 2026-07-28T21:11:00Z | Browser check | Full PR 7 local production Playwright | 16/16 passed with strict unexpected console/page-error guard, explicit tile-failure allowance/occurrence, settled offline weather, warm offline, Axe, keyboard, motion, zoom, and 1440/768/390/320 reflow |
 
 ## Errors and verification
 
