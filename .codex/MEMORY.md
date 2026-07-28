@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T18:06:31Z
+- Last updated (UTC): 2026-07-28T18:33:06Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: PR 2 post-merge verification passed on refreshed `main`: the complete quality suite, 7/7 Chromium cases, deployment count `0`, and open pull-request list `[]`.
-- Exact next action: Create PR 3 branch `feat/decision-support` from verified merge SHA `761e1c800cb10e84c48423b4518dc49ced2077fe` and commit the carried post-merge ledger before implementation.
+- Last completed action: Committed the expanded scenario/browser verification and README capability notes as `90c14ce` (`test: verify decision support scenarios`).
+- Exact next action: Commit the complete PR 3 validation ledger, rerun the exact branch suite, and review the cumulative branch diff before publication.
 - Blockers: None.
 
 ## Fixed project facts
@@ -85,3 +85,25 @@ Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been e
 
 - 2026-07-28T18:06:31Z — PR 2 post-merge verification passed: full quality suite, 7/7 Chromium checks, zero GitHub deployments, and no open pull requests.
 - 2026-07-28T18:06:31Z — A combined memory patch failed because the compact memory file does not contain the detailed ledger table; no content changed, and updates were split by file structure.
+- 2026-07-28T18:07:22Z — Created `feat/decision-support` from `761e1c8`; commit `1b5c27a` records the PR 2 post-merge ledger and starts PR 3.
+- 2026-07-28T18:13:29Z — First PR 3 lint run found one restricted numeric template interpolation in `collision.ts`; explicit string conversion selected.
+- 2026-07-28T18:13:56Z — PR 3 strict types rejected a nullable priority-candidate predicate whose declared weather union was broader than its mapped inference; explicit typed accumulation selected.
+- 2026-07-28T18:15:59Z — PR 3 decision-test lint rejected `expect.closeTo` values inside `objectContaining` as unsafe; direct `toBeCloseTo` assertions selected.
+- 2026-07-28T18:17:22Z — PR 3 integration suite passed 62/63; a broad runway text query matched the lead and explanation, so the assertion will explicitly accept the duplicate accessible presentations.
+- 2026-07-28T18:17:22Z — A combined memory/test patch missed a whitespace-aligned ledger row after Prettier; no content changed, and the retry uses exact file structure.
+- 2026-07-28T18:19:04Z — Full PR 3 non-browser suite and current 7/7 Playwright suite passed; in-app browser navigation succeeded, but its unsupported `networkidle` wait failed, so verification continues with the supported DOM readiness signal.
+- 2026-07-28T18:20:05Z — Manual browser review found random Normal-traffic geometry could trigger four conflict alerts and routine non-arrivals appeared in landing priority; deterministic separation and arrival-only routine queueing selected.
+- 2026-07-28T18:22:13Z — Responsive browser geometry passed at 1440/768/390 with no panel or score overflow; subsequent lint found two unreachable baseline status branches after vertical rates were stabilized at zero.
+- 2026-07-28T18:22:39Z — Full check stopped at formatting for `decision-support.test.ts`, which was outside the preceding narrow formatter target; project-wide formatting selected.
+- 2026-07-28T18:22:39Z — A combined memory patch missed another Prettier-aligned table row; no content changed, and the file-specific retry avoided aligned-row context.
+- 2026-07-28T18:23:39Z — Complete check passed format/lint/types, then one movement assertion wrapped at the north edge after deterministic scenario regeneration; center the test fixture before measuring direction.
+- 2026-07-28T18:24:30Z — PR 3 full quality suite passed; browser suite passed 7/8, with one broad alert query matching the visible title and explanation result, so exact text matching is required.
+- 2026-07-28T18:25:11Z — Expanded browser rerun passed the collision assertion and 7/8 overall; the identical low-fuel title/result duplication requires exact matching too.
+- 2026-07-28T18:26:39Z — Expanded browser suite passed 8/8. Cumulative review found projected/fuel severity and low-fuel statistics were not recomputed across every consumer; one derived aircraft view will synchronize map, list, detail, and statistics.
+- 2026-07-28T18:26:39Z — A multi-file coherence patch had an invalid hunk boundary and changed no files; implementation is split into structurally valid patches.
+- 2026-07-28T18:28:43Z — Post-review coherence rerun passed format/lint/types, 64/64 tests, 94.72/86.33/93.12/95.02 coverage, build/PWA/privacy, and 8/8 Playwright cases.
+- 2026-07-28T18:31:46Z — Final cumulative review passed: 66/66 tests, 95.69/89.7/93.12/95.79 global coverage, 98.86/95.09/100/99.2 domain coverage, build/PWA/privacy, 8/8 browser, whitespace, production audit zero, zero deployments, and no open PRs.
+- 2026-07-28T18:32:16Z — Commit `e6e17e4` (`feat: add explainable decision engines`) created after staged whitespace/scope review.
+- 2026-07-28T18:32:41Z — Commit `21ed6b3` (`feat: present recommendations and human review`) created after staged whitespace/scope review.
+- 2026-07-28T18:33:06Z — Commit `90c14ce` (`test: verify decision support scenarios`) created after staged whitespace/scope review.
+- 2026-07-28T18:33:06Z — This validation-ledger commit records the fully reviewed PR 3 branch state before the final exact branch suite and publication.
