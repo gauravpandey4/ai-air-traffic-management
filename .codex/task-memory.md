@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T21:11:00Z
+- Last updated (UTC): 2026-07-28T21:11:15Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: All 16 production-browser flows passed with strict unexpected console/page-error guarding.
-- Exact next action: Commit the browser hardening/fix ledger, then run the complete exact-head non-browser and browser release gate.
+- Last completed action: Commit `f4ecac5` recorded the scoped degraded-mode guard, settled offline flow, browser fixes, and their evidence.
+- Exact next action: Commit this immediate ledger entry, then run the complete clean exact-head non-browser/browser/audit release gate.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -579,6 +579,7 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T21:10:30Z | Browser check/Failure | Second full PR 7 Playwright pass | 15/16 passed; offline-weather case toggled offline before worker install settled, creating one worker script-fetch console error although visible fallback passed; await worker readiness rather than allowlist it |
 | 2026-07-28T21:10:45Z | Fix/Check | Offline-weather browser flow | Awaited worker readiness before disconnect; formatting, lint, and focused strict-console Playwright case passed |
 | 2026-07-28T21:11:00Z | Browser check | Full PR 7 local production Playwright | 16/16 passed with strict unexpected console/page-error guard, explicit tile-failure allowance/occurrence, settled offline weather, warm offline, Axe, keyboard, motion, zoom, and 1440/768/390/320 reflow |
+| 2026-07-28T21:11:15Z | Commit | `f4ecac5` | Scoped degraded-mode guard, settled offline flow, browser debug fixes, and complete failure/fix evidence committed |
 
 ## Errors and verification
 

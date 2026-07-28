@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T21:11:00Z
+- Last updated (UTC): 2026-07-28T21:11:15Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: All 16 production-browser flows passed with strict unexpected console/page-error guarding.
-- Exact next action: Commit the browser hardening/fix ledger, then run the complete exact-head non-browser and browser release gate.
+- Last completed action: Commit `f4ecac5` recorded the scoped degraded-mode guard, settled offline flow, browser fixes, and their evidence.
+- Exact next action: Commit this immediate ledger entry, then run the complete clean exact-head non-browser/browser/audit release gate.
 - Blockers: None.
 
 ## Fixed project facts
@@ -231,3 +231,4 @@ Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been e
 - 2026-07-28T21:10:30Z — Second full local Playwright pass completed 15/16. The tile fix passed. Offline weather toggled the context before service-worker installation settled, causing one `An unknown error occurred when fetching the script` console entry; its visible weather fallback and simulator assertions passed. Await worker readiness before taking that case offline instead of masking the error.
 - 2026-07-28T21:10:45Z — Offline-weather flow now awaits service-worker readiness before disconnecting. Formatting, lint, and the focused browser case passed with the strict console/page-error guard.
 - 2026-07-28T21:11:00Z — Full local production Playwright passed 16/16 with strict unexpected console/page-error guarding, including the explicitly proven tile-abort fallback, service-worker-settled offline weather, warm offline reload, Axe, keyboard, reduced motion, 200% reflow, and 1440/768/390/320 layouts.
+- 2026-07-28T21:11:15Z — Commit `f4ecac5` (`fix: resolve release candidate audit findings`) recorded the scoped degraded-mode runtime guard, service-worker-settled offline flow, browser debug fixes, and complete failure/fix evidence.
