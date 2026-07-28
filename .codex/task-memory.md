@@ -609,3 +609,12 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 
 - Production deployment remains explicitly deferred until Gate 5; Gate 4 implementation through reviewed PRs is now authorized and in progress.
 - Private source-report material and enrollment information will never be copied into the project.
+
+## Gate 5 activation
+
+| UTC timestamp | Type | Scope | Evidence / decision |
+| --- | --- | --- | --- |
+| 2026-07-28T21:42:00Z | Commit/Push/CI | `ec2fee7ea5b939276857d828f768da9098404be2`, run `30401775562` | Final Gate 4 ledger-only main commit pushed; exact-head Quality passed in 1m38s; local/origin main clean and synchronized with no open PR/deployment/variable |
+| 2026-07-28T21:47:00Z | Approval/Decision | Exact user message `APPROVE GATE 4` | Gate 5 production deployment authorized; current Open-Meteo, adsb.fi, OSM tile, and GitHub Pages primary terms/docs remain compatible with the research-only guarded architecture |
+| 2026-07-28T21:48:13Z | Failure | First automated GitHub Action pin check | zsh retained each quoted loop record as one value, producing malformed repository URLs; no repository/provider/Pages/deployment mutation occurred, and retry will use explicit per-pin arguments |
+| 2026-07-28T21:49:00Z | Supply-chain check | All pinned workflow actions | Exact upstream release-tag resolution passed for checkout v7.0.1, setup-node v7.0.0, cache v6.1.0, configure-pages v6.0.0, upload-pages-artifact v5.0.0, and deploy-pages v5.0.0; activation ledger commit/Quality precede Pages mutation |
