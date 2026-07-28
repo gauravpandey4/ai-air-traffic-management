@@ -74,11 +74,13 @@ describe('integrated decision support', () => {
 
     const lowFuel = createInitialSimulationState('low-fuel');
     const later = simulationReducer(lowFuel, { type: 'simulation-ticked', seconds: 600 });
+    const selectedAircraftId = lowFuel.selectedAircraftId;
+    expect(selectedAircraftId).not.toBeNull();
+    if (selectedAircraftId === null) return;
     expect(
-      deriveDecisionSupport(later).fuelByAircraftId[later.selectedAircraftId]?.enduranceMinutes,
+      deriveDecisionSupport(later).fuelByAircraftId[selectedAircraftId]?.enduranceMinutes,
     ).toBeLessThan(
-      deriveDecisionSupport(lowFuel).fuelByAircraftId[lowFuel.selectedAircraftId]
-        ?.enduranceMinutes ?? 0,
+      deriveDecisionSupport(lowFuel).fuelByAircraftId[selectedAircraftId]?.enduranceMinutes ?? 0,
     );
   });
 
@@ -87,7 +89,7 @@ describe('integrated decision support', () => {
     const support = deriveDecisionSupport({
       ...initial,
       aircraft: [],
-      selectedAircraftId: '',
+      selectedAircraftId: null,
     });
     expect(support.priority).toEqual([]);
     expect(support.runwayRecommendation).toBeNull();

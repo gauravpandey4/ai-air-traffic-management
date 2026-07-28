@@ -27,7 +27,9 @@ describe('deterministic scenarios', () => {
     expect(collision[1]).toMatchObject({ headingDeg: 270, severity: 'Monitor' });
 
     expect(
-      createScenarioAircraft('low-fuel').some((aircraft) => aircraft.simulatedFuelMinutes < 15),
+      createScenarioAircraft('low-fuel').some(
+        (aircraft) => (aircraft.simulatedFuelMinutes ?? Number.POSITIVE_INFINITY) < 15,
+      ),
     ).toBe(true);
     expect(
       createScenarioAircraft('emergency').some((aircraft) => aircraft.simulatedEmergency),

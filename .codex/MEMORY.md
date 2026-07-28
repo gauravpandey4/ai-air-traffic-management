@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T20:04:57Z
+- Last updated (UTC): 2026-07-28T20:05:22Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: Commit `984763f` created atomic Checking/External/Simulation transitions, provenance and fallback UI, unavailable-field handling, external CPA limitations, and source-independent weather state.
-- Exact next action: Stage and commit guarded Pages snapshot generation and service-worker freshness controls.
+- Last completed action: Commit `d4e6068` integrated one guarded provider request, retry-only cooldown caching, release gating, and dynamic-snapshot precache exclusion into Pages.
+- Exact next action: Stage and commit the complete external success/failure/freshness/quota/browser test matrix.
 - Blockers: None.
 
 ## Fixed project facts
@@ -170,3 +170,4 @@ Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been e
 - 2026-07-28T20:03:55Z — Corrected focused verification passed 59/59. Final PR 5 validation then passed format/lint/types, 172/172 tests, 95.7/91.91/94.65/96.62 coverage, production build/privacy, 12/12 Chromium, generated precache excluding aircraft JSON, whitespace, and authored-content scan. Production dependency audit is zero; full audit reports only the previously accepted development `brace-expansion` advisory whose offered fix forces incompatible ESLint 10. GitHub auth/repository/default branch passed; no open PRs, deployments, or repository release variable exist.
 - 2026-07-28T20:04:28Z — Commit `c4411e8` (`feat: add validated aircraft snapshot generator`) created after explicit staged-file and whitespace review.
 - 2026-07-28T20:04:57Z — Commit `984763f` (`feat: add atomic external aircraft mode and provenance`) created after explicit staged-file and whitespace review.
+- 2026-07-28T20:05:22Z — Commit `d4e6068` (`ci: integrate guarded aircraft snapshots with Pages`) created after explicit staged-file and whitespace review.
