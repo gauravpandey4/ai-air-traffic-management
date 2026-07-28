@@ -8,6 +8,7 @@ import { ScenarioBrief } from '../components/ScenarioBrief';
 import { SimulationControls } from '../components/SimulationControls';
 import { TrafficMap } from '../components/TrafficMap';
 import { TrafficStatistics } from '../components/TrafficStatistics';
+import { WeatherPanel } from '../components/WeatherPanel';
 
 import { ErrorBoundary } from './ErrorBoundary';
 import { SimulatorProvider } from './SimulatorProvider';
@@ -53,6 +54,7 @@ function Dashboard() {
         <main id="main-content" className="dashboard">
           <ScenarioBrief />
           <TrafficStatistics />
+          <WeatherPanel />
 
           <div className="traffic-layout">
             <TrafficMap />

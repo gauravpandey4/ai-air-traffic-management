@@ -11,8 +11,8 @@ import type {
   DecisionAlert,
   DecisionSupport,
   FuelAssessment,
-  ScenarioId,
   SimulationState,
+  WeatherRisk,
 } from './types';
 
 const severityRank = {
@@ -50,7 +50,7 @@ function createPriorityCandidates(
   aircraft: readonly Aircraft[],
   fuelByAircraftId: Record<string, FuelAssessment>,
   conflicts: readonly ConflictProjection[],
-  scenarioId: ScenarioId,
+  weatherRisk: WeatherRisk,
 ): PriorityCandidate[] {
   return aircraft.reduce<PriorityCandidate[]>((candidates, item, originalIndex) => {
     const fuel = fuelByAircraftId[item.id];
@@ -59,7 +59,8 @@ function createPriorityCandidates(
         aircraft: item,
         fuel,
         conflictSeverity: maximumConflictSeverity(item.id, conflicts),
-        weather: scenarioId === 'severe-weather' ? 'Severe' : 'Normal',
+        weather:
+          weatherRisk === 'Severe' ? 'Severe' : weatherRisk === 'Elevated' ? 'Elevated' : 'Normal',
         estimatedArrivalMinutes: estimatedArrivalMinutes(item, originalIndex),
         originalIndex,
       });
@@ -126,12 +127,12 @@ function createAircraftAlerts(
   });
 }
 
-function createRunways(scenarioId: ScenarioId): RunwayCandidate[] {
+function createRunways(emergencyScenario: boolean): RunwayCandidate[] {
   return [
     {
       id: defaultRegion.runway.id,
       headingDeg: defaultRegion.runway.headingDeg,
-      available: scenarioId !== 'emergency',
+      available: !emergencyScenario,
       queueLength: 2,
     },
     {
@@ -150,7 +151,7 @@ export function deriveDecisionSupport(state: SimulationState): DecisionSupport {
     state.aircraft,
     fuelByAircraftId,
     conflicts,
-    state.scenarioId,
+    state.weatherSnapshot.risk.severity,
   );
   const priority = orderLandingPriority(candidates);
   const firstPriority = priority[0];
@@ -170,9 +171,9 @@ export function deriveDecisionSupport(state: SimulationState): DecisionSupport {
             conflictSeverity: selectedCandidate.conflictSeverity,
             simulatedEmergency: selectedCandidate.aircraft.simulatedEmergency,
           },
-          createRunways(state.scenarioId),
-          state.scenarioId === 'severe-weather' ? 210 : 80,
-          state.scenarioId === 'severe-weather' ? 28 : 8,
+          createRunways(state.scenarioId === 'emergency'),
+          state.weatherSnapshot.current.windDirectionDeg,
+          state.weatherSnapshot.current.windSpeedKt,
         );
   const alerts = [
     ...createConflictAlerts(conflicts),

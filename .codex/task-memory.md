@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T18:36:36Z
+- Last updated (UTC): 2026-07-28T19:17:48Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: PR-creation ledger commit `65aedbb` was pushed and PR `#7` was marked ready at exact head `65aedbb6eaa6d950ad968debb3e184d0f5a9dda7`; GitHub had not registered checks yet.
-- Exact next action: Commit/push this final readiness ledger once, then require exact-head CI and mergeability before squash merge.
+- Last completed action: Commit `1ada4e3` recorded PR creation, was pushed, and PR `#8` was marked ready; Quality passed at that exact head and the PR is MERGEABLE.
+- Exact next action: Commit/push this final readiness record, then wait for Quality on the resulting exact head and independently review PR metadata/comments.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -417,6 +417,69 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T18:36:36Z | Commit | `65aedbb` | `docs: record decision support pull request`; pushed to PR branch |
 | 2026-07-28T18:36:36Z | PR | `#7` | Marked ready at exact head `65aedbb6eaa6d950ad968debb3e184d0f5a9dda7`; checks not yet registered |
 | 2026-07-28T18:36:36Z | Commit | This PR 3 readiness-ledger commit | Final ledger update before exact-head CI polling |
+
+| 2026-07-28T18:37:12Z | Commit | `df9d34e` | `docs: record decision support readiness`; pushed as final PR `#7` head |
+| 2026-07-28T18:37:12Z | Error | PR `#7` immediate check watch | GitHub had not yet registered checks or a branch run for exact head `df9d34e`; transient polling continues with no further branch changes |
+
+| 2026-07-28T18:39:15Z | CI | PR `#7`, run `30388251715` | Quality passed all 12 steps in 1m26s at exact head `df9d34e`; PR CLEAN/MERGEABLE with no comments or reviews |
+
+| 2026-07-28T18:39:46Z | Merge | PR `#7`, `6e222eadf9e070e4f2207bcbd574b9f9d7cabaa1` | Squash merge succeeded with exact-head guard `df9d34e2ef8a67f2142448716f35daaba69fe67f` |
+
+| 2026-07-28T18:40:15Z | Cleanup | `origin/feat/decision-support` | Exact remote branch resolved to merged head `df9d34e` and was deleted after confirmed merge |
+
+| 2026-07-28T18:40:45Z | Cleanup | Local `feat/decision-support` and refreshed `main` | Local branch deleted; `main` fast-forwarded to `6e222ea`; post-merge ledger restored |
+
+| 2026-07-28T18:41:39Z | Check | PR 3 post-merge verification | Full quality suite, 66/66 tests, 8/8 Chromium checks, zero GitHub deployments, and no open pull requests passed |
+
+| 2026-07-28T18:42:05Z | Branch | `feat/weather-integration` | Created from verified PR 3 merge SHA `6e222ea`; PR 4 implementation begins |
+| 2026-07-28T18:42:05Z | Commit | `9d734c1` | `docs: start weather integration work`; records carried PR 3 post-merge ledger |
+
+| 2026-07-28T18:47:54Z | Error | PR 4 first lint run | Six unsafe untrusted-JSON/Reflect assignments and eight deprecated Zod v4 `.finite()` no-ops; explicit unknown narrowing and current schemas selected |
+
+| 2026-07-28T18:48:33Z | Error | PR 4 first strict type run | Forecast maximum-rank reducer inferred the `WeatherRisk` string union rather than a number; explicit numeric accumulator selected |
+
+| 2026-07-28T18:50:31Z | Error | PR 4 weather-test lint | Eight async fetch/JSON fixtures had no await expressions; explicit resolved/rejected promise returns selected |
+| 2026-07-28T18:50:31Z | Error | Combined memory/test update | Patch missed a Prettier-expanded mock and changed no files; retry split by exact file structure |
+
+| 2026-07-28T18:51:47Z | Error | PR 4 first weather coverage suite | 107/108 tests passed; invalid cooldown date yielded `NaN` and escaped expiry comparison, so finite-date validation was added |
+
+| 2026-07-28T18:53:46Z | Error | PR 4 cooldown strict typecheck | Conditional parsing left `retryAtIso` typed as `unknown` at the return; an explicit string guard was selected |
+
+| 2026-07-28T18:55:58Z | Error | PR 4 first provider integration run | 113/115 passed; two exact-text assertions could not match a React source summary split by interpolation, so exact element `textContent` matching was selected |
+
+| 2026-07-28T18:57:49Z | Error | PR 4 first expanded Playwright run | Full non-browser quality and 115/115 tests passed; Playwright passed 9/10 because the fallback query matched its exact badge and longer source summary, so exact matching was selected |
+
+| 2026-07-28T18:59:38Z | Review | PR 4 pending-request state transition | Expanded Playwright passed 10/10; explicit simulated-weather selection did not invalidate a pending observed request, so provider-mediated cancellation and regression coverage were selected |
+
+| 2026-07-28T19:01:59Z | Review | PR 4 manual weather provenance review | Full validation passed with 116/116 tests and 10/10 browser cases; simulated scenario weather showed a misleading roughly 300,000-minute real-world age, so scenario-time wording without real-world age was selected |
+
+| 2026-07-28T19:02:55Z | Error | PR 4 manual browser wait | In-app browser `waitForTimeout` rejected an object argument; the supported numeric timeout passed immediately afterward and the simulated-time wording was verified |
+
+| 2026-07-28T19:03:54Z | Error | PR 4 real Open-Meteo smoke | Provider returned timezone label `GMT` for the requested `UTC`; strict `UTC`-only schema caused safe fallback, so equivalent `UTC`/`GMT` acceptance and regression coverage were selected |
+
+| 2026-07-28T19:05:30Z | Review | PR 4 provider precipitation semantics | GMT handling passed 50 focused tests and a real provider smoke; official docs show hourly precipitation is a preceding-hour sum while current data can use a shorter interval, so matching-hour normalization and explicit average-rate wording were selected |
+
+| 2026-07-28T19:07:15Z | Check | PR 4 final pre-commit validation | 118/118 tests; 95.9/90.71/94.47/96.61 coverage; build, privacy, production audit, 10/10 Chromium, responsive manual review, and real observed/cached Open-Meteo smoke passed; zero deployment actions |
+
+| 2026-07-28T19:07:49Z | Commit | `7026c60` | `feat: add weather schemas cache and source adapter`; staged scope and whitespace review passed |
+
+| 2026-07-28T19:08:16Z | Commit | `c54172d` | `feat: add explainable weather risk and dashboard`; staged scope and whitespace review passed |
+
+| 2026-07-28T19:08:39Z | Commit | `825fe9d` | `test: cover weather thresholds caching and fallback`; staged scope and whitespace review passed |
+
+| 2026-07-28T19:09:03Z | Commit | `5f73472` | `docs: record weather integration validation`; branch clean immediately afterward |
+
+| 2026-07-28T19:09:27Z | Commit | `054ff74` | `docs: record weather integration commits`; exact branch verification begins |
+
+| 2026-07-28T19:10:21Z | Check | Exact PR 4 branch head `d345e2627bfecac230b7291e91e138940d04c1fb` | Full quality, 118/118 tests, 95.9/90.71/94.47/96.61 coverage, build/privacy, 10/10 Chromium, cumulative diff, production audit zero, zero deployments, and no open PRs passed |
+
+| 2026-07-28T19:10:53Z | Commit/Push | `83507fa297b273f868433a2cd3fe1508c722c0af` | Exact verification ledger committed; `feat/weather-integration` pushed with upstream tracking |
+
+| 2026-07-28T19:11:32Z | Commit/Push | `be8d756e4aeec2b1d83960b6280f83ed3b3ccd9d` | `docs: record weather branch publication` pushed successfully |
+
+| 2026-07-28T19:12:10Z | Commit/Push/PR | `9dbc77992fea6de5d35c9b596886c8d0deeccd10`, PR `#8` | Final publication ledger pushed; draft PR created MERGEABLE with Quality queued |
+
+| 2026-07-28T19:17:48Z | Commit/Push/CI | `1ada4e3f2e1f256a311567378776926834b7f5cc`, PR `#8`, run `30390948155` | PR-creation ledger pushed; PR marked ready; Quality passed and PR MERGEABLE |
 
 ## Errors and verification
 
