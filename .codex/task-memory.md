@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T19:17:48Z
+- Last updated (UTC): 2026-07-28T19:21:51Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: Commit `1ada4e3` recorded PR creation, was pushed, and PR `#8` was marked ready; Quality passed at that exact head and the PR is MERGEABLE.
-- Exact next action: Commit/push this final readiness record, then wait for Quality on the resulting exact head and independently review PR metadata/comments.
+- Last completed action: PR 4 post-merge verification passed on main `4b933c5`: full quality, 118/118 tests, 10/10 Chromium, zero deployments, and no open PRs.
+- Exact next action: Create `feat/external-aircraft` from refreshed main, commit the carried ledger, and implement PR 5.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -480,6 +480,12 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T19:12:10Z | Commit/Push/PR | `9dbc77992fea6de5d35c9b596886c8d0deeccd10`, PR `#8` | Final publication ledger pushed; draft PR created MERGEABLE with Quality queued |
 
 | 2026-07-28T19:17:48Z | Commit/Push/CI | `1ada4e3f2e1f256a311567378776926834b7f5cc`, PR `#8`, run `30390948155` | PR-creation ledger pushed; PR marked ready; Quality passed and PR MERGEABLE |
+
+| 2026-07-28T19:20:03Z | CI/Review | PR `#8`, run `30391358186`, exact head `08b83abf5302db3c61317bb841d26c8af6a1141b` | Quality passed in 1m28s; PR CLEAN/MERGEABLE with no comments, reviews, or inline comments; zero deployments |
+
+| 2026-07-28T19:20:50Z | Merge/Cleanup | PR `#8`, merge `4b933c5a2dd4dbfeacfc7633b528360c6f5be8e6` | Squash merge used exact-head guard; remote/local `feat/weather-integration` deleted; clean refreshed main; zero deployments |
+
+| 2026-07-28T19:21:51Z | Check | PR 4 post-merge main `4b933c5a2dd4dbfeacfc7633b528360c6f5be8e6` | Full quality, 118/118 tests, 95.9/90.71/94.47/96.61 coverage, build/privacy, 10/10 Chromium, zero deployments, and no open PRs passed |
 
 ## Errors and verification
 

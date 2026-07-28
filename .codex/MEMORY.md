@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T19:17:48Z
+- Last updated (UTC): 2026-07-28T19:21:51Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: Commit `1ada4e3` recorded PR creation, was pushed, and PR `#8` was marked ready; Quality passed at that exact head and the PR is MERGEABLE.
-- Exact next action: Commit/push this final readiness record, then wait for Quality on the resulting exact head and independently review PR metadata/comments.
+- Last completed action: PR 4 post-merge verification passed on main `4b933c5`: full quality, 118/118 tests, 10/10 Chromium, zero deployments, and no open PRs.
+- Exact next action: Create `feat/external-aircraft` from refreshed main, commit the carried ledger, and implement PR 5.
 - Blockers: None.
 
 ## Fixed project facts
@@ -147,3 +147,6 @@ Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been e
 - 2026-07-28T19:11:32Z — Commit `be8d756` (`docs: record weather branch publication`) was pushed successfully.
 - 2026-07-28T19:12:10Z — Commit `9dbc779` finalized the publication ledger and was pushed; draft PR `#8` was created at exact head `9dbc77992fea6de5d35c9b596886c8d0deeccd10`, MERGEABLE, with Quality queued.
 - 2026-07-28T19:17:48Z — Commit `1ada4e3` recorded PR creation and was pushed; PR `#8` was marked ready. Quality run `30390948155` passed at exact head `1ada4e3f2e1f256a311567378776926834b7f5cc`; PR is MERGEABLE.
+- 2026-07-28T19:20:03Z — Quality run `30391358186` passed in 1m28s at exact head `08b83abf5302db3c61317bb841d26c8af6a1141b`; PR `#8` was CLEAN/MERGEABLE with no comments, reviews, or inline comments and zero deployments.
+- 2026-07-28T19:20:50Z — PR `#8` squash-merged as `4b933c5a2dd4dbfeacfc7633b528360c6f5be8e6` with exact-head guard; GitHub/local cleanup deleted `feat/weather-integration`, main refreshed cleanly, and deployments remain zero.
+- 2026-07-28T19:21:51Z — PR 4 post-merge verification passed on main `4b933c5`: full quality, 118/118 tests, 95.9/90.71/94.47/96.61 coverage, build/privacy, 10/10 Chromium, zero deployments, and no open PRs.
