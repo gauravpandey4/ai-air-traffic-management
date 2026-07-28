@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T18:36:36Z
+- Last updated (UTC): 2026-07-28T18:41:39Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: PR-creation ledger commit `65aedbb` was pushed and PR `#7` was marked ready at exact head `65aedbb6eaa6d950ad968debb3e184d0f5a9dda7`; GitHub had not registered checks yet.
-- Exact next action: Commit/push this final readiness ledger once, then require exact-head CI and mergeability before squash merge.
+- Last completed action: PR 3 post-merge verification passed on refreshed `main`: complete quality suite, 66/66 tests, 8/8 browser cases, deployment count `0`, and open pull-request list `[]`.
+- Exact next action: Create PR 4 branch `feat/weather-integration` from verified merge SHA `6e222eadf9e070e4f2207bcbd574b9f9d7cabaa1` and commit the carried ledger before implementation.
 - Blockers: None.
 
 ## Fixed project facts
@@ -116,3 +116,9 @@ Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been e
 - 2026-07-28T18:36:02Z — This PR-creation ledger will be committed/pushed before PR `#7` is marked ready.
 - 2026-07-28T18:36:36Z — Commit `65aedbb` recorded PR creation and was pushed; PR `#7` marked ready. Check registration is initially empty.
 - 2026-07-28T18:36:36Z — This final readiness ledger will be committed and pushed once before exact-head CI polling.
+- 2026-07-28T18:37:12Z — Commit `df9d34e` recorded readiness and was pushed; immediate `gh pr checks --watch` returned no registered checks and no branch run was listed, so polling continues without further head changes.
+- 2026-07-28T18:39:15Z — Quality run `30388251715` passed all 12 steps at exact head `df9d34e` in 1m26s; PR `#7` is CLEAN/MERGEABLE with no comments or reviews.
+- 2026-07-28T18:39:46Z — PR `#7` squash-merged with expected-head guard; merge commit `6e222eadf9e070e4f2207bcbd574b9f9d7cabaa1`.
+- 2026-07-28T18:40:15Z — Exact remote branch `feat/decision-support` resolved to `df9d34e` and was deleted after confirmed merge.
+- 2026-07-28T18:40:45Z — Refreshed local `main` to merge SHA `6e222ea`, restored the carried ledger, and deleted local PR 3 branch.
+- 2026-07-28T18:41:39Z — PR 3 post-merge verification passed: full quality suite, 66/66 tests, 8/8 Chromium, zero deployments, and no open pull requests.

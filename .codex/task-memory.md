@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T18:36:36Z
+- Last updated (UTC): 2026-07-28T18:41:39Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: PR-creation ledger commit `65aedbb` was pushed and PR `#7` was marked ready at exact head `65aedbb6eaa6d950ad968debb3e184d0f5a9dda7`; GitHub had not registered checks yet.
-- Exact next action: Commit/push this final readiness ledger once, then require exact-head CI and mergeability before squash merge.
+- Last completed action: PR 3 post-merge verification passed on refreshed `main`: complete quality suite, 66/66 tests, 8/8 browser cases, deployment count `0`, and open pull-request list `[]`.
+- Exact next action: Create PR 4 branch `feat/weather-integration` from verified merge SHA `6e222eadf9e070e4f2207bcbd574b9f9d7cabaa1` and commit the carried ledger before implementation.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -417,6 +417,19 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T18:36:36Z | Commit | `65aedbb` | `docs: record decision support pull request`; pushed to PR branch |
 | 2026-07-28T18:36:36Z | PR | `#7` | Marked ready at exact head `65aedbb6eaa6d950ad968debb3e184d0f5a9dda7`; checks not yet registered |
 | 2026-07-28T18:36:36Z | Commit | This PR 3 readiness-ledger commit | Final ledger update before exact-head CI polling |
+
+| 2026-07-28T18:37:12Z | Commit | `df9d34e` | `docs: record decision support readiness`; pushed as final PR `#7` head |
+| 2026-07-28T18:37:12Z | Error | PR `#7` immediate check watch | GitHub had not yet registered checks or a branch run for exact head `df9d34e`; transient polling continues with no further branch changes |
+
+| 2026-07-28T18:39:15Z | CI | PR `#7`, run `30388251715` | Quality passed all 12 steps in 1m26s at exact head `df9d34e`; PR CLEAN/MERGEABLE with no comments or reviews |
+
+| 2026-07-28T18:39:46Z | Merge | PR `#7`, `6e222eadf9e070e4f2207bcbd574b9f9d7cabaa1` | Squash merge succeeded with exact-head guard `df9d34e2ef8a67f2142448716f35daaba69fe67f` |
+
+| 2026-07-28T18:40:15Z | Cleanup | `origin/feat/decision-support` | Exact remote branch resolved to merged head `df9d34e` and was deleted after confirmed merge |
+
+| 2026-07-28T18:40:45Z | Cleanup | Local `feat/decision-support` and refreshed `main` | Local branch deleted; `main` fast-forwarded to `6e222ea`; post-merge ledger restored |
+
+| 2026-07-28T18:41:39Z | Check | PR 3 post-merge verification | Full quality suite, 66/66 tests, 8/8 Chromium checks, zero GitHub deployments, and no open pull requests passed |
 
 ## Errors and verification
 
