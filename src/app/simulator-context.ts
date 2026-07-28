@@ -11,12 +11,14 @@ import type {
 export type SimulatorContextValue = {
   state: SimulationState;
   aircraft: Aircraft[];
-  selectedAircraft: Aircraft;
+  selectedAircraft: Aircraft | null;
   statistics: SimulationStatistics;
   decisionSupport: DecisionSupport;
   simulationTimestamp: string;
   requestObservedWeather: () => Promise<void>;
   selectSimulatedWeather: () => void;
+  requestExternalAircraft: () => Promise<void>;
+  selectSimulatedAircraft: () => void;
   dispatch: Dispatch<SimulationAction>;
 };
 

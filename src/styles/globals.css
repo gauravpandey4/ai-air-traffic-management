@@ -236,6 +236,13 @@ button:hover {
   font-weight: 800;
 }
 
+.playback-controls button:disabled,
+.rate-control button:disabled {
+  cursor: not-allowed;
+  opacity: 0.48;
+  filter: saturate(0.35);
+}
+
 .rate-control button[aria-pressed='true'],
 .map-mode-control button[aria-pressed='true'] {
   border-color: var(--color-cyan);
@@ -248,6 +255,46 @@ button:hover {
   margin: -0.15rem 0 0;
   color: var(--color-muted);
   font-size: 0.72rem;
+}
+
+.aircraft-data-panel {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  gap: var(--space-4);
+  align-items: center;
+  margin-top: var(--space-3);
+  padding: var(--space-4);
+}
+
+.aircraft-data-panel > div:first-child,
+.aircraft-data-actions {
+  display: flex;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.aircraft-data-panel > div:first-child > svg {
+  color: var(--color-cyan);
+}
+
+.aircraft-data-panel h2,
+.aircraft-data-panel p {
+  margin: 0;
+}
+
+.aircraft-data-copy {
+  display: grid;
+  gap: var(--space-1);
+  color: var(--color-muted);
+  font-size: 0.75rem;
+}
+
+.aircraft-data-actions button {
+  display: inline-flex;
+  gap: var(--space-2);
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
 }
 
 .dashboard {
@@ -1303,6 +1350,15 @@ button:hover {
 
   .weather-content {
     grid-template-columns: 1fr;
+  }
+
+  .aircraft-data-panel {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+
+  .aircraft-data-actions {
+    flex-wrap: wrap;
   }
 
   .aircraft-table {

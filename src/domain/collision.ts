@@ -17,6 +17,7 @@ type Track = Pick<
   | 'groundSpeedKt'
   | 'headingDeg'
   | 'verticalRateFpm'
+  | 'source'
 >;
 
 type Vector = { east: number; north: number };
@@ -82,6 +83,7 @@ export function classifyConflict(
 export function projectConflict(first: Track, second: Track): ConflictProjection {
   const id = [first.id, second.id].sort().join(':');
   const callsigns = [first.callsign, second.callsign] as const;
+  const external = first.source.mode === 'External' || second.source.mode === 'External';
   const common = {
     id,
     aircraftIds: [first.id, second.id] as const,
@@ -97,7 +99,9 @@ export function projectConflict(first: Track, second: Track): ConflictProjection
       verticalSeparationFt: null,
       explanation: {
         facts: [`Tracks: ${first.callsign} and ${second.callsign}`],
-        source: 'FutureATC derived from simulated tracks',
+        source: external
+          ? 'FutureATC educational geometric projection from an adsb.fi near-live snapshot'
+          : 'FutureATC derived from simulated tracks',
         rule: 'CPA requires finite position, altitude, speed, heading, and vertical-rate values.',
         result: 'Insufficient data',
         factors: ['At least one required kinematic value is missing or invalid.'],
@@ -163,7 +167,9 @@ export function projectConflict(first: Track, second: Track): ConflictProjection
         `Projected horizontal separation ${horizontalSeparationNm.toFixed(1)} NM`,
         `Projected vertical separation ${Math.round(verticalSeparationFt).toLocaleString()} ft`,
       ],
-      source: 'FutureATC educational geometric projection from simulated tracks',
+      source: external
+        ? 'FutureATC educational geometric projection from an adsb.fi near-live snapshot'
+        : 'FutureATC educational geometric projection from simulated tracks',
       rule: '10-minute constant-velocity CPA; Critical <5 NM and <1,000 ft, Warning <8 NM and <2,000 ft, Monitor <12 NM and <3,000 ft.',
       result: `${severity} projected separation`,
       factors: [
@@ -171,8 +177,9 @@ export function projectConflict(first: Track, second: Track): ConflictProjection
           ? 'Relative speed is effectively zero; current separation is used.'
           : 'Relative position and velocity are projected to the clamped closest point.',
       ],
-      limitation:
-        'Educational simplification: omits intent, clearances, turns, winds, surveillance quality, aircraft performance, and certified separation logic.',
+      limitation: external
+        ? 'Educational geometry only: incomplete public snapshot data cannot establish actual collision danger; intent, latency, quality, turns, winds, and certified logic are omitted.'
+        : 'Educational simplification: omits intent, clearances, turns, winds, surveillance quality, aircraft performance, and certified separation logic.',
       humanAction: 'A human controller must verify authoritative data and decide any action.',
     },
   };

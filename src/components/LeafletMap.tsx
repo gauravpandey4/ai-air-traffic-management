@@ -7,7 +7,7 @@ import type { Aircraft } from '../domain/types';
 
 type LeafletMapProps = {
   aircraft: readonly Aircraft[];
-  selectedAircraftId: string;
+  selectedAircraftId: string | null;
   onSelect: (aircraftId: string) => void;
   onUnavailable: (reason: string) => void;
 };

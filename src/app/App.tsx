@@ -2,6 +2,7 @@ import { BookOpen, Plane, ShieldCheck, WifiOff } from 'lucide-react';
 
 import { defaultRegion } from '../config/regions';
 import { AircraftDetail } from '../components/AircraftDetail';
+import { AircraftDataPanel } from '../components/AircraftDataPanel';
 import { AircraftList } from '../components/AircraftList';
 import { DecisionSupportPanels } from '../components/DecisionSupport';
 import { ScenarioBrief } from '../components/ScenarioBrief';
@@ -34,7 +35,13 @@ function Dashboard() {
             </div>
           </div>
           <div className="status-cluster" aria-label="System status">
-            <span className="status-badge status-badge--simulation">Simulated data</span>
+            <span className="status-badge status-badge--simulation">
+              {state.aircraftMode === 'External Active'
+                ? 'Near-live aircraft snapshot'
+                : state.aircraftMode === 'Checking'
+                  ? 'Checking aircraft snapshot'
+                  : 'Simulated data'}
+            </span>
             <span className="status-badge status-badge--ready">
               {state.isPlaying ? 'Simulation running' : 'Simulation paused'}
             </span>
@@ -50,6 +57,7 @@ function Dashboard() {
         </aside>
 
         <SimulationControls />
+        <AircraftDataPanel />
 
         <main id="main-content" className="dashboard">
           <ScenarioBrief />

@@ -16,6 +16,31 @@ export function classifyFuel(enduranceMinutes: number): FuelState {
 }
 
 export function assessFuel(aircraft: Aircraft, simulationElapsedSeconds: number): FuelAssessment {
+  if (
+    aircraft.initialFuelKg === null ||
+    aircraft.fuelBurnKgPerHour === null ||
+    aircraft.elapsedFlightMinutes === null
+  ) {
+    return {
+      aircraftId: aircraft.id,
+      state: 'Unavailable',
+      remainingFuelKg: 0,
+      enduranceMinutes: Number.POSITIVE_INFINITY,
+      burnKgPerHour: 0,
+      explanation: {
+        facts: ['Fuel quantity, burn rate, endurance, and aircraft intent are unavailable.'],
+        source:
+          aircraft.source.mode === 'External'
+            ? 'adsb.fi public near-live aircraft snapshot'
+            : 'FutureATC simulation input',
+        rule: 'No fuel state is inferred without explicit simulated fuel inputs.',
+        result: 'Unavailable fuel',
+        factors: ['No measured fuel is supplied by the public aircraft source.'],
+        limitation: 'Public ADS-B-derived snapshots do not include measured aircraft fuel.',
+        humanAction: 'A human controller would verify crew reports and operational fuel data.',
+      },
+    };
+  }
   const totalElapsedHours = (aircraft.elapsedFlightMinutes + simulationElapsedSeconds / 60) / 60;
   const remainingFuelKg = Math.max(
     0,

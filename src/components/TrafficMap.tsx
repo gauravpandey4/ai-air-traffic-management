@@ -64,6 +64,7 @@ export function TrafficMap() {
           <SchematicMap
             aircraft={aircraft}
             selectedAircraftId={state.selectedAircraftId}
+            external={state.aircraftMode === 'External Active'}
             onSelect={selectAircraft}
           />
         )}

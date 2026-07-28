@@ -12,6 +12,7 @@ import {
   deriveDecisionSupport,
 } from '../domain/decision-support';
 import { loadObservedWeather } from '../domain/weather-client';
+import { loadAircraftSnapshot } from '../domain/aircraft-snapshot-client';
 
 import { SimulatorContext } from './simulator-context';
 
@@ -20,6 +21,7 @@ export function SimulatorProvider({ children }: { children: ReactNode }) {
     createInitialSimulationState(),
   );
   const weatherRequestIdRef = useRef(0);
+  const aircraftRequestIdRef = useRef(0);
 
   useEffect(() => {
     if (!state.isPlaying) {
@@ -37,7 +39,32 @@ export function SimulatorProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     weatherRequestIdRef.current += 1;
+    aircraftRequestIdRef.current += 1;
   }, [state.scenarioId]);
+
+  useEffect(() => {
+    const snapshot = state.externalSnapshot;
+    const fetchedAt = snapshot?.fetchedAt;
+    if (
+      state.aircraftMode !== 'External Active' ||
+      snapshot === null ||
+      fetchedAt === null ||
+      fetchedAt === undefined
+    ) {
+      return undefined;
+    }
+    const expiresAt = Date.parse(fetchedAt) + snapshot.freshForMinutes * 60_000 - Date.now();
+    if (expiresAt <= 0) {
+      dispatch({ type: 'external-snapshot-expired' });
+      return undefined;
+    }
+    const timeout = window.setTimeout(() => {
+      dispatch({ type: 'external-snapshot-expired' });
+    }, expiresAt);
+    return () => {
+      window.clearTimeout(timeout);
+    };
+  }, [state.aircraftMode, state.externalSnapshot]);
 
   const requestObservedWeather = useCallback(async () => {
     const requestId = weatherRequestIdRef.current + 1;
@@ -75,11 +102,46 @@ export function SimulatorProvider({ children }: { children: ReactNode }) {
     dispatch({ type: 'weather-simulation-selected' });
   }, []);
 
+  const requestExternalAircraft = useCallback(async () => {
+    const requestId = aircraftRequestIdRef.current + 1;
+    aircraftRequestIdRef.current = requestId;
+    dispatch({ type: 'external-check-requested' });
+    if (!navigator.onLine) {
+      dispatch({
+        type: 'external-fallback',
+        reason: 'Browser is offline.',
+        retryAtIso: null,
+      });
+      return;
+    }
+    const result = await loadAircraftSnapshot();
+    if (aircraftRequestIdRef.current !== requestId) return;
+    if (result.kind === 'success') {
+      dispatch({
+        type: 'external-loaded',
+        snapshot: result.snapshot,
+        aircraft: result.aircraft,
+      });
+    } else {
+      dispatch({
+        type: 'external-fallback',
+        reason: result.reason,
+        retryAtIso: result.retryAtIso,
+      });
+    }
+  }, []);
+
+  const selectSimulatedAircraft = useCallback(() => {
+    aircraftRequestIdRef.current += 1;
+    dispatch({ type: 'external-simulation-selected' });
+  }, []);
+
   const value = useMemo(() => {
     const decisionSupport = deriveDecisionSupport(state);
     const aircraft = decorateAircraftForDecisionSupport(state.aircraft, decisionSupport);
     const selectedAircraft =
-      aircraft.find((item) => item.id === state.selectedAircraftId) ?? getSelectedAircraft(state);
+      aircraft.find((item) => item.id === state.selectedAircraftId) ??
+      getSelectedAircraft({ ...state, aircraft });
     return {
       state,
       aircraft,
@@ -89,9 +151,17 @@ export function SimulatorProvider({ children }: { children: ReactNode }) {
       simulationTimestamp: getSimulationTimestamp(state),
       requestObservedWeather,
       selectSimulatedWeather,
+      requestExternalAircraft,
+      selectSimulatedAircraft,
       dispatch,
     };
-  }, [requestObservedWeather, selectSimulatedWeather, state]);
+  }, [
+    requestExternalAircraft,
+    requestObservedWeather,
+    selectSimulatedAircraft,
+    selectSimulatedWeather,
+    state,
+  ]);
 
   return <SimulatorContext.Provider value={value}>{children}</SimulatorContext.Provider>;
 }
