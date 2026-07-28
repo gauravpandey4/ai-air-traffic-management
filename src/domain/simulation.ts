@@ -3,6 +3,7 @@ import { defaultRegion } from '../config/regions';
 import { createScenarioAircraft, scenarios } from './scenarios';
 import type {
   Aircraft,
+  FuelAssessment,
   PlaybackRate,
   ScenarioId,
   SimulationBounds,
@@ -17,6 +18,13 @@ export type SimulationAction =
   | { type: 'simulation-reset' }
   | { type: 'simulation-ticked'; seconds: number }
   | { type: 'aircraft-selected'; aircraftId: string }
+  | { type: 'alert-acknowledged'; alertId: string }
+  | {
+      type: 'recommendation-reviewed';
+      recommendationId: string;
+      decision: 'Confirmed in simulation' | 'Rejected in simulation';
+    }
+  | { type: 'selected-emergency-toggled' }
   | { type: 'map-mode-selected'; mapMode: 'schematic' | 'connected' }
   | { type: 'map-unavailable'; reason: string };
 
@@ -67,6 +75,8 @@ export function createInitialSimulationState(
     elapsedSeconds: 0,
     mapMode: 'schematic',
     mapStatus: 'Local schematic active — no network or map tiles required.',
+    acknowledgedAlertIds: [],
+    reviewDecisions: {},
   };
 }
 
@@ -102,6 +112,44 @@ export function simulationReducer(
       return state.aircraft.some((aircraft) => aircraft.id === action.aircraftId)
         ? { ...state, selectedAircraftId: action.aircraftId }
         : state;
+    case 'alert-acknowledged':
+      return state.acknowledgedAlertIds.includes(action.alertId)
+        ? state
+        : {
+            ...state,
+            acknowledgedAlertIds: [...state.acknowledgedAlertIds, action.alertId],
+          };
+    case 'recommendation-reviewed':
+      return {
+        ...state,
+        reviewDecisions: {
+          ...state.reviewDecisions,
+          [action.recommendationId]: action.decision,
+        },
+      };
+    case 'selected-emergency-toggled':
+      return {
+        ...state,
+        aircraft: state.aircraft.map((aircraft) =>
+          aircraft.id === state.selectedAircraftId
+            ? {
+                ...aircraft,
+                simulatedEmergency: !aircraft.simulatedEmergency,
+                severity: aircraft.simulatedEmergency
+                  ? aircraft.simulatedFuelMinutes < 15
+                    ? 'Critical'
+                    : aircraft.simulatedFuelMinutes < 30
+                      ? 'Warning'
+                      : 'Normal'
+                  : 'Critical',
+                status: aircraft.simulatedEmergency
+                  ? 'Simulated emergency cleared'
+                  : 'Declared simulated emergency',
+              }
+            : aircraft,
+        ),
+        reviewDecisions: {},
+      };
     case 'map-mode-selected':
       return {
         ...state,
@@ -128,7 +176,10 @@ export function getSelectedAircraft(state: SimulationState): Aircraft {
   return aircraft;
 }
 
-export function deriveSimulationStatistics(aircraft: readonly Aircraft[]): SimulationStatistics {
+export function deriveSimulationStatistics(
+  aircraft: readonly Aircraft[],
+  fuelByAircraftId?: Readonly<Record<string, FuelAssessment>>,
+): SimulationStatistics {
   const totalAircraft = aircraft.length;
   if (totalAircraft === 0) {
     return {
@@ -155,7 +206,12 @@ export function deriveSimulationStatistics(aircraft: readonly Aircraft[]): Simul
     airborneAircraft: aircraft.filter((item) => item.altitudeFt > 0).length,
     arrivals: aircraft.filter((item) => item.phase === 'Arrival').length,
     emergencies: aircraft.filter((item) => item.simulatedEmergency).length,
-    lowFuelAircraft: aircraft.filter((item) => item.simulatedFuelMinutes < 30).length,
+    lowFuelAircraft: aircraft.filter((item) => {
+      const state = fuelByAircraftId?.[item.id]?.state;
+      return state === undefined
+        ? item.simulatedFuelMinutes < 30
+        : state === 'Low' || state === 'Critical';
+    }).length,
     averageAltitudeFt: Math.round(totals.altitudeFt / totalAircraft),
     averageGroundSpeedKt: Math.round(totals.groundSpeedKt / totalAircraft),
   };
