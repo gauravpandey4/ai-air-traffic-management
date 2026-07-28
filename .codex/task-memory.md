@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T21:13:00Z
+- Last updated (UTC): 2026-07-28T21:13:30Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: Commit `d31fc2a` recorded the publication guard and the new remote `test/release-hardening` branch was pushed with upstream.
-- Exact next action: Commit/push this exact branch-publication ledger, then open PR 7 as draft and wait for exact-head Quality.
+- Last completed action: Commit `40934db` recorded the branch push; draft PR `#11` was opened at that exact head with no deployment.
+- Exact next action: Commit/push the PR ledger, mark PR `#11` ready, verify exact local/remote/PR head, and wait for exact-head Quality.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -585,6 +585,7 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T21:12:15Z | Commit | `6e0bbbf` | Exact PR 7 local release-gate evidence made durable |
 | 2026-07-28T21:12:30Z | Review/Deployment guard | Clean PR 7 branch `6e0bbbf` | Format/privacy/cumulative diff, expected scope, commit trailers, tracked-PDF check, core dependency licences, no open PRs/deployments/variables all passed; publication allowed without Pages |
 | 2026-07-28T21:13:00Z | Commit/Push | `d31fc2a`, `test/release-hardening` | Publication guard committed; new remote branch pushed with upstream; no deployment invoked |
+| 2026-07-28T21:13:30Z | Commit/Push/PR | `40934db`, PR `#11` | Branch-push ledger pushed; draft PR opened at exact head `40934dbdd082cba0bc6ac8dcd786a21b20396409`; no deployment |
 
 ## Errors and verification
 
