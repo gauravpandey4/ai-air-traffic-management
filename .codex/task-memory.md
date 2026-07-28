@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T20:05:49Z
+- Last updated (UTC): 2026-07-28T20:06:21Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: Commit `f474ca0` added the external provider/client/state/integration/browser/release-guard test matrix after staged scope/whitespace review.
-- Exact next action: Commit this final local ledger update, then verify the exact branch head before publication.
+- Last completed action: Commit `9732d9c` recorded final local PR 5 validation and left the implementation branch clean.
+- Exact next action: Commit this commit ledger, then run exact-head full validation before publication.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -520,6 +520,7 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T20:04:57Z | Commit | `984763f` | `feat: add atomic external aircraft mode and provenance`; explicit staged scope and whitespace review passed |
 | 2026-07-28T20:05:22Z | Commit | `d4e6068` | `ci: integrate guarded aircraft snapshots with Pages`; explicit staged scope and whitespace review passed |
 | 2026-07-28T20:05:49Z | Commit | `f474ca0` | `test: cover external success freshness quotas and fallback`; explicit staged scope and whitespace review passed |
+| 2026-07-28T20:06:21Z | Commit | `9732d9c` | `docs: record external aircraft validation`; branch clean immediately afterward |
 
 ## Errors and verification
 
