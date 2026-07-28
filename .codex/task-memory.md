@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T18:41:39Z
+- Last updated (UTC): 2026-07-28T19:08:39Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: PR 3 post-merge verification passed on refreshed `main`: complete quality suite, 66/66 tests, 8/8 browser cases, deployment count `0`, and open pull-request list `[]`.
-- Exact next action: Create PR 4 branch `feat/weather-integration` from verified merge SHA `6e222eadf9e070e4f2207bcbd574b9f9d7cabaa1` and commit the carried ledger before implementation.
+- Last completed action: Commit `825fe9d` (`test: cover weather thresholds caching and fallback`) created after staged scope and whitespace review.
+- Exact next action: Commit the PR 4 validation ledger, rerun the exact branch quality/browser/diff review, and publish.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -430,6 +430,42 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T18:40:45Z | Cleanup | Local `feat/decision-support` and refreshed `main` | Local branch deleted; `main` fast-forwarded to `6e222ea`; post-merge ledger restored |
 
 | 2026-07-28T18:41:39Z | Check | PR 3 post-merge verification | Full quality suite, 66/66 tests, 8/8 Chromium checks, zero GitHub deployments, and no open pull requests passed |
+
+| 2026-07-28T18:42:05Z | Branch | `feat/weather-integration` | Created from verified PR 3 merge SHA `6e222ea`; PR 4 implementation begins |
+| 2026-07-28T18:42:05Z | Commit | `9d734c1` | `docs: start weather integration work`; records carried PR 3 post-merge ledger |
+
+| 2026-07-28T18:47:54Z | Error | PR 4 first lint run | Six unsafe untrusted-JSON/Reflect assignments and eight deprecated Zod v4 `.finite()` no-ops; explicit unknown narrowing and current schemas selected |
+
+| 2026-07-28T18:48:33Z | Error | PR 4 first strict type run | Forecast maximum-rank reducer inferred the `WeatherRisk` string union rather than a number; explicit numeric accumulator selected |
+
+| 2026-07-28T18:50:31Z | Error | PR 4 weather-test lint | Eight async fetch/JSON fixtures had no await expressions; explicit resolved/rejected promise returns selected |
+| 2026-07-28T18:50:31Z | Error | Combined memory/test update | Patch missed a Prettier-expanded mock and changed no files; retry split by exact file structure |
+
+| 2026-07-28T18:51:47Z | Error | PR 4 first weather coverage suite | 107/108 tests passed; invalid cooldown date yielded `NaN` and escaped expiry comparison, so finite-date validation was added |
+
+| 2026-07-28T18:53:46Z | Error | PR 4 cooldown strict typecheck | Conditional parsing left `retryAtIso` typed as `unknown` at the return; an explicit string guard was selected |
+
+| 2026-07-28T18:55:58Z | Error | PR 4 first provider integration run | 113/115 passed; two exact-text assertions could not match a React source summary split by interpolation, so exact element `textContent` matching was selected |
+
+| 2026-07-28T18:57:49Z | Error | PR 4 first expanded Playwright run | Full non-browser quality and 115/115 tests passed; Playwright passed 9/10 because the fallback query matched its exact badge and longer source summary, so exact matching was selected |
+
+| 2026-07-28T18:59:38Z | Review | PR 4 pending-request state transition | Expanded Playwright passed 10/10; explicit simulated-weather selection did not invalidate a pending observed request, so provider-mediated cancellation and regression coverage were selected |
+
+| 2026-07-28T19:01:59Z | Review | PR 4 manual weather provenance review | Full validation passed with 116/116 tests and 10/10 browser cases; simulated scenario weather showed a misleading roughly 300,000-minute real-world age, so scenario-time wording without real-world age was selected |
+
+| 2026-07-28T19:02:55Z | Error | PR 4 manual browser wait | In-app browser `waitForTimeout` rejected an object argument; the supported numeric timeout passed immediately afterward and the simulated-time wording was verified |
+
+| 2026-07-28T19:03:54Z | Error | PR 4 real Open-Meteo smoke | Provider returned timezone label `GMT` for the requested `UTC`; strict `UTC`-only schema caused safe fallback, so equivalent `UTC`/`GMT` acceptance and regression coverage were selected |
+
+| 2026-07-28T19:05:30Z | Review | PR 4 provider precipitation semantics | GMT handling passed 50 focused tests and a real provider smoke; official docs show hourly precipitation is a preceding-hour sum while current data can use a shorter interval, so matching-hour normalization and explicit average-rate wording were selected |
+
+| 2026-07-28T19:07:15Z | Check | PR 4 final pre-commit validation | 118/118 tests; 95.9/90.71/94.47/96.61 coverage; build, privacy, production audit, 10/10 Chromium, responsive manual review, and real observed/cached Open-Meteo smoke passed; zero deployment actions |
+
+| 2026-07-28T19:07:49Z | Commit | `7026c60` | `feat: add weather schemas cache and source adapter`; staged scope and whitespace review passed |
+
+| 2026-07-28T19:08:16Z | Commit | `c54172d` | `feat: add explainable weather risk and dashboard`; staged scope and whitespace review passed |
+
+| 2026-07-28T19:08:39Z | Commit | `825fe9d` | `test: cover weather thresholds caching and fallback`; staged scope and whitespace review passed |
 
 ## Errors and verification
 
