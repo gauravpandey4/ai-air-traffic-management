@@ -5,7 +5,8 @@ import { useSimulator } from '../app/simulator-context';
 const formatNumber = new Intl.NumberFormat('en-IN');
 
 export function TrafficStatistics() {
-  const { statistics, decisionSupport } = useSimulator();
+  const { state, statistics, decisionSupport } = useSimulator();
+  const external = state.aircraftMode === 'External Active';
   const items = [
     {
       label: 'Aircraft',
@@ -15,8 +16,8 @@ export function TrafficStatistics() {
     },
     {
       label: 'Arrivals',
-      value: formatNumber.format(statistics.arrivals),
-      detail: 'Current simulated dataset',
+      value: external ? 'Unavailable' : formatNumber.format(statistics.arrivals),
+      detail: external ? 'Intent not supplied by snapshot' : 'Current simulated dataset',
       icon: Navigation,
     },
     {
@@ -33,8 +34,8 @@ export function TrafficStatistics() {
     },
     {
       label: 'Fuel review',
-      value: formatNumber.format(statistics.lowFuelAircraft),
-      detail: 'Below 30 min estimated endurance',
+      value: external ? 'Unavailable' : formatNumber.format(statistics.lowFuelAircraft),
+      detail: external ? 'Fuel not supplied by snapshot' : 'Below 30 min estimated endurance',
       icon: Waypoints,
     },
     {
@@ -45,14 +46,19 @@ export function TrafficStatistics() {
     },
     {
       label: 'Emergencies',
-      value: formatNumber.format(statistics.emergencies),
-      detail: 'Declared simulated events',
+      value: external ? 'Unavailable' : formatNumber.format(statistics.emergencies),
+      detail: external ? 'Operational status not inferred' : 'Declared simulated events',
       icon: Siren,
     },
   ] as const;
 
   return (
-    <section className="statistics-grid" aria-label="Current simulation statistics">
+    <section
+      className="statistics-grid"
+      aria-label={
+        external ? 'Current external snapshot statistics' : 'Current simulation statistics'
+      }
+    >
       {items.map(({ label, value, detail, icon: Icon }) => (
         <article className="stat-card" key={label}>
           <Icon aria-hidden="true" size={18} />

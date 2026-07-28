@@ -173,7 +173,7 @@ function applyScenarioOverrides(scenarioId: ScenarioId, aircraft: Aircraft[]): A
             ...item,
             simulatedFuelMinutes: 12,
             initialFuelKg: round(
-              (item.fuelBurnKgPerHour * (item.elapsedFlightMinutes + 12)) / 60,
+              ((item.fuelBurnKgPerHour ?? 0) * ((item.elapsedFlightMinutes ?? 0) + 12)) / 60,
               1,
             ),
             severity: 'Warning',
@@ -184,7 +184,7 @@ function applyScenarioOverrides(scenarioId: ScenarioId, aircraft: Aircraft[]): A
               ...item,
               simulatedFuelMinutes: 24,
               initialFuelKg: round(
-                (item.fuelBurnKgPerHour * (item.elapsedFlightMinutes + 24)) / 60,
+                ((item.fuelBurnKgPerHour ?? 0) * ((item.elapsedFlightMinutes ?? 0) + 24)) / 60,
                 1,
               ),
               severity: 'Monitor',

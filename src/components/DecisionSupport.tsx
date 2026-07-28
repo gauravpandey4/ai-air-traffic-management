@@ -265,27 +265,37 @@ export function HumanReviewPanel() {
             Reject simulation
           </button>
         </div>
-        <div className="emergency-control">
-          <Siren aria-hidden="true" size={18} />
-          <div>
-            <strong>{selectedAircraft.callsign}</strong>
-            <p>
+        {selectedAircraft === null ? (
+          <p className="empty-decision-state">No aircraft is available for simulated review.</p>
+        ) : (
+          <div className="emergency-control">
+            <Siren aria-hidden="true" size={18} />
+            <div>
+              <strong>{selectedAircraft.callsign}</strong>
+              <p>
+                {state.aircraftMode === 'External Active'
+                  ? 'Emergency state unavailable for external snapshots.'
+                  : selectedAircraft.simulatedEmergency
+                    ? 'A simulated emergency is active.'
+                    : 'No simulated emergency is active.'}
+              </p>
+            </div>
+            <button
+              type="button"
+              disabled={state.aircraftMode === 'External Active'}
+              onClick={() => dispatch({ type: 'selected-emergency-toggled' })}
+            >
+              {selectedAircraft.simulatedEmergency ? (
+                <RotateCcw aria-hidden="true" size={16} />
+              ) : (
+                <Fuel aria-hidden="true" size={16} />
+              )}
               {selectedAircraft.simulatedEmergency
-                ? 'A simulated emergency is active.'
-                : 'No simulated emergency is active.'}
-            </p>
+                ? 'Clear simulated emergency'
+                : 'Declare simulated emergency'}
+            </button>
           </div>
-          <button type="button" onClick={() => dispatch({ type: 'selected-emergency-toggled' })}>
-            {selectedAircraft.simulatedEmergency ? (
-              <RotateCcw aria-hidden="true" size={16} />
-            ) : (
-              <Fuel aria-hidden="true" size={16} />
-            )}
-            {selectedAircraft.simulatedEmergency
-              ? 'Clear simulated emergency'
-              : 'Declare simulated emergency'}
-          </button>
-        </div>
+        )}
         <p className="module-note">
           These controls update browser-only educational state. They do not issue a clearance,
           contact an aircraft, or affect any external system.

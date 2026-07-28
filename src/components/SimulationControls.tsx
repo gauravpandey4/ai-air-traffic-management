@@ -9,6 +9,7 @@ const playbackRates: readonly PlaybackRate[] = [1, 2, 4];
 
 export function SimulationControls() {
   const { state, dispatch } = useSimulator();
+  const simulationControlsEnabled = state.aircraftMode === 'Simulation';
 
   return (
     <section className="control-strip" aria-label="Simulation controls">
@@ -41,6 +42,7 @@ export function SimulationControls() {
         <button
           className="primary-action"
           type="button"
+          disabled={!simulationControlsEnabled}
           aria-pressed={state.isPlaying}
           onClick={() => dispatch({ type: 'playback-toggled' })}
         >
@@ -68,6 +70,7 @@ export function SimulationControls() {
             <button
               type="button"
               key={rate}
+              disabled={!simulationControlsEnabled}
               aria-pressed={state.playbackRate === rate}
               onClick={() => dispatch({ type: 'playback-rate-selected', playbackRate: rate })}
             >

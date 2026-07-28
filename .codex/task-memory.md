@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T19:17:48Z
+- Last updated (UTC): 2026-07-28T20:10:04Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: Commit `1ada4e3` recorded PR creation, was pushed, and PR `#8` was marked ready; Quality passed at that exact head and the PR is MERGEABLE.
-- Exact next action: Commit/push this final readiness record, then wait for Quality on the resulting exact head and independently review PR metadata/comments.
+- Last completed action: Connector-fallback ledger commit `d747242` was pushed; draft PR `#9` was created with authenticated `gh`, is MERGEABLE, and Quality is in progress at that head.
+- Exact next action: Commit/push this PR ledger, mark PR `#9` ready, and wait for exact-head Quality.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -480,6 +480,51 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T19:12:10Z | Commit/Push/PR | `9dbc77992fea6de5d35c9b596886c8d0deeccd10`, PR `#8` | Final publication ledger pushed; draft PR created MERGEABLE with Quality queued |
 
 | 2026-07-28T19:17:48Z | Commit/Push/CI | `1ada4e3f2e1f256a311567378776926834b7f5cc`, PR `#8`, run `30390948155` | PR-creation ledger pushed; PR marked ready; Quality passed and PR MERGEABLE |
+
+| 2026-07-28T19:20:03Z | CI/Review | PR `#8`, run `30391358186`, exact head `08b83abf5302db3c61317bb841d26c8af6a1141b` | Quality passed in 1m28s; PR CLEAN/MERGEABLE with no comments, reviews, or inline comments; zero deployments |
+
+| 2026-07-28T19:20:50Z | Merge/Cleanup | PR `#8`, merge `4b933c5a2dd4dbfeacfc7633b528360c6f5be8e6` | Squash merge used exact-head guard; remote/local `feat/weather-integration` deleted; clean refreshed main; zero deployments |
+
+| 2026-07-28T19:21:51Z | Check | PR 4 post-merge main `4b933c5a2dd4dbfeacfc7633b528360c6f5be8e6` | Full quality, 118/118 tests, 95.9/90.71/94.47/96.61 coverage, build/privacy, 10/10 Chromium, zero deployments, and no open PRs passed |
+
+| 2026-07-28T19:22:25Z | Branch/Commit/Source review | `feat/external-aircraft`, `0340bc8` | Created from verified main; PR 4 ledger committed; official adsb.fi v3 endpoint, one-request/second limit, personal non-commercial terms, attribution, and no-warranty limits reconfirmed |
+
+| 2026-07-28T19:27:22Z | Error | PR 5 first lint | 25 errors from deprecated Zod passthrough, shorthand void timeout, nullable fuel arithmetic, and cascading unsafe types; loose objects, explicit braces, fuel-unavailable narrowing, and safe simulated overrides selected |
+
+| 2026-07-28T19:29:01Z | Error | PR 5 second lint/direct Node types | 17 cascading unsafe types remained; NodeNext could not traverse extensionless browser-domain imports from the script, so bundler resolution matching Vite/tsx was selected |
+
+| 2026-07-28T19:33:21Z | Error | PR 5 first full strict typecheck | Lint passed; nullable effect closure and exact-optional explicit undefined unit failed, so local snapshot capture and explicit undefined allowance were selected |
+
+| 2026-07-28T19:37:50Z | Error | PR 5 first external test run | Lint stopped with 95 errors from missing Vitest globals in Node tests and eight forbidden fixture non-null assertions; Node Vitest types and checked accessors selected |
+
+| 2026-07-28T19:38:56Z | Error | PR 5 second external-test lint | One unsafe nested asymmetric matcher remained in the script request-header assertion; typed captured arguments selected |
+| 2026-07-28T19:41:05Z | Error | PR 5 first coverage run | Lint/types passed and 163/164 tests passed; one assertion assumed the external callsign had a single rendering although four intentional renderings were present |
+| 2026-07-28T19:42:16Z | Error | PR 5 second coverage run | 160/164 tests passed; remaining failures were the same test-only ambiguity across simulated-callsign presence assertions because five intentional renderings exist |
+| 2026-07-28T19:42:52Z | Error | PR 5 third coverage run | 163/164 tests passed; the remaining assertion incorrectly assumed definition-list term/value were direct siblings rather than sharing a detail-item parent |
+| 2026-07-28T19:45:41Z | Check/Implementation | PR 5 complete pre-browser suite | Lint/types and 164/164 tests passed at 95.85/91.9/94.56/96.83 coverage; browser success/empty/expiry and external geometric-CPA limitation coverage added |
+| 2026-07-28T19:46:37Z | Error/Check | PR 5 expanded Chromium | Quality/build/privacy and 165/165 tests passed; 11/12 Chromium passed, with trace confirming expiry restored Simulation while the test expected “became stale” instead of actual “is stale” text |
+| 2026-07-28T19:51:08Z | Check | PR 5 expanded Chromium rerun | 12/12 cases passed, including atomic external success, valid empty state, and real active-expiry timer |
+| 2026-07-28T19:51:08Z | Provider smoke | adsb.fi regional-v3 Lucknow request | Exactly one request returned HTTP 200 and normalized to available/valid with 3 records; payload was not logged or committed |
+| 2026-07-28T19:51:08Z | Error/Review | PR 5 manual browser setup and external view | Unsupported `networkidle`, non-navigating tab creation, unavailable page-world fetch injection, and duplicate region naming were encountered; direct navigation and a local built fixture worked, and external-context wording, distinct region names, and disabled-control styling were selected |
+| 2026-07-28T19:52:34Z | Finding | PR 5 service-worker freshness review | Manual reload timed out despite the preview serving the replaced snapshot; generated Workbox precache included dynamic `data/aircraft-snapshot.json`, which was safe-stale but could hide a newly published snapshot, so a targeted precache exclusion and regression test were selected |
+| 2026-07-28T19:59:30Z | Check | PR 5 service-worker/manual review | Targeted guard/build passed; precache dropped from 14 to 13 with dynamic JSON absent; fresh-origin external view had distinct regions, disabled playback, attribution, and zero overflow |
+| 2026-07-28T19:59:30Z | Finding/Fix | PR 5 state-machine review | External load could inherit running playback and aircraft fallback/expiry reset independent observed weather; activation now pauses, Checking always uses Simulation, late results are ignored, and weather provenance is preserved |
+| 2026-07-28T19:59:30Z | Finding/Fix | PR 5 validation/storage review | Published records lacked cross-field observation-age checks and cooldown cache retained whole snapshots; timestamp consistency/age validation and retry-only cache state were selected to prevent unnecessary aircraft history |
+| 2026-07-28T20:00:06Z | Error | PR 5 focused formatter | Prettier could not infer a parser for `.gitignore`; remaining files formatted, subsequent commands did not run, and the corrected command excludes `.gitignore` |
+| 2026-07-28T20:01:03Z | Error/Check | PR 5 focused tests | Lint/types and 51/52 tests passed; stricter timestamp validation rejected a stale fixture as invalid because its observations were newer than its old fetch time, so consistent fixtures and explicit schema/network classification were selected |
+| 2026-07-28T20:01:52Z | Error | PR 5 strict fixture type | Lint passed; TypeScript retained mutable `snapshot.fetchedAt` as `string | null` inside a mapper, so a known local string constant was selected |
+| 2026-07-28T20:03:55Z | Check | PR 5 final local validation | Format/lint/types, 172/172 tests, 95.7/91.91/94.65/96.62 coverage, build/privacy, 12/12 Chromium, precache exclusion, whitespace, and authored-content scan passed |
+| 2026-07-28T20:03:55Z | Security | PR 5 dependency audit | Production audit reported zero; full audit retains only the accepted dev-only `brace-expansion` advisory, and the proposed force fix would install incompatible ESLint 10 |
+| 2026-07-28T20:03:55Z | GitHub/Deployment | Pre-publication state | Authenticated public repo/default `main` verified; no open pull requests, deployments, or `PAGES_RELEASE_ENABLED` variable |
+| 2026-07-28T20:04:28Z | Commit | `c4411e8` | `feat: add validated aircraft snapshot generator`; explicit staged scope and whitespace review passed |
+| 2026-07-28T20:04:57Z | Commit | `984763f` | `feat: add atomic external aircraft mode and provenance`; explicit staged scope and whitespace review passed |
+| 2026-07-28T20:05:22Z | Commit | `d4e6068` | `ci: integrate guarded aircraft snapshots with Pages`; explicit staged scope and whitespace review passed |
+| 2026-07-28T20:05:49Z | Commit | `f474ca0` | `test: cover external success freshness quotas and fallback`; explicit staged scope and whitespace review passed |
+| 2026-07-28T20:06:21Z | Commit | `9732d9c` | `docs: record external aircraft validation`; branch clean immediately afterward |
+| 2026-07-28T20:07:36Z | Check | Exact branch `8da33411b617fd24fb02af993b8140c4d6ecdb3c` | Full quality, 172/172 tests, 95.7/91.91/94.65/96.62 coverage, build/privacy, 12/12 Chromium, precache exclusion, production audit zero, clean status, and cumulative review passed |
+| 2026-07-28T20:08:10Z | Commit/Push | `84514aa`, `feat/external-aircraft` | Exact-verification ledger committed; new remote branch pushed with upstream tracking |
+| 2026-07-28T20:09:02Z | Commit/Push/Error | `0272faf`, GitHub connector | Publication ledger pushed; connector PR creation returned 403 `Resource not accessible by integration`, so authenticated `gh` fallback was selected |
+| 2026-07-28T20:10:04Z | Commit/Push/PR/CI | `d747242`, PR `#9`, run `30395127589` | Connector-fallback ledger pushed; draft PR created through authenticated `gh`, OPEN/MERGEABLE, Quality in progress |
 
 ## Errors and verification
 

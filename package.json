@@ -21,6 +21,7 @@
     "test:coverage": "vitest run --coverage",
     "test:e2e": "playwright test",
     "privacy:scan": "tsx scripts/privacy-scan.ts",
+    "snapshot:aircraft": "tsx scripts/fetch-aircraft-snapshot.ts",
     "check": "npm run format:check && npm run lint && npm run typecheck && npm run test:coverage && npm run build && npm run privacy:scan"
   },
   "dependencies": {

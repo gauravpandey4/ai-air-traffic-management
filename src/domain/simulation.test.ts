@@ -1,5 +1,6 @@
 import { defaultRegion } from '../config/regions';
 import { createOpenMeteoFixture, weatherNowIso } from '../test/weather-fixture';
+import { aircraftSnapshotNowIso, createAvailableAircraftSnapshot } from '../test/aircraft-fixture';
 
 import {
   advanceAircraft,
@@ -11,6 +12,7 @@ import {
   simulationReducer,
 } from './simulation';
 import { parseOpenMeteoWeather } from './weather';
+import { validateAircraftSnapshot } from './external-aircraft';
 
 describe('simulation movement and reducer', () => {
   it('moves north/east from heading and wraps configured bounds', () => {
@@ -76,7 +78,7 @@ describe('simulation movement and reducer', () => {
       scenarioId: 'emergency',
     });
     expect(emergency.scenarioId).toBe('emergency');
-    expect(getSelectedAircraft(emergency).simulatedEmergency).toBe(true);
+    expect(getSelectedAircraft(emergency)?.simulatedEmergency).toBe(true);
   });
 
   it('switches map modes and restores the schematic on failure', () => {
@@ -131,6 +133,134 @@ describe('simulation movement and reducer', () => {
     });
     expect(severe.weatherMode).toBe('Simulated');
     expect(severe.weatherSnapshot.risk.severity).toBe('Severe');
+  });
+
+  it('keeps simulation while checking and atomically replaces or restores aircraft data', () => {
+    const initial = {
+      ...createInitialSimulationState('normal-traffic'),
+      isPlaying: true,
+      elapsedSeconds: 12,
+    };
+    const checking = simulationReducer(initial, { type: 'external-check-requested' });
+    expect(checking.aircraftMode).toBe('Checking');
+    expect(checking.aircraft).toEqual(initial.aircraft);
+    expect(
+      simulationReducer(checking, { type: 'simulation-ticked', seconds: 1 }).aircraft,
+    ).not.toEqual(checking.aircraft);
+    const fallback = simulationReducer(checking, {
+      type: 'external-fallback',
+      reason: 'Snapshot is stale.',
+      retryAtIso: null,
+    });
+    expect(fallback.aircraftMode).toBe('Simulation');
+    expect(fallback.aircraft).toEqual(initial.aircraft);
+    expect(fallback.elapsedSeconds).toBe(12);
+    expect(fallback.isPlaying).toBe(true);
+
+    const external = validateAircraftSnapshot(
+      createAvailableAircraftSnapshot(),
+      aircraftSnapshotNowIso,
+    );
+    const loaded = simulationReducer(checking, {
+      type: 'external-loaded',
+      snapshot: external.snapshot,
+      aircraft: external.aircraft,
+    });
+    expect(loaded.aircraftMode).toBe('External Active');
+    expect(loaded.isPlaying).toBe(false);
+    expect(loaded.aircraft.every((aircraft) => aircraft.source.mode === 'External')).toBe(true);
+    expect(loaded.aircraft.some((aircraft) => aircraft.callsign.startsWith('SIM-'))).toBe(false);
+
+    const ticked = simulationReducer(loaded, { type: 'simulation-ticked', seconds: 60 });
+    expect(ticked.aircraft).toEqual(loaded.aircraft);
+    expect(simulationReducer(loaded, { type: 'playback-toggled' })).toBe(loaded);
+    expect(simulationReducer(loaded, { type: 'playback-rate-selected', playbackRate: 4 })).toBe(
+      loaded,
+    );
+
+    const selectedSimulation = simulationReducer(loaded, {
+      type: 'external-simulation-selected',
+    });
+    expect(selectedSimulation.aircraftMode).toBe('Simulation');
+    expect(
+      simulationReducer(selectedSimulation, {
+        type: 'external-loaded',
+        snapshot: external.snapshot,
+        aircraft: external.aircraft,
+      }),
+    ).toBe(selectedSimulation);
+    expect(
+      simulationReducer(selectedSimulation, {
+        type: 'external-fallback',
+        reason: 'Late result.',
+        retryAtIso: null,
+      }),
+    ).toBe(selectedSimulation);
+
+    const expired = simulationReducer(loaded, { type: 'external-snapshot-expired' });
+    expect(expired.aircraftMode).toBe('Simulation');
+    expect(expired.aircraftStatus).toMatch(/stale/i);
+  });
+
+  it('keeps weather independent and restores Simulation before refreshing external aircraft', () => {
+    const observed = parseOpenMeteoWeather(createOpenMeteoFixture(), weatherNowIso, weatherNowIso);
+    const withObservedWeather = simulationReducer(createInitialSimulationState(), {
+      type: 'weather-loaded',
+      snapshot: observed,
+    });
+    const external = validateAircraftSnapshot(
+      createAvailableAircraftSnapshot(),
+      aircraftSnapshotNowIso,
+    );
+    const checking = simulationReducer(withObservedWeather, {
+      type: 'external-check-requested',
+    });
+    const loaded = simulationReducer(checking, {
+      type: 'external-loaded',
+      snapshot: external.snapshot,
+      aircraft: external.aircraft,
+    });
+    expect(loaded.weatherMode).toBe('Observed');
+
+    const refreshing = simulationReducer(loaded, { type: 'external-check-requested' });
+    expect(refreshing.aircraftMode).toBe('Checking');
+    expect(refreshing.aircraft.every((aircraft) => aircraft.source.mode === 'Simulated')).toBe(
+      true,
+    );
+    expect(refreshing.weatherMode).toBe('Observed');
+
+    const fallback = simulationReducer(refreshing, {
+      type: 'external-fallback',
+      reason: 'Provider unavailable.',
+      retryAtIso: null,
+    });
+    expect(fallback.aircraftMode).toBe('Simulation');
+    expect(fallback.weatherMode).toBe('Observed');
+    expect(fallback.weatherSnapshot).toBe(observed);
+
+    const selectedSimulation = simulationReducer(loaded, {
+      type: 'external-simulation-selected',
+    });
+    expect(selectedSimulation.weatherSnapshot).toBe(observed);
+
+    const expired = simulationReducer(loaded, { type: 'external-snapshot-expired' });
+    expect(expired.weatherSnapshot).toBe(observed);
+  });
+
+  it('supports a valid empty external dataset without selecting an aircraft', () => {
+    const initial = createInitialSimulationState();
+    const snapshot = createAvailableAircraftSnapshot();
+    snapshot.aircraft = [];
+    snapshot.recordCount = 0;
+    const checking = simulationReducer(initial, { type: 'external-check-requested' });
+    const loaded = simulationReducer(checking, {
+      type: 'external-loaded',
+      snapshot,
+      aircraft: [],
+    });
+    expect(loaded.aircraftMode).toBe('External Active');
+    expect(loaded.selectedAircraftId).toBeNull();
+    expect(getSelectedAircraft(loaded)).toBeNull();
   });
 
   it('derives statistics, timestamps, and vertical trend from current state only', () => {

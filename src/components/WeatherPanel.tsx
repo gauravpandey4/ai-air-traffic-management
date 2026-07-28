@@ -187,7 +187,15 @@ export function WeatherPanel() {
             Use simulated weather
           </button>
         </div>
-        <span>Aircraft: Simulated · Weather: {modeLabel}. Sources are not mixed silently.</span>
+        <span>
+          Aircraft:{' '}
+          {state.aircraftMode === 'External Active'
+            ? 'External near-live snapshot'
+            : state.aircraftMode === 'Checking'
+              ? 'Checking'
+              : 'Simulated'}{' '}
+          · Weather: {modeLabel}. Sources are not mixed silently.
+        </span>
       </div>
     </section>
   );

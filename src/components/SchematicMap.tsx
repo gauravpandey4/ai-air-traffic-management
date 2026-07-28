@@ -5,7 +5,8 @@ import type { Aircraft } from '../domain/types';
 
 type SchematicMapProps = {
   aircraft: readonly Aircraft[];
-  selectedAircraftId: string;
+  selectedAircraftId: string | null;
+  external: boolean;
   onSelect: (aircraftId: string) => void;
 };
 
@@ -17,11 +18,18 @@ function positionAircraft(aircraft: Aircraft) {
   };
 }
 
-export function SchematicMap({ aircraft, selectedAircraftId, onSelect }: SchematicMapProps) {
+export function SchematicMap({
+  aircraft,
+  selectedAircraftId,
+  external,
+  onSelect,
+}: SchematicMapProps) {
   return (
     <div
       className="schematic-map"
-      aria-label={`${defaultRegion.displayName} local schematic with ${String(aircraft.length)} synthetic aircraft`}
+      aria-label={`${defaultRegion.displayName} local schematic with ${String(aircraft.length)} ${
+        external ? 'external snapshot' : 'synthetic'
+      } aircraft`}
     >
       <svg
         className="schematic-background"

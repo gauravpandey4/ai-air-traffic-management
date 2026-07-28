@@ -20,7 +20,11 @@ export function AircraftList() {
       <div className="panel-heading">
         <div>
           <p className="eyebrow">Equivalent text view</p>
-          <h2 id="aircraft-list-title">Synthetic aircraft</h2>
+          <h2 id="aircraft-list-title">
+            {state.aircraftMode === 'External Active'
+              ? 'External aircraft tracks'
+              : 'Synthetic aircraft'}
+          </h2>
         </div>
         <span className="count-badge">{displayedAircraft.length}</span>
       </div>
@@ -38,6 +42,11 @@ export function AircraftList() {
             </tr>
           </thead>
           <tbody>
+            {displayedAircraft.length === 0 ? (
+              <tr>
+                <td colSpan={6}>Valid fresh snapshot · no aircraft reported in this region.</td>
+              </tr>
+            ) : null}
             {displayedAircraft.map((aircraft) => {
               const selected = aircraft.id === state.selectedAircraftId;
               return (

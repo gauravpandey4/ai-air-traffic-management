@@ -2,6 +2,7 @@
   "schemaVersion": 1,
   "availability": "unavailable",
   "provider": "adsb.fi",
+  "endpointClass": "regional-v3",
   "generatedAt": null,
   "fetchedAt": null,
   "freshForMinutes": 30,

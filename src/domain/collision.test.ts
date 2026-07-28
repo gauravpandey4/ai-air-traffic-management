@@ -57,6 +57,34 @@ describe('collision projection', () => {
     expect(result.explanation.facts).toHaveLength(3);
   });
 
+  it('labels external CPA as educational geometry that cannot establish actual danger', () => {
+    const externalSource = {
+      mode: 'External',
+      provider: 'adsb.fi',
+      observedAtIso: '2026-07-28T19:00:00.000Z',
+      fetchedAtIso: '2026-07-28T19:00:01.000Z',
+      freshness: 'Fresh',
+      limitation: 'Public near-live snapshot.',
+    } as const;
+    const first = createTestAircraft({
+      longitude: 80.8,
+      headingDeg: 90,
+      source: externalSource,
+    });
+    const second = createTestAircraft({
+      id: 'external-800002',
+      callsign: 'AXB456',
+      longitude: 81.1,
+      altitudeFt: 10_400,
+      headingDeg: 270,
+      source: externalSource,
+    });
+    const result = projectConflict(first, second);
+
+    expect(result.explanation.source).toMatch(/educational geometric projection/i);
+    expect(result.explanation.limitation).toMatch(/cannot establish actual collision danger/i);
+  });
+
   it('clamps diverging tracks to now and long-range tracks to ten minutes', () => {
     const first = createTestAircraft({ longitude: 80.8, headingDeg: 270 });
     const second = createTestAircraft({

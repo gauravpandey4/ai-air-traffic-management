@@ -46,6 +46,62 @@ function createCurrentWeatherFixture() {
   };
 }
 
+function createCurrentAircraftSnapshot(
+  options: {
+    empty?: boolean;
+    fetchedAtOffsetMs?: number;
+  } = {},
+) {
+  const nowMs = Date.now();
+  const fetchedAtMs = nowMs - (options.fetchedAtOffsetMs ?? 0);
+  const fetchedAt = new Date(fetchedAtMs).toISOString();
+  const aircraft = options.empty
+    ? []
+    : [
+        {
+          id: 'external-800001',
+          callsign: 'IGO123',
+          latitude: 26.8467,
+          longitude: 80.8,
+          altitudeFt: 12_000,
+          groundSpeedKt: 360,
+          headingDeg: 90,
+          verticalRateFpm: 0,
+          observedAtIso: new Date(fetchedAtMs - 1_000).toISOString(),
+          status: 'Observed airborne track',
+        },
+        {
+          id: 'external-800002',
+          callsign: 'AXB456',
+          latitude: 26.8467,
+          longitude: 81.09,
+          altitudeFt: 12_400,
+          groundSpeedKt: 340,
+          headingDeg: 270,
+          verticalRateFpm: 0,
+          observedAtIso: new Date(fetchedAtMs - 2_000).toISOString(),
+          status: 'Observed airborne track',
+        },
+      ];
+  return {
+    schemaVersion: 1,
+    availability: 'available',
+    provider: 'adsb.fi',
+    endpointClass: 'regional-v3',
+    generatedAt: fetchedAt,
+    fetchedAt,
+    freshForMinutes: 30,
+    validation: 'valid',
+    recordCount: aircraft.length,
+    retryAt: null,
+    reason:
+      aircraft.length === 0
+        ? 'Valid fresh regional snapshot; no aircraft were reported.'
+        : 'Valid fresh regional aircraft snapshot.',
+    aircraft,
+  };
+}
+
 test('loads the branded shell under the repository base path', async ({ page }) => {
   const errors: string[] = [];
   page.on('console', (message) => {
@@ -210,6 +266,67 @@ test('announces offline weather fallback and retains the complete simulator', as
   await expect(weather.getByText('Simulated fallback', { exact: true })).toBeVisible();
   await expect(weather.getByText(/Browser is offline. Simulated weather restored/i)).toBeVisible();
   await expect(page.getByRole('table')).toBeVisible();
+});
+
+test('activates one fresh external dataset with provenance and honest limitations', async ({
+  page,
+}) => {
+  await page.route('**/data/aircraft-snapshot.json', (route) =>
+    route.fulfill({ json: createCurrentAircraftSnapshot() }),
+  );
+  await page.goto('.');
+
+  const aircraftTable = page.getByRole('table');
+  await expect(aircraftTable.getByRole('button', { name: 'SIM-NOR01' })).toBeVisible();
+  await page.getByRole('button', { name: 'Check aircraft snapshot' }).click();
+
+  await expect(page.getByText('Near-live aircraft snapshot active.')).toBeVisible();
+  await expect(aircraftTable.getByRole('button', { name: 'IGO123' })).toBeVisible();
+  await expect(aircraftTable.getByRole('button', { name: 'SIM-NOR01' })).toHaveCount(0);
+  await expect(page.getByRole('link', { name: 'Aircraft data by adsb.fi' })).toBeVisible();
+  await expect(page.getByText('External · Fresh')).toBeVisible();
+  await expect(page.locator('.detail-item').filter({ hasText: 'Fuel state' })).toContainText(
+    'Unavailable',
+  );
+  await expect(page.getByRole('button', { name: 'Play' })).toBeDisabled();
+
+  const alertCenter = page.getByRole('region', { name: 'Alert center' });
+  await expect(
+    alertCenter.getByText('Critical projected separation', { exact: true }),
+  ).toBeVisible();
+  await alertCenter.getByText('Why this result?').click();
+  await expect(alertCenter.getByText(/cannot establish actual collision danger/i)).toBeVisible();
+
+  await page.getByRole('button', { name: 'Use simulation aircraft' }).click();
+  await expect(aircraftTable.getByRole('button', { name: 'SIM-NOR01' })).toBeVisible();
+  await expect(aircraftTable.getByRole('button', { name: 'IGO123' })).toHaveCount(0);
+});
+
+test('handles a fresh empty aircraft snapshot and restores Simulation after expiry', async ({
+  page,
+}) => {
+  await page.route('**/data/aircraft-snapshot.json', (route) =>
+    route.fulfill({ json: createCurrentAircraftSnapshot({ empty: true }) }),
+  );
+  await page.goto('.');
+  await page.getByRole('button', { name: 'Check aircraft snapshot' }).click();
+
+  await expect(page.getByText(/valid regional snapshot is empty/i)).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'No aircraft in snapshot' })).toBeVisible();
+  await expect(page.getByRole('table').getByText(/no aircraft reported/i)).toBeVisible();
+
+  await page.unroute('**/data/aircraft-snapshot.json');
+  await page.route('**/data/aircraft-snapshot.json', (route) =>
+    route.fulfill({
+      json: createCurrentAircraftSnapshot({ fetchedAtOffsetMs: 29 * 60_000 + 59_000 }),
+    }),
+  );
+  await page.getByRole('button', { name: 'Check aircraft snapshot' }).click();
+  await expect(page.getByText('Near-live aircraft snapshot active.')).toBeVisible();
+  await expect(page.getByText(/snapshot is stale. Simulation restored/i)).toBeVisible({
+    timeout: 5_000,
+  });
+  await expect(page.getByRole('table').getByRole('button', { name: 'SIM-NOR01' })).toBeVisible();
 });
 
 for (const viewport of [

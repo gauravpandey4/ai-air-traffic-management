@@ -3,6 +3,7 @@ import { defaultRegion } from '../config/regions';
 import { createScenarioAircraft, scenarios } from './scenarios';
 import type {
   Aircraft,
+  AircraftSnapshot,
   FuelAssessment,
   PlaybackRate,
   ScenarioId,
@@ -27,6 +28,11 @@ export type SimulationAction =
       decision: 'Confirmed in simulation' | 'Rejected in simulation';
     }
   | { type: 'selected-emergency-toggled' }
+  | { type: 'external-check-requested' }
+  | { type: 'external-loaded'; snapshot: AircraftSnapshot; aircraft: Aircraft[] }
+  | { type: 'external-fallback'; reason: string; retryAtIso: string | null }
+  | { type: 'external-simulation-selected'; reason?: string }
+  | { type: 'external-snapshot-expired' }
   | { type: 'weather-check-requested' }
   | { type: 'weather-loaded'; snapshot: WeatherSnapshot }
   | { type: 'weather-fallback'; reason: string; retryAtIso: string | null }
@@ -77,6 +83,10 @@ export function createInitialSimulationState(
     scenarioId,
     aircraft,
     selectedAircraftId: selectedAircraft.id,
+    aircraftMode: 'Simulation',
+    aircraftStatus: 'Deterministic simulated aircraft are active.',
+    externalSnapshot: null,
+    aircraftRetryAtIso: null,
     isPlaying: false,
     playbackRate: 1,
     elapsedSeconds: 0,
@@ -91,6 +101,26 @@ export function createInitialSimulationState(
   };
 }
 
+function createSimulationAircraftState(
+  state: SimulationState,
+  aircraftStatus: string,
+  aircraftRetryAtIso: string | null,
+): SimulationState {
+  const simulation = createInitialSimulationState(state.scenarioId);
+  return {
+    ...simulation,
+    playbackRate: state.playbackRate,
+    mapMode: state.mapMode,
+    mapStatus: state.mapStatus,
+    aircraftStatus,
+    aircraftRetryAtIso,
+    weatherMode: state.weatherMode,
+    weatherSnapshot: state.weatherSnapshot,
+    weatherStatus: state.weatherStatus,
+    weatherRetryAtIso: state.weatherRetryAtIso,
+  };
+}
+
 export function simulationReducer(
   state: SimulationState,
   action: SimulationAction,
@@ -99,9 +129,13 @@ export function simulationReducer(
     case 'scenario-selected':
       return createInitialSimulationState(action.scenarioId);
     case 'playback-toggled':
-      return { ...state, isPlaying: !state.isPlaying };
+      return state.aircraftMode === 'Simulation'
+        ? { ...state, isPlaying: !state.isPlaying }
+        : state;
     case 'playback-rate-selected':
-      return { ...state, playbackRate: action.playbackRate };
+      return state.aircraftMode === 'Simulation'
+        ? { ...state, playbackRate: action.playbackRate }
+        : state;
     case 'simulation-reset': {
       const reset = createInitialSimulationState(state.scenarioId);
       return {
@@ -115,9 +149,12 @@ export function simulationReducer(
       return {
         ...state,
         elapsedSeconds: state.elapsedSeconds + action.seconds,
-        aircraft: state.aircraft.map((aircraft) =>
-          advanceAircraft(aircraft, action.seconds, defaultRegion.bounds),
-        ),
+        aircraft:
+          state.aircraftMode !== 'External Active'
+            ? state.aircraft.map((aircraft) =>
+                advanceAircraft(aircraft, action.seconds, defaultRegion.bounds),
+              )
+            : state.aircraft,
       };
     case 'aircraft-selected':
       return state.aircraft.some((aircraft) => aircraft.id === action.aircraftId)
@@ -139,6 +176,7 @@ export function simulationReducer(
         },
       };
     case 'selected-emergency-toggled':
+      if (state.selectedAircraftId === null || state.aircraftMode !== 'Simulation') return state;
       return {
         ...state,
         aircraft: state.aircraft.map((aircraft) =>
@@ -147,9 +185,9 @@ export function simulationReducer(
                 ...aircraft,
                 simulatedEmergency: !aircraft.simulatedEmergency,
                 severity: aircraft.simulatedEmergency
-                  ? aircraft.simulatedFuelMinutes < 15
+                  ? (aircraft.simulatedFuelMinutes ?? Number.POSITIVE_INFINITY) < 15
                     ? 'Critical'
-                    : aircraft.simulatedFuelMinutes < 30
+                    : (aircraft.simulatedFuelMinutes ?? Number.POSITIVE_INFINITY) < 30
                       ? 'Warning'
                       : 'Normal'
                   : 'Critical',
@@ -161,6 +199,70 @@ export function simulationReducer(
         ),
         reviewDecisions: {},
       };
+    case 'external-check-requested': {
+      const checkingStatus =
+        'Checking the same-origin validated aircraft snapshot; simulation remains active.';
+      if (state.aircraft.some((aircraft) => aircraft.source.mode === 'External')) {
+        return {
+          ...createSimulationAircraftState(state, checkingStatus, null),
+          aircraftMode: 'Checking',
+        };
+      }
+      return {
+        ...state,
+        aircraftMode: 'Checking',
+        aircraftStatus: checkingStatus,
+        aircraftRetryAtIso: null,
+      };
+    }
+    case 'external-loaded':
+      if (state.aircraftMode !== 'Checking') return state;
+      return {
+        ...state,
+        aircraftMode: 'External Active',
+        aircraft: action.aircraft,
+        selectedAircraftId: action.aircraft[0]?.id ?? null,
+        externalSnapshot: action.snapshot,
+        aircraftStatus:
+          action.aircraft.length === 0
+            ? 'Near-live aircraft snapshot active; the valid regional snapshot is empty.'
+            : 'Near-live aircraft snapshot active.',
+        aircraftRetryAtIso: null,
+        isPlaying: false,
+        elapsedSeconds: 0,
+        acknowledgedAlertIds: [],
+        reviewDecisions: {},
+      };
+    case 'external-fallback': {
+      if (state.aircraftMode !== 'Checking') return state;
+      const status = `${action.reason} Simulation restored.`;
+      if (state.aircraft.every((aircraft) => aircraft.source.mode === 'Simulated')) {
+        return {
+          ...state,
+          aircraftMode: 'Simulation',
+          aircraftStatus: status,
+          externalSnapshot: null,
+          aircraftRetryAtIso: action.retryAtIso,
+        };
+      }
+      return {
+        ...createSimulationAircraftState(state, status, action.retryAtIso),
+      };
+    }
+    case 'external-simulation-selected': {
+      return {
+        ...createSimulationAircraftState(
+          state,
+          action.reason ?? 'Deterministic simulated aircraft are active by user selection.',
+          null,
+        ),
+      };
+    }
+    case 'external-snapshot-expired': {
+      return {
+        ...createSimulationAircraftState(state, 'Snapshot is stale. Simulation restored.', null),
+      };
+    }
     case 'weather-check-requested':
       return {
         ...state,
@@ -215,12 +317,10 @@ export function simulationReducer(
   }
 }
 
-export function getSelectedAircraft(state: SimulationState): Aircraft {
+export function getSelectedAircraft(state: SimulationState): Aircraft | null {
+  if (state.selectedAircraftId === null) return null;
   const aircraft = state.aircraft.find((item) => item.id === state.selectedAircraftId);
-  if (aircraft === undefined) {
-    throw new Error('Selected aircraft is not present in the active scenario.');
-  }
-  return aircraft;
+  return aircraft ?? null;
 }
 
 export function deriveSimulationStatistics(
@@ -256,7 +356,7 @@ export function deriveSimulationStatistics(
     lowFuelAircraft: aircraft.filter((item) => {
       const state = fuelByAircraftId?.[item.id]?.state;
       return state === undefined
-        ? item.simulatedFuelMinutes < 30
+        ? item.simulatedFuelMinutes !== null && item.simulatedFuelMinutes < 30
         : state === 'Low' || state === 'Critical';
     }).length,
     averageAltitudeFt: Math.round(totals.altitudeFt / totalAircraft),
