@@ -1,5 +1,33 @@
-import { expect, test } from '@playwright/test';
+import { expect, test, type Page } from '@playwright/test';
 import { AxeBuilder } from '@axe-core/playwright';
+
+const runtimeErrors = new WeakMap<Page, string[]>();
+const allowedRuntimeErrors = new WeakMap<Page, RegExp[]>();
+
+function allowRuntimeError(page: Page, pattern: RegExp) {
+  allowedRuntimeErrors.set(page, [...(allowedRuntimeErrors.get(page) ?? []), pattern]);
+}
+
+test.beforeEach(({ page }) => {
+  const errors: string[] = [];
+  runtimeErrors.set(page, errors);
+  page.on('console', (message) => {
+    if (message.type() === 'error') {
+      errors.push(`console: ${message.text()}`);
+    }
+  });
+  page.on('pageerror', (error) => {
+    errors.push(`page: ${error.message}`);
+  });
+});
+
+test.afterEach(({ page }) => {
+  const allowed = allowedRuntimeErrors.get(page) ?? [];
+  const unexpected = (runtimeErrors.get(page) ?? []).filter(
+    (error) => !allowed.some((pattern) => pattern.test(error)),
+  );
+  expect(unexpected).toEqual([]);
+});
 
 function createCurrentWeatherFixture() {
   const current = new Date();
@@ -103,13 +131,6 @@ function createCurrentAircraftSnapshot(
 }
 
 test('loads the branded shell under the repository base path', async ({ page }) => {
-  const errors: string[] = [];
-  page.on('console', (message) => {
-    if (message.type() === 'error') {
-      errors.push(message.text());
-    }
-  });
-
   await page.goto('.');
 
   await expect(page).toHaveTitle('FutureATC Lab');
@@ -121,7 +142,6 @@ test('loads the branded shell under the repository base path', async ({ page }) 
   await expect(page.getByRole('heading', { name: 'Local schematic' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'How FutureATC Lab works' })).toBeVisible();
   await expect(page.getByRole('table')).toBeVisible();
-  expect(errors).toEqual([]);
 });
 
 test('changes scenarios and keeps map, list, and details synchronized', async ({ page }) => {
@@ -166,6 +186,7 @@ test('changes scenarios and keeps map, list, and details synchronized', async ({
 });
 
 test('restores the local schematic when connected tiles fail', async ({ page }) => {
+  allowRuntimeError(page, /^console: Failed to load resource: net::ERR_FAILED$/u);
   await page.route('https://tile.openstreetmap.org/**', (route) => route.abort());
   await page.goto('.');
 
@@ -174,6 +195,9 @@ test('restores the local schematic when connected tiles fail', async ({ page }) 
     timeout: 10_000,
   });
   await expect(page.getByText(/OpenStreetMap tiles could not be loaded/i)).toBeVisible();
+  expect((runtimeErrors.get(page) ?? []).some((error) => error.includes('net::ERR_FAILED'))).toBe(
+    true,
+  );
 });
 
 test('has no serious accessibility violations and respects keyboard and motion settings', async ({
@@ -260,6 +284,7 @@ test('announces offline weather fallback and retains the complete simulator', as
   page,
 }) => {
   await page.goto('.');
+  await page.evaluate(() => navigator.serviceWorker.ready);
   await context.setOffline(true);
 
   const weather = page.getByRole('region', { name: 'Weather support' });

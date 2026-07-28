@@ -22,4 +22,10 @@ describe('Pages snapshot and release guard', () => {
     const viteConfig = await readFile('vite.config.ts', 'utf8');
     expect(viteConfig).toContain("globIgnores: ['**/data/aircraft-snapshot.json']");
   });
+
+  it('runs deterministic production artifact verification in every quality gate', async () => {
+    const packageJson = await readFile('package.json', 'utf8');
+    expect(packageJson).toContain('"verify:build": "tsx scripts/verify-production-build.ts"');
+    expect(packageJson).toContain('npm run build && npm run verify:build && npm run privacy:scan');
+  });
 });

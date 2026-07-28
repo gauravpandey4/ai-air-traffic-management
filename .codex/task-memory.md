@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T20:56:00Z
+- Last updated (UTC): 2026-07-28T21:14:00Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: Branch-push ledger `31e0732` was pushed; draft PR `#10` is OPEN/MERGEABLE at that exact head with Quality run `30398084386` in progress.
-- Exact next action: Commit/push the PR record, mark PR `#10` ready, then wait for the resulting exact-head Quality and review/deployment guards.
+- Last completed action: Commit `1e763d2` recorded the PR; local/remote/PR head match, PR `#11` is ready/open with no reviews/comments/deployments/variables, and Quality is propagating.
+- Exact next action: Commit/push this exact PR-state ledger, then wait for the exact-head Quality run and complete final review guards.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -558,6 +558,35 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T20:53:30Z | Commit | `afa109a` | Exact PR 6 branch verification ledger committed; branch publication next |
 | 2026-07-28T20:54:30Z | Commit/Push | `da07bf6`, `feat/learning-accessibility` | Publication ledger committed; new remote branch pushed with upstream tracking |
 | 2026-07-28T20:56:00Z | Commit/Push/PR/CI | `31e0732`, PR `#10`, run `30398084386` | Branch-push ledger pushed; draft PR created OPEN/MERGEABLE at exact head with Quality in progress; no deployment |
+| 2026-07-28T20:57:30Z | Commit/Push/PR | `efef5a1`, PR `#10` | PR ledger pushed; PR marked ready CLEAN/MERGEABLE at exact local/remote head with no comments/reviews and zero deployments; exact-head Quality propagation pending |
+| 2026-07-28T20:59:30Z | CI | PR `#10`, run `30398136263`, exact head `efef5a1c7d8d5556ac3ee369787392d77ef1516e` | Quality passed in 1m39s, including format, lint, types, coverage, build, privacy, and essential Chromium |
+| 2026-07-28T21:00:00Z | Review/Deployment | PR `#10`, exact head `efef5a1c7d8d5556ac3ee369787392d77ef1516e` | OPEN/ready/CLEAN/MERGEABLE; exact-head check successful; no comments, reviews, inline comments, or review threads; zero deployments and no repository variables |
+| 2026-07-28T21:00:30Z | Merge | PR `#10`, merge `b01235a8622f4c8f8b1e3640187bb983db8a51c2` | Exact-SHA GitHub endpoint squash-merged successfully; cleanup/post-merge verification remain; no deployment |
+| 2026-07-28T21:01:30Z | Cleanup | PR `#10`, merge `b01235a8622f4c8f8b1e3640187bb983db8a51c2` | Two-file ledger stash restored cleanly after main fast-forward; merged state verified; exact local/remote PR 6 refs deleted; local/origin main synchronized |
+| 2026-07-28T21:04:00Z | Check | PR 6 post-merge main `b01235a8622f4c8f8b1e3640187bb983db8a51c2` | Local full quality, 176/176 tests, 91.04/88.85/88.78/92.88 coverage, build/privacy, 16/16 Chromium, production audit, and GitHub Quality `30398355924` passed; no open PRs/branches/deployments/variables |
+| 2026-07-28T21:04:30Z | Branch | `test/release-hardening` from `b01235a8622f4c8f8b1e3640187bb983db8a51c2` | PR 7 release-hardening branch created from verified main; Gate 5 deployment remains locked |
+| 2026-07-28T21:05:00Z | Commit | `028027c` | PR 6 merge/post-merge evidence and PR 7 branch creation made durable |
+| 2026-07-28T21:06:00Z | Audit/Decision | PR 7 release candidate and live GitHub state | Existing automated matrix covers five scenarios, seven modules, external success/empty/expiry/failure cases, offline/a11y/reflow; focused gaps are final docs/evidence, built-base verification, all-flow runtime-error guard, and stale synchronized requirements wording; no open PR/deployment/variable |
+| 2026-07-28T21:06:30Z | User instruction/Decision | Urgent release-hardening workflow | User requested no in-app browser before first build and only fast local browser debugging afterward; functional first version already exists, so finish non-browser work first and use only the local Playwright production suite for final UI iteration |
+| 2026-07-28T21:07:00Z | Check/Failure | First PR 7 non-browser validation | Formatting completed; lint stopped on two unnecessary async Playwright hooks, so later type/build steps did not run; remove async and rerun |
+| 2026-07-28T21:07:30Z | Fix/Check | PR 7 non-browser implementation | Removed unnecessary async hooks; format/lint/types/build/privacy passed; production verifier confirmed four base-path assets, manifest/PWA boundaries, no dynamic snapshot/duplicate registration in precache, and 104,980-byte compressed initial JS |
+| 2026-07-28T21:08:00Z | Check | PR 7 coverage | 20 files and 177/177 tests passed at 91.04/88.85/88.78/92.88 coverage |
+| 2026-07-28T21:08:30Z | Commit | `f802548` | Deterministic production artifact verifier, quality-gate wiring, and all-flow Playwright runtime-error guard committed |
+| 2026-07-28T21:09:00Z | Commit | `58105f0` | Final README/evaluator evidence and synchronized requirements Markdown/DOCX committed after 27-page render and privacy/stale-text inspection |
+| 2026-07-28T21:09:30Z | Browser check/Failure | First PR 7 local Playwright pass | 15/16 passed; deliberate OSM route abort produced twelve expected `net::ERR_FAILED` console entries caught by the new global guard; scope an explicit allowance to only that degraded-mode test and assert occurrence |
+| 2026-07-28T21:09:45Z | Check/Failure | Scoped tile-error guard | Focused validation stopped at E2E formatting; lint/browser commands did not run; format and retry |
+| 2026-07-28T21:10:00Z | Fix/Check | Scoped tile-error guard | Formatting and lint passed; focused production-browser tile-failure case proved expected resource failure plus local schematic recovery |
+| 2026-07-28T21:10:30Z | Browser check/Failure | Second full PR 7 Playwright pass | 15/16 passed; offline-weather case toggled offline before worker install settled, creating one worker script-fetch console error although visible fallback passed; await worker readiness rather than allowlist it |
+| 2026-07-28T21:10:45Z | Fix/Check | Offline-weather browser flow | Awaited worker readiness before disconnect; formatting, lint, and focused strict-console Playwright case passed |
+| 2026-07-28T21:11:00Z | Browser check | Full PR 7 local production Playwright | 16/16 passed with strict unexpected console/page-error guard, explicit tile-failure allowance/occurrence, settled offline weather, warm offline, Axe, keyboard, motion, zoom, and 1440/768/390/320 reflow |
+| 2026-07-28T21:11:15Z | Commit | `f4ecac5` | Scoped degraded-mode guard, settled offline flow, browser debug fixes, and complete failure/fix evidence committed |
+| 2026-07-28T21:11:30Z | Commit | `e23962f` | Browser failure/fix/pass ledger made durable; branch returned clean |
+| 2026-07-28T21:12:00Z | Check | Exact PR 7 branch `e23962fd8c3ccb5200c4096f59dd93ee8d278a45` | Full quality passed: 177/177 tests at 91.04/88.85/88.78/92.88, build/base/PWA/privacy, 16/16 Chromium, production audit zero, and clean cumulative whitespace review |
+| 2026-07-28T21:12:15Z | Commit | `6e0bbbf` | Exact PR 7 local release-gate evidence made durable |
+| 2026-07-28T21:12:30Z | Review/Deployment guard | Clean PR 7 branch `6e0bbbf` | Format/privacy/cumulative diff, expected scope, commit trailers, tracked-PDF check, core dependency licences, no open PRs/deployments/variables all passed; publication allowed without Pages |
+| 2026-07-28T21:13:00Z | Commit/Push | `d31fc2a`, `test/release-hardening` | Publication guard committed; new remote branch pushed with upstream; no deployment invoked |
+| 2026-07-28T21:13:30Z | Commit/Push/PR | `40934db`, PR `#11` | Branch-push ledger pushed; draft PR opened at exact head `40934dbdd082cba0bc6ac8dcd786a21b20396409`; no deployment |
+| 2026-07-28T21:14:00Z | Commit/Push/PR | `1e763d2`, PR `#11` | PR ledger pushed; PR marked ready/open; local/remote/PR head exact; no comments/reviews/deployments/variables; Quality propagating |
 
 ## Errors and verification
 
