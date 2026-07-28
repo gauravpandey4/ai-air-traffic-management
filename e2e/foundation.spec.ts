@@ -1,6 +1,51 @@
 import { expect, test } from '@playwright/test';
 import { AxeBuilder } from '@axe-core/playwright';
 
+function createCurrentWeatherFixture() {
+  const current = new Date();
+  current.setUTCMinutes(0, 0, 0);
+  const times = Array.from({ length: 4 }, (_, index) =>
+    new Date(current.getTime() + index * 3_600_000).toISOString().slice(0, 16),
+  );
+  return {
+    latitude: 26.85,
+    longitude: 80.95,
+    timezone: 'UTC',
+    current_units: {
+      wind_speed_10m: 'kn',
+      wind_gusts_10m: 'kn',
+      wind_direction_10m: '°',
+      visibility: 'm',
+      weather_code: 'wmo code',
+    },
+    current: {
+      time: times[0],
+      wind_speed_10m: 12,
+      wind_gusts_10m: 18,
+      wind_direction_10m: 80,
+      visibility: 15_000,
+      weather_code: 0,
+    },
+    hourly_units: {
+      wind_speed_10m: 'kn',
+      wind_gusts_10m: 'kn',
+      wind_direction_10m: '°',
+      visibility: 'm',
+      precipitation: 'mm',
+      weather_code: 'wmo code',
+    },
+    hourly: {
+      time: times,
+      wind_speed_10m: [12, 14, 16, 18],
+      wind_gusts_10m: [18, 20, 23, 26],
+      wind_direction_10m: [80, 85, 90, 95],
+      visibility: [15_000, 14_000, 12_000, 7_000],
+      precipitation: [0, 0, 0.5, 2.5],
+      weather_code: [0, 1, 2, 61],
+    },
+  };
+}
+
 test('loads the branded shell under the repository base path', async ({ page }) => {
   const errors: string[] = [];
   page.on('console', (message) => {
@@ -137,6 +182,36 @@ test('explains scenario decisions and keeps human review explicitly simulated', 
   await expect(page.getByText(/Clearance issued/i)).toHaveCount(0);
 });
 
+test('validates observed weather, attributes it, and recomputes runway wind', async ({ page }) => {
+  await page.route('https://api.open-meteo.com/v1/forecast**', (route) =>
+    route.fulfill({ json: createCurrentWeatherFixture() }),
+  );
+  await page.goto('.');
+
+  const weather = page.getByRole('region', { name: 'Weather support' });
+  await weather.getByRole('button', { name: 'Check observed weather' }).click();
+
+  await expect(weather.getByText('Observed · Open-Meteo')).toBeVisible();
+  await expect(weather.getByRole('link', { name: 'Weather data by Open-Meteo.com' })).toBeVisible();
+  await expect(weather).toContainText('Aircraft: Simulated · Weather: Observed');
+  await expect(page.getByText('Candidate wind 80° at 12 kt')).toBeAttached();
+});
+
+test('announces offline weather fallback and retains the complete simulator', async ({
+  context,
+  page,
+}) => {
+  await page.goto('.');
+  await context.setOffline(true);
+
+  const weather = page.getByRole('region', { name: 'Weather support' });
+  await weather.getByRole('button', { name: 'Check observed weather' }).click();
+
+  await expect(weather.getByText('Simulated fallback', { exact: true })).toBeVisible();
+  await expect(weather.getByText(/Browser is offline. Simulated weather restored/i)).toBeVisible();
+  await expect(page.getByRole('table')).toBeVisible();
+});
+
 for (const viewport of [
   { name: 'desktop', width: 1440, height: 1000 },
   { name: 'tablet', width: 768, height: 1024 },
@@ -156,5 +231,9 @@ for (const viewport of [
       .locator('.runway-score')
       .evaluateAll((cards) => cards.some((card) => card.scrollWidth > card.clientWidth));
     expect(scoreOverflow).toBe(false);
+    const weatherOverflow = await page
+      .locator('.weather-panel, .forecast-strip article')
+      .evaluateAll((items) => items.some((item) => item.scrollWidth > item.clientWidth));
+    expect(weatherOverflow).toBe(false);
   });
 }

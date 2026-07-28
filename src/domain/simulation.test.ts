@@ -1,4 +1,5 @@
 import { defaultRegion } from '../config/regions';
+import { createOpenMeteoFixture, weatherNowIso } from '../test/weather-fixture';
 
 import {
   advanceAircraft,
@@ -9,6 +10,7 @@ import {
   getVerticalTrend,
   simulationReducer,
 } from './simulation';
+import { parseOpenMeteoWeather } from './weather';
 
 describe('simulation movement and reducer', () => {
   it('moves north/east from heading and wraps configured bounds', () => {
@@ -91,6 +93,44 @@ describe('simulation movement and reducer', () => {
     });
     expect(fallback.mapMode).toBe('schematic');
     expect(fallback.mapStatus).toMatch(/tiles unavailable/i);
+  });
+
+  it('loads, falls back from, and explicitly restores weather modes', () => {
+    const initial = createInitialSimulationState('normal-traffic');
+    expect(initial.weatherMode).toBe('Simulated');
+
+    const checking = simulationReducer(initial, { type: 'weather-check-requested' });
+    expect(checking.weatherMode).toBe('Checking');
+
+    const observed = parseOpenMeteoWeather(createOpenMeteoFixture(), weatherNowIso, weatherNowIso);
+    const loaded = simulationReducer(
+      { ...checking, reviewDecisions: { recommendation: 'Confirmed in simulation' } },
+      { type: 'weather-loaded', snapshot: observed },
+    );
+    expect(loaded.weatherMode).toBe('Observed');
+    expect(loaded.weatherSnapshot.provider).toBe('Open-Meteo');
+    expect(loaded.reviewDecisions).toEqual({});
+
+    const retryAtIso = '2026-07-28T18:05:00.000Z';
+    const fallback = simulationReducer(loaded, {
+      type: 'weather-fallback',
+      reason: 'Rate limited.',
+      retryAtIso,
+    });
+    expect(fallback.weatherMode).toBe('Fallback');
+    expect(fallback.weatherSnapshot.mode).toBe('Simulated');
+    expect(fallback.weatherRetryAtIso).toBe(retryAtIso);
+
+    const simulated = simulationReducer(fallback, { type: 'weather-simulation-selected' });
+    expect(simulated.weatherMode).toBe('Simulated');
+    expect(simulated.weatherRetryAtIso).toBeNull();
+
+    const severe = simulationReducer(loaded, {
+      type: 'scenario-selected',
+      scenarioId: 'severe-weather',
+    });
+    expect(severe.weatherMode).toBe('Simulated');
+    expect(severe.weatherSnapshot.risk.severity).toBe('Severe');
   });
 
   it('derives statistics, timestamps, and vertical trend from current state only', () => {
