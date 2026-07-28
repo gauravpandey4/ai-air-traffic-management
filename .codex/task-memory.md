@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T20:09:02Z
+- Last updated (UTC): 2026-07-28T20:10:04Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: Publication-ledger commit `0272faf` was pushed; GitHub connector PR creation returned 403 `Resource not accessible by integration`.
-- Exact next action: Commit/push the connector-failure ledger, then create the same draft PR with authenticated `gh` fallback.
+- Last completed action: Connector-fallback ledger commit `d747242` was pushed; draft PR `#9` was created with authenticated `gh`, is MERGEABLE, and Quality is in progress at that head.
+- Exact next action: Commit/push this PR ledger, mark PR `#9` ready, and wait for exact-head Quality.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -524,6 +524,7 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T20:07:36Z | Check | Exact branch `8da33411b617fd24fb02af993b8140c4d6ecdb3c` | Full quality, 172/172 tests, 95.7/91.91/94.65/96.62 coverage, build/privacy, 12/12 Chromium, precache exclusion, production audit zero, clean status, and cumulative review passed |
 | 2026-07-28T20:08:10Z | Commit/Push | `84514aa`, `feat/external-aircraft` | Exact-verification ledger committed; new remote branch pushed with upstream tracking |
 | 2026-07-28T20:09:02Z | Commit/Push/Error | `0272faf`, GitHub connector | Publication ledger pushed; connector PR creation returned 403 `Resource not accessible by integration`, so authenticated `gh` fallback was selected |
+| 2026-07-28T20:10:04Z | Commit/Push/PR/CI | `d747242`, PR `#9`, run `30395127589` | Connector-fallback ledger pushed; draft PR created through authenticated `gh`, OPEN/MERGEABLE, Quality in progress |
 
 ## Errors and verification
 
