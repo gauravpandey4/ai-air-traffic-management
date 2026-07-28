@@ -117,7 +117,9 @@ test('loads the branded shell under the repository base path', async ({ page }) 
   await expect(page.getByText('Simulated data', { exact: true })).toBeVisible();
   await expect(page.getByLabel(/academic safety notice/i)).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Normal traffic' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Traffic statistics' })).toBeVisible();
   await expect(page.getByRole('heading', { name: 'Local schematic' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'How FutureATC Lab works' })).toBeVisible();
   await expect(page.getByRole('table')).toBeVisible();
   expect(errors).toEqual([]);
 });
@@ -285,6 +287,20 @@ test('activates one fresh external dataset with provenance and honest limitation
   await expect(aircraftTable.getByRole('button', { name: 'SIM-NOR01' })).toHaveCount(0);
   await expect(page.getByRole('link', { name: 'Aircraft data by adsb.fi' })).toBeVisible();
   await expect(page.getByText('External · Fresh')).toBeVisible();
+  const statistics = page.getByRole('region', { name: 'Current external snapshot statistics' });
+  await expect(statistics.getByText('Based on 2 of 2 valid altitude observations')).toBeVisible();
+  await expect(
+    statistics
+      .locator('.stat-card')
+      .filter({ hasText: 'Arrivals' })
+      .getByText('Unavailable', { exact: true }),
+  ).toBeVisible();
+  await expect(
+    statistics
+      .locator('.stat-card')
+      .filter({ hasText: 'Arrivals' })
+      .getByText('Unavailable · 0 of 2 tracks with supported intent'),
+  ).toBeVisible();
   await expect(page.locator('.detail-item').filter({ hasText: 'Fuel state' })).toContainText(
     'Unavailable',
   );
@@ -329,10 +345,72 @@ test('handles a fresh empty aircraft snapshot and restores Simulation after expi
   await expect(page.getByRole('table').getByRole('button', { name: 'SIM-NOR01' })).toBeVisible();
 });
 
+test('supports keyboard learning disclosure and complete evaluator guidance', async ({ page }) => {
+  await page.goto('.');
+
+  const learning = page.getByRole('region', { name: 'How FutureATC Lab works' });
+  await expect(learning.locator('.capability-card')).toHaveCount(7);
+  const firstSummary = learning.locator('summary').first();
+  await firstSummary.focus();
+  await page.keyboard.press('Enter');
+  await expect(firstSummary.locator('..')).toHaveAttribute('open', '');
+  await expect(learning.getByText('Inputs', { exact: true }).first()).toBeVisible();
+  await expect(learning.getByRole('heading', { name: 'Five-minute demo path' })).toBeVisible();
+  await expect(learning.getByRole('heading', { name: 'Sources and attribution' })).toBeVisible();
+  await expect(page.getByRole('navigation', { name: 'Data source attribution' })).toBeVisible();
+});
+
+test('serves a warm cached shell and local simulator while offline', async ({ context, page }) => {
+  await page.goto('.');
+  await page.evaluate(() => navigator.serviceWorker.ready);
+  await page.reload();
+  await expect(page.getByText('Online · local simulator ready')).toBeVisible();
+
+  await context.setOffline(true);
+  await expect(
+    page.getByText('Offline · cached shell and local simulator remain available'),
+  ).toBeVisible();
+  await page.reload({ waitUntil: 'domcontentloaded' });
+
+  await expect(page.getByRole('heading', { level: 1, name: 'FutureATC Lab' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Local schematic' })).toBeVisible();
+  await expect(page.getByRole('table')).toBeVisible();
+});
+
+test('reflows with 200 percent text sizing and keeps focus visible', async ({ page }) => {
+  // A 1440 CSS-pixel layout viewed at 200% browser zoom exposes about 720 layout pixels.
+  await page.setViewportSize({ width: 720, height: 900 });
+  await page.goto('.');
+
+  await page.getByRole('link', { name: 'Skip to simulator' }).focus();
+  const focusOutline = await page
+    .getByRole('link', { name: 'Skip to simulator' })
+    .evaluate((element) => getComputedStyle(element).outlineStyle);
+  expect(focusOutline).not.toBe('none');
+  const overflowingElements = await page.evaluate(() => {
+    const viewportWidth = document.documentElement.clientWidth;
+    return [...document.querySelectorAll<HTMLElement>('body *')]
+      .filter((element) => {
+        const rectangle = element.getBoundingClientRect();
+        return rectangle.right > viewportWidth + 1 || rectangle.left < -1;
+      })
+      .slice(0, 20)
+      .map((element) => ({
+        className: element.className,
+        right: Math.round(element.getBoundingClientRect().right),
+        tag: element.tagName,
+        text: element.textContent.trim().slice(0, 80),
+      }));
+  });
+  expect(overflowingElements).toEqual([]);
+  await expect(page.getByRole('heading', { name: 'How FutureATC Lab works' })).toBeVisible();
+});
+
 for (const viewport of [
   { name: 'desktop', width: 1440, height: 1000 },
   { name: 'tablet', width: 768, height: 1024 },
   { name: 'mobile', width: 390, height: 844 },
+  { name: 'minimum', width: 320, height: 844 },
 ]) {
   test(`foundation reflows at ${viewport.name}`, async ({ page }) => {
     await page.setViewportSize({ width: viewport.width, height: viewport.height });
