@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T21:14:00Z
-- Current gate: Gate 4 — Implementation and PR Workflow
+- Last updated (UTC): 2026-07-28T21:20:30Z
+- Current gate: Gate 4 — Implementation complete, final approval pending
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
-- Gate 4 status: In progress
-- Last completed action: Commit `1e763d2` recorded the PR; local/remote/PR head match, PR `#11` is ready/open with no reviews/comments/deployments/variables, and Quality is propagating.
-- Exact next action: Commit/push this exact PR-state ledger, then wait for the exact-head Quality run and complete final review guards.
+- Gate 4 status: Evidence complete; explicit user approval pending
+- Last completed action: Gate 4 final audit passed on application merge `e0e1e99`: local/GitHub quality green, public main-only repository, no open PR/stash/deployment/variable, and all seven implementation PRs complete.
+- Exact next action: Commit and push this final post-merge evidence ledger as non-implementation bookkeeping on `main`, wait for its Quality run, verify clean synchronization/no release activation, then present Gate 4 for explicit approval.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -587,6 +587,14 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T21:13:00Z | Commit/Push | `d31fc2a`, `test/release-hardening` | Publication guard committed; new remote branch pushed with upstream; no deployment invoked |
 | 2026-07-28T21:13:30Z | Commit/Push/PR | `40934db`, PR `#11` | Branch-push ledger pushed; draft PR opened at exact head `40934dbdd082cba0bc6ac8dcd786a21b20396409`; no deployment |
 | 2026-07-28T21:14:00Z | Commit/Push/PR | `1e763d2`, PR `#11` | PR ledger pushed; PR marked ready/open; local/remote/PR head exact; no comments/reviews/deployments/variables; Quality propagating |
+| 2026-07-28T21:14:30Z | Commit/Push/CI transient | `5385f3f`, PR `#11`, superseded run `30401320200` | Ready-state ledger pushed; watcher saw pending then no check while exact-head run propagated; no CI conclusion inferred |
+| 2026-07-28T21:16:30Z | CI | PR `#11`, run `30401351209`, exact head `5385f3f8741dd242910cc9dfbdfa987a219d2909` | Quality passed in 1m37s: format, lint, strict types, 177-test coverage, build/base verification, privacy, and 16/16 Chromium |
+| 2026-07-28T21:17:00Z | Review/Deployment | PR `#11`, exact head `5385f3f8741dd242910cc9dfbdfa987a219d2909` | OPEN/ready/CLEAN/MERGEABLE; exact-head Quality successful; no comments/reviews/inline comments/review threads; zero deployments/variables |
+| 2026-07-28T21:17:30Z | Merge | PR `#11`, merge `e0e1e99951c5fd52ece3ff271a64dc2365d4427d` | Exact-SHA squash merge successful; cleanup/post-merge verification remain; no deployment |
+| 2026-07-28T21:18:00Z | Cleanup | PR `#11`, merge `e0e1e99951c5fd52ece3ff271a64dc2365d4427d` | Two-file ledger stash restored cleanly after main fast-forward; merge verified; exact local/remote PR 7 refs deleted; local/origin main synchronized |
+| 2026-07-28T21:18:30Z | Check | PR 7 post-merge main `e0e1e99951c5fd52ece3ff271a64dc2365d4427d` | Local full quality passed: 177/177 tests at 91.04/88.85/88.78/92.88, build/base/PWA/privacy, 16/16 Chromium, production audit zero; GitHub main run `30401551735` in progress |
+| 2026-07-28T21:20:00Z | CI | Main run `30401551735`, exact application merge `e0e1e99951c5fd52ece3ff271a64dc2365d4427d` | Quality passed in 1m42s with full check and essential browser suite |
+| 2026-07-28T21:20:30Z | Gate 4 audit/Decision | Public repository and exact main `e0e1e99` | Main-only local/remote refs, public/default main, no open PR/stash/deployment/variable, all Pages schedules skipped; final ledger-only main bookkeeping commit selected to make mandatory post-merge memory durable and working tree clean without changing implementation or activating Pages |
 
 ## Errors and verification
 

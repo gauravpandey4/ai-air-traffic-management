@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T21:14:00Z
-- Current gate: Gate 4 — Implementation and PR Workflow
-- Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: Commit `1e763d2` recorded the PR; local/remote/PR head match, PR `#11` is ready/open with no reviews/comments/deployments/variables, and Quality is propagating.
-- Exact next action: Commit/push this exact PR-state ledger, then wait for the exact-head Quality run and complete final review guards.
+- Last updated (UTC): 2026-07-28T21:20:30Z
+- Current gate: Gate 4 — Implementation complete, final approval pending
+- Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 evidence complete and ready for explicit user approval
+- Last completed action: Gate 4 final audit passed on application merge `e0e1e99`: local/GitHub quality green, public main-only repository, no open PR/stash/deployment/variable, and all seven implementation PRs complete.
+- Exact next action: Commit and push this final post-merge evidence ledger as non-implementation bookkeeping on `main`, wait for its Quality run, verify clean synchronization/no release activation, then present Gate 4 for explicit approval.
 - Blockers: None.
 
 ## Fixed project facts
@@ -239,3 +239,11 @@ Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been e
 - 2026-07-28T21:13:00Z — Commit `d31fc2a` (`docs: record release branch publication`) recorded the publication guard, then the new `origin/test/release-hardening` branch was pushed with upstream tracking. No deployment workflow was invoked.
 - 2026-07-28T21:13:30Z — Commit `40934db` (`docs: record release branch push`) was pushed, then draft PR `#11` (`Harden Gate 4 release candidate`) was opened at exact head `40934dbdd082cba0bc6ac8dcd786a21b20396409`; no deployment occurred.
 - 2026-07-28T21:14:00Z — Commit `1e763d2` (`docs: record release pull request`) was pushed and PR `#11` marked ready. Local, remote, and PR head match `1e763d2c3ac12aca084f2409d1e0881b5076a79e`; PR is OPEN with no comments/reviews, zero deployments, no variables, and exact-head Quality still propagating.
+- 2026-07-28T21:14:30Z — Commit `5385f3f` (`docs: record ready release pull request`) was pushed. The check watcher first saw pending run `30401320200`, then the superseded-head check disappeared while final-head Quality propagated and the watcher exited with “no checks reported”; no CI conclusion was inferred.
+- 2026-07-28T21:16:30Z — Exact-head Quality run `30401351209` passed in 1m37s at `5385f3f8741dd242910cc9dfbdfa987a219d2909`, including format, lint, strict types, 177-test coverage, build/base verifier, privacy, and all 16 Chromium flows.
+- 2026-07-28T21:17:00Z — PR `#11` final guards passed: OPEN/ready/CLEAN/MERGEABLE at exact local/remote/PR head `5385f3f8741dd242910cc9dfbdfa987a219d2909`, successful exact-head Quality, no issue comments, reviews, inline comments, or review threads, zero deployments, and no repository variables.
+- 2026-07-28T21:17:30Z — PR `#11` squash-merged through GitHub's exact-SHA endpoint as `e0e1e99951c5fd52ece3ff271a64dc2365d4427d`. Local/remote cleanup and post-merge verification remain; no deployment occurred.
+- 2026-07-28T21:18:00Z — Named two-file ledger stash was created, local `main` fast-forwarded to `e0e1e99`, and the stash restored without conflicts after pull. Verified merged PR/head, then deleted exact local and remote `test/release-hardening` refs; local/origin main remain synchronized.
+- 2026-07-28T21:18:30Z — Complete post-merge local verification passed on exact main `e0e1e99`: format/lint/types, 177/177 tests at 91.04/88.85/88.78/92.88 coverage, build/base/PWA/privacy, 16/16 Chromium, and production audit zero. Matching GitHub main Quality run `30401551735` is in progress.
+- 2026-07-28T21:20:00Z — GitHub main Quality run `30401551735` passed in 1m42s at exact application merge `e0e1e99951c5fd52ece3ff271a64dc2365d4427d`, including the full check and essential browser suite.
+- 2026-07-28T21:20:30Z — Gate 4 repository audit passed: public `gauravpandey4/ai-air-traffic-management`, default/local/remote branch only `main` at `e0e1e99`, no open PRs or stashes, zero deployments, no repository variables, and every Pages schedule skipped behind the release guard. A final ledger-only bookkeeping commit on main is required to leave the mandated complete memory files durable and the working tree clean; it changes no implementation or production artifact and does not activate Pages.
