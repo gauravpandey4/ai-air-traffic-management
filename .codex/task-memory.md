@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T20:54:30Z
+- Last updated (UTC): 2026-07-28T20:56:00Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: Publication-ledger commit `da07bf6` and branch `feat/learning-accessibility` were pushed successfully.
-- Exact next action: Commit/push this publication record, create PR 6 as draft, then wait for exact-head CI/review guards.
+- Last completed action: Branch-push ledger `31e0732` was pushed; draft PR `#10` is OPEN/MERGEABLE at that exact head with Quality run `30398084386` in progress.
+- Exact next action: Commit/push the PR record, mark PR `#10` ready, then wait for the resulting exact-head Quality and review/deployment guards.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -557,6 +557,7 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T20:53:00Z | Check | Exact PR 6 branch `8a09250330915fd90597b15cc5a99b122554f5cd` | Format/lint/types, 176/176 tests, 91.04/88.85/88.78/92.88 coverage, build/privacy, 12-entry shell precache boundaries, 16/16 Chromium, production audit, clean cumulative review, zero deployments/variables/open PRs passed |
 | 2026-07-28T20:53:30Z | Commit | `afa109a` | Exact PR 6 branch verification ledger committed; branch publication next |
 | 2026-07-28T20:54:30Z | Commit/Push | `da07bf6`, `feat/learning-accessibility` | Publication ledger committed; new remote branch pushed with upstream tracking |
+| 2026-07-28T20:56:00Z | Commit/Push/PR/CI | `31e0732`, PR `#10`, run `30398084386` | Branch-push ledger pushed; draft PR created OPEN/MERGEABLE at exact head with Quality in progress; no deployment |
 
 ## Errors and verification
 

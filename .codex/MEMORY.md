@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T20:54:30Z
+- Last updated (UTC): 2026-07-28T20:56:00Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: Publication-ledger commit `da07bf6` and branch `feat/learning-accessibility` were pushed successfully.
-- Exact next action: Commit/push this publication record, create PR 6 as draft, then wait for exact-head CI/review guards.
+- Last completed action: Branch-push ledger `31e0732` was pushed; draft PR `#10` is OPEN/MERGEABLE at that exact head with Quality run `30398084386` in progress.
+- Exact next action: Commit/push the PR record, mark PR `#10` ready, then wait for the resulting exact-head Quality and review/deployment guards.
 - Blockers: None.
 
 ## Fixed project facts
@@ -209,3 +209,4 @@ Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been e
 - 2026-07-28T20:53:00Z — Exact clean branch head `8a09250330915fd90597b15cc5a99b122554f5cd` passed format/lint/types, 176/176 tests at 91.04/88.85/88.78/92.88 coverage, production build/privacy, 12-entry app-shell precache with no injected registration/dynamic snapshot, 16/16 Chromium, production audit zero, cumulative diff/commit review, zero deployments, no release variable, and no open PRs.
 - 2026-07-28T20:53:30Z — Commit `afa109a` recorded exact PR 6 verification; branch publication is next.
 - 2026-07-28T20:54:30Z — Commit `da07bf6` (`docs: record learning branch publication`) created and pushed with new upstream `origin/feat/learning-accessibility`.
+- 2026-07-28T20:56:00Z — Commit `31e0732` (`docs: record learning branch push`) was pushed. Draft PR `#10` was created at exact head `31e0732aca98e0c98741a6ab13e2ed7e2c587a72`; it is OPEN/MERGEABLE with Quality run `30398084386` in progress and no deployment.
