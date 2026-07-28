@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T20:08:10Z
+- Last updated (UTC): 2026-07-28T20:09:02Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: Commit `84514aa` recorded exact local verification and `feat/external-aircraft` was pushed with upstream tracking at that head.
-- Exact next action: Commit/push this publication ledger, then open a draft PR through the GitHub connector.
+- Last completed action: Publication-ledger commit `0272faf` was pushed; GitHub connector PR creation returned 403 `Resource not accessible by integration`.
+- Exact next action: Commit/push the connector-failure ledger, then create the same draft PR with authenticated `gh` fallback.
 - Blockers: None.
 
 ## Fixed project facts
@@ -175,3 +175,4 @@ Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been e
 - 2026-07-28T20:06:21Z — Commit `9732d9c` (`docs: record external aircraft validation`) created; the branch was clean immediately afterward.
 - 2026-07-28T20:07:36Z — Exact branch head `8da33411b617fd24fb02af993b8140c4d6ecdb3c` passed full format/lint/types, 172/172 tests, 95.7/91.91/94.65/96.62 coverage, build/privacy, 12/12 Chromium, dynamic snapshot precache exclusion, production audit zero, clean status, and cumulative main diff/commit review.
 - 2026-07-28T20:08:10Z — Commit `84514aa` recorded exact local verification; branch `feat/external-aircraft` was pushed successfully with upstream tracking.
+- 2026-07-28T20:09:02Z — Commit `0272faf` recorded branch publication and was pushed. GitHub connector PR creation failed with HTTP 403 `Resource not accessible by integration`; authenticated `gh` fallback selected.
