@@ -9,7 +9,9 @@ import type {
   SimulationBounds,
   SimulationState,
   SimulationStatistics,
+  WeatherSnapshot,
 } from './types';
+import { createSimulatedWeather } from './weather';
 
 export type SimulationAction =
   | { type: 'scenario-selected'; scenarioId: ScenarioId }
@@ -25,6 +27,10 @@ export type SimulationAction =
       decision: 'Confirmed in simulation' | 'Rejected in simulation';
     }
   | { type: 'selected-emergency-toggled' }
+  | { type: 'weather-check-requested' }
+  | { type: 'weather-loaded'; snapshot: WeatherSnapshot }
+  | { type: 'weather-fallback'; reason: string; retryAtIso: string | null }
+  | { type: 'weather-simulation-selected' }
   | { type: 'map-mode-selected'; mapMode: 'schematic' | 'connected' }
   | { type: 'map-unavailable'; reason: string };
 
@@ -66,6 +72,7 @@ export function createInitialSimulationState(
     throw new Error(`Scenario ${scenarioId} did not generate an aircraft.`);
   }
 
+  const weatherSnapshot = createSimulatedWeather(scenarioId);
   return {
     scenarioId,
     aircraft,
@@ -77,6 +84,10 @@ export function createInitialSimulationState(
     mapStatus: 'Local schematic active — no network or map tiles required.',
     acknowledgedAlertIds: [],
     reviewDecisions: {},
+    weatherMode: 'Simulated',
+    weatherSnapshot,
+    weatherStatus: 'Deterministic simulated weather is active.',
+    weatherRetryAtIso: null,
   };
 }
 
@@ -148,6 +159,42 @@ export function simulationReducer(
               }
             : aircraft,
         ),
+        reviewDecisions: {},
+      };
+    case 'weather-check-requested':
+      return {
+        ...state,
+        weatherMode: 'Checking',
+        weatherStatus: 'Checking Open-Meteo for validated current conditions…',
+      };
+    case 'weather-loaded':
+      return {
+        ...state,
+        weatherMode: action.snapshot.mode,
+        weatherSnapshot: action.snapshot,
+        weatherStatus:
+          action.snapshot.mode === 'Cached'
+            ? 'Validated cached Open-Meteo weather is active.'
+            : 'Validated Open-Meteo weather is active.',
+        weatherRetryAtIso: null,
+        reviewDecisions: {},
+      };
+    case 'weather-fallback':
+      return {
+        ...state,
+        weatherMode: 'Fallback',
+        weatherSnapshot: createSimulatedWeather(state.scenarioId),
+        weatherStatus: `${action.reason} Simulated weather restored.`,
+        weatherRetryAtIso: action.retryAtIso,
+        reviewDecisions: {},
+      };
+    case 'weather-simulation-selected':
+      return {
+        ...state,
+        weatherMode: 'Simulated',
+        weatherSnapshot: createSimulatedWeather(state.scenarioId),
+        weatherStatus: 'Deterministic simulated weather is active.',
+        weatherRetryAtIso: null,
         reviewDecisions: {},
       };
     case 'map-mode-selected':

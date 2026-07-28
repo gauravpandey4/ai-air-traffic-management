@@ -15,6 +15,8 @@ export type SimulatorContextValue = {
   statistics: SimulationStatistics;
   decisionSupport: DecisionSupport;
   simulationTimestamp: string;
+  requestObservedWeather: () => Promise<void>;
+  selectSimulatedWeather: () => void;
   dispatch: Dispatch<SimulationAction>;
 };
 
