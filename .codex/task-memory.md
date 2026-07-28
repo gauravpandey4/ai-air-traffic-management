@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T20:56:00Z
+- Last updated (UTC): 2026-07-28T21:04:30Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: Branch-push ledger `31e0732` was pushed; draft PR `#10` is OPEN/MERGEABLE at that exact head with Quality run `30398084386` in progress.
-- Exact next action: Commit/push the PR record, mark PR `#10` ready, then wait for the resulting exact-head Quality and review/deployment guards.
+- Last completed action: Created `test/release-hardening` from verified main `b01235a`; the carried PR 6 post-merge ledger is ready for its first branch commit.
+- Exact next action: Commit the carried PR 6 ledger, then audit and complete PR 7 release-candidate hardening/evidence without deployment.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -558,6 +558,13 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T20:53:30Z | Commit | `afa109a` | Exact PR 6 branch verification ledger committed; branch publication next |
 | 2026-07-28T20:54:30Z | Commit/Push | `da07bf6`, `feat/learning-accessibility` | Publication ledger committed; new remote branch pushed with upstream tracking |
 | 2026-07-28T20:56:00Z | Commit/Push/PR/CI | `31e0732`, PR `#10`, run `30398084386` | Branch-push ledger pushed; draft PR created OPEN/MERGEABLE at exact head with Quality in progress; no deployment |
+| 2026-07-28T20:57:30Z | Commit/Push/PR | `efef5a1`, PR `#10` | PR ledger pushed; PR marked ready CLEAN/MERGEABLE at exact local/remote head with no comments/reviews and zero deployments; exact-head Quality propagation pending |
+| 2026-07-28T20:59:30Z | CI | PR `#10`, run `30398136263`, exact head `efef5a1c7d8d5556ac3ee369787392d77ef1516e` | Quality passed in 1m39s, including format, lint, types, coverage, build, privacy, and essential Chromium |
+| 2026-07-28T21:00:00Z | Review/Deployment | PR `#10`, exact head `efef5a1c7d8d5556ac3ee369787392d77ef1516e` | OPEN/ready/CLEAN/MERGEABLE; exact-head check successful; no comments, reviews, inline comments, or review threads; zero deployments and no repository variables |
+| 2026-07-28T21:00:30Z | Merge | PR `#10`, merge `b01235a8622f4c8f8b1e3640187bb983db8a51c2` | Exact-SHA GitHub endpoint squash-merged successfully; cleanup/post-merge verification remain; no deployment |
+| 2026-07-28T21:01:30Z | Cleanup | PR `#10`, merge `b01235a8622f4c8f8b1e3640187bb983db8a51c2` | Two-file ledger stash restored cleanly after main fast-forward; merged state verified; exact local/remote PR 6 refs deleted; local/origin main synchronized |
+| 2026-07-28T21:04:00Z | Check | PR 6 post-merge main `b01235a8622f4c8f8b1e3640187bb983db8a51c2` | Local full quality, 176/176 tests, 91.04/88.85/88.78/92.88 coverage, build/privacy, 16/16 Chromium, production audit, and GitHub Quality `30398355924` passed; no open PRs/branches/deployments/variables |
+| 2026-07-28T21:04:30Z | Branch | `test/release-hardening` from `b01235a8622f4c8f8b1e3640187bb983db8a51c2` | PR 7 release-hardening branch created from verified main; Gate 5 deployment remains locked |
 
 ## Errors and verification
 

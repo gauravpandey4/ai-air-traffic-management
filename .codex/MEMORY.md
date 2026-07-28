@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T20:56:00Z
+- Last updated (UTC): 2026-07-28T21:04:30Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: Branch-push ledger `31e0732` was pushed; draft PR `#10` is OPEN/MERGEABLE at that exact head with Quality run `30398084386` in progress.
-- Exact next action: Commit/push the PR record, mark PR `#10` ready, then wait for the resulting exact-head Quality and review/deployment guards.
+- Last completed action: Created `test/release-hardening` from verified main `b01235a`; the carried PR 6 post-merge ledger is ready for its first branch commit.
+- Exact next action: Commit the carried PR 6 ledger, then audit and complete PR 7 release-candidate hardening/evidence without deployment.
 - Blockers: None.
 
 ## Fixed project facts
@@ -210,3 +210,10 @@ Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been e
 - 2026-07-28T20:53:30Z — Commit `afa109a` recorded exact PR 6 verification; branch publication is next.
 - 2026-07-28T20:54:30Z — Commit `da07bf6` (`docs: record learning branch publication`) created and pushed with new upstream `origin/feat/learning-accessibility`.
 - 2026-07-28T20:56:00Z — Commit `31e0732` (`docs: record learning branch push`) was pushed. Draft PR `#10` was created at exact head `31e0732aca98e0c98741a6ab13e2ed7e2c587a72`; it is OPEN/MERGEABLE with Quality run `30398084386` in progress and no deployment.
+- 2026-07-28T20:57:30Z — Commit `efef5a1` (`docs: record learning pull request`) was pushed and PR `#10` marked ready. PR/local/remote head equals `efef5a1c7d8d5556ac3ee369787392d77ef1516e`; PR is CLEAN/MERGEABLE with no comments/reviews and zero deployments while exact-head Quality propagates.
+- 2026-07-28T20:59:30Z — Exact-head Quality run `30398136263` passed in 1m39s at `efef5a1c7d8d5556ac3ee369787392d77ef1516e`, including format, lint, strict types, coverage, build, privacy, and essential Chromium. Final review/deployment guards begin.
+- 2026-07-28T21:00:00Z — PR `#10` final guards passed: OPEN/ready/CLEAN/MERGEABLE at exact remote head `efef5a1c7d8d5556ac3ee369787392d77ef1516e`, successful exact-head Quality, no comments/reviews/inline comments/review threads, zero deployments, and no repository variables. Exact-head squash merge is authorized within Gate 4.
+- 2026-07-28T21:00:30Z — PR `#10` squash-merged through GitHub's exact-SHA endpoint as `b01235a8622f4c8f8b1e3640187bb983db8a51c2`. Local/remote cleanup and post-merge verification remain; no deployment occurred.
+- 2026-07-28T21:01:30Z — Named two-file ledger stash was created, local `main` fast-forwarded to `b01235a`, and the stash restored without conflicts after the pull. Verified merged PR/head, then deleted exact local and remote `feat/learning-accessibility` refs; local/origin main remain synchronized.
+- 2026-07-28T21:04:00Z — PR 6 post-merge verification passed on exact main `b01235a`: format/lint/types, 176/176 tests at 91.04/88.85/88.78/92.88 coverage, build/privacy, 16/16 Chromium, production audit zero, GitHub Quality run `30398355924` success, no open PRs, branches, deployments, or variables.
+- 2026-07-28T21:04:30Z — Created `test/release-hardening` directly from verified main `b01235a`; Gate 5 deployment remains locked and the carried PR 6 post-merge ledger is the only pending change.
