@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T17:11:57Z
+- Last updated (UTC): 2026-07-28T18:06:31Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: Sixth check passed format/lint/types, 5/5 tests, 100% measured foundation coverage, and build; privacy scan found a third-party package maintainer email in generated `package-lock.json`.
-- Exact next action: Exclude generated lockfile metadata from the authored-content privacy scan and rerun all checks; the lockfile remains committed for reproducibility.
+- Last completed action: PR 2 post-merge verification passed on refreshed `main`: the complete quality suite, 7/7 Chromium cases, deployment count `0`, and open pull-request list `[]`.
+- Exact next action: Create PR 3 branch `feat/decision-support` from verified merge SHA `761e1c800cb10e84c48423b4518dc49ced2077fe` and commit the carried post-merge ledger before implementation.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -355,6 +355,13 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T18:00:00Z | PR             | `#6`                                                         | Simulation dashboard PR marked ready at `52b1169`; Quality running                                                                                          |
 | 2026-07-28T18:00:00Z | Cleanup        | Dependabot PRs `#2`–`#5`                                     | Four incompatible automated proposals closed without merge; PR `#6` is the only open PR                                                                     |
 | 2026-07-28T18:00:00Z | Commit         | This corrected PR 2 ledger commit                            | Records final PR number/state and Dependabot cleanup before exact-head CI                                                                                   |
+| 2026-07-28T18:00:45Z | Error          | PR `#6` immediate check watch                                | GitHub had not yet registered checks for new head `8c02cba`; transient, poll pending                                                                        |
+| 2026-07-28T18:02:43Z | CI             | PR `#6`, run `30385463151`                                   | Quality passed all 12 steps at exact head `8c02cba` in 1m20s; mergeable with no comments or unresolved feedback                                             |
+| 2026-07-28T18:03:17Z | Merge          | PR `#6`, `761e1c800cb10e84c48423b4518dc49ced2077fe`          | Squash merge succeeded with expected-head guard                                                                                                             |
+| 2026-07-28T18:03:57Z | Cleanup        | `origin/feat/simulation-dashboard`                           | Exact remote PR 2 branch resolved and deleted after confirmed merge                                                                                         |
+| 2026-07-28T18:04:30Z | Cleanup        | Local `feat/simulation-dashboard` and refreshed `main`       | Local branch deleted; `main` fast-forwarded to `761e1c8`; post-merge ledger restored                                                                        |
+| 2026-07-28T18:06:31Z | Check          | PR 2 post-merge verification                                 | Full quality suite and 7/7 Chromium checks passed on refreshed `main`; GitHub reports zero deployments and no open pull requests                            |
+| 2026-07-28T18:06:31Z | Error          | Combined memory update                                       | Patch expected the detailed ledger in compact `.codex/MEMORY.md`; no content changed, then file-specific updates were applied                               |
 
 ## Errors and verification
 

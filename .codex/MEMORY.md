@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T18:00:00Z
+- Last updated (UTC): 2026-07-28T18:06:31Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: PR `#6` is ready for review at exact head `52b1169e96f9a81bcbd9188edc42cd476416696a` with Quality running. Incompatible Dependabot PRs `#2`–`#5` were closed without merge; PR `#6` is the repository's only open PR.
-- Exact next action: Commit/push this corrected PR ledger, then wait for Quality on the new exact head before merge.
+- Last completed action: PR 2 post-merge verification passed on refreshed `main`: the complete quality suite, 7/7 Chromium cases, deployment count `0`, and open pull-request list `[]`.
+- Exact next action: Create PR 3 branch `feat/decision-support` from verified merge SHA `761e1c800cb10e84c48423b4518dc49ced2077fe` and commit the carried post-merge ledger before implementation.
 - Blockers: None.
 
 ## Fixed project facts
@@ -80,3 +80,8 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Gate rule
 
 Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been explicitly approved. Deployment is prohibited until Gate 4 has been completed and explicitly approved.
+
+## Latest execution notes
+
+- 2026-07-28T18:06:31Z — PR 2 post-merge verification passed: full quality suite, 7/7 Chromium checks, zero GitHub deployments, and no open pull requests.
+- 2026-07-28T18:06:31Z — A combined memory patch failed because the compact memory file does not contain the detailed ledger table; no content changed, and updates were split by file structure.
