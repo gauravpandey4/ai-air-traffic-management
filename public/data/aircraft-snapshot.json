@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "availability": "unavailable",
+  "provider": "adsb.fi",
+  "generatedAt": null,
+  "fetchedAt": null,
+  "freshForMinutes": 30,
+  "validation": "not-fetched",
+  "recordCount": 0,
+  "retryAt": null,
+  "reason": "External aircraft data has not been fetched for this build.",
+  "aircraft": []
+}
