@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T18:36:02Z
+- Last updated (UTC): 2026-07-28T18:36:36Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: Publication ledger commit `f9dd96b` was pushed, and draft PR `#7` was created at the exact remote head.
-- Exact next action: Commit/push this PR-creation ledger, mark PR `#7` ready, and verify exact-head CI before merge.
+- Last completed action: PR-creation ledger commit `65aedbb` was pushed and PR `#7` was marked ready at exact head `65aedbb6eaa6d950ad968debb3e184d0f5a9dda7`; GitHub had not registered checks yet.
+- Exact next action: Commit/push this final readiness ledger once, then require exact-head CI and mergeability before squash merge.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -413,6 +413,10 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T18:36:02Z | Commit | `f9dd96b` | `docs: record decision support publication`; publication ledger pushed |
 | 2026-07-28T18:36:02Z | PR | `#7` | Draft created against `main` at exact head `f9dd96b694dcbddc58a19906e0e6526848e2e6d8`; deployment remains disabled |
 | 2026-07-28T18:36:02Z | Commit | This PR 3 creation-ledger commit | Records draft PR URL/state before readiness and exact-head CI |
+
+| 2026-07-28T18:36:36Z | Commit | `65aedbb` | `docs: record decision support pull request`; pushed to PR branch |
+| 2026-07-28T18:36:36Z | PR | `#7` | Marked ready at exact head `65aedbb6eaa6d950ad968debb3e184d0f5a9dda7`; checks not yet registered |
+| 2026-07-28T18:36:36Z | Commit | This PR 3 readiness-ledger commit | Final ledger update before exact-head CI polling |
 
 ## Errors and verification
 

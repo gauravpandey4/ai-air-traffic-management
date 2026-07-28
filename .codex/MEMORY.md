@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T18:36:02Z
+- Last updated (UTC): 2026-07-28T18:36:36Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: Publication ledger commit `f9dd96b` was pushed, and draft PR `#7` was created at the exact remote head.
-- Exact next action: Commit/push this PR-creation ledger, mark PR `#7` ready, and verify exact-head CI before merge.
+- Last completed action: PR-creation ledger commit `65aedbb` was pushed and PR `#7` was marked ready at exact head `65aedbb6eaa6d950ad968debb3e184d0f5a9dda7`; GitHub had not registered checks yet.
+- Exact next action: Commit/push this final readiness ledger once, then require exact-head CI and mergeability before squash merge.
 - Blockers: None.
 
 ## Fixed project facts
@@ -114,3 +114,5 @@ Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been e
 - 2026-07-28T18:35:11Z — This publication-ledger update will be committed and pushed before PR creation.
 - 2026-07-28T18:36:02Z — Commit `f9dd96b` recorded branch publication and was pushed; draft PR `#7` created at that exact head.
 - 2026-07-28T18:36:02Z — This PR-creation ledger will be committed/pushed before PR `#7` is marked ready.
+- 2026-07-28T18:36:36Z — Commit `65aedbb` recorded PR creation and was pushed; PR `#7` marked ready. Check registration is initially empty.
+- 2026-07-28T18:36:36Z — This final readiness ledger will be committed and pushed once before exact-head CI polling.
