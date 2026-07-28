@@ -555,6 +555,7 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T20:50:30Z | Commit | `1b8349c` | `test: add accessibility offline and responsive coverage`; staged scope and whitespace review passed |
 | 2026-07-28T20:51:00Z | Commit | `9e25a8b` | `docs: record learning accessibility validation`; complete local evidence ledger committed |
 | 2026-07-28T20:53:00Z | Check | Exact PR 6 branch `8a09250330915fd90597b15cc5a99b122554f5cd` | Format/lint/types, 176/176 tests, 91.04/88.85/88.78/92.88 coverage, build/privacy, 12-entry shell precache boundaries, 16/16 Chromium, production audit, clean cumulative review, zero deployments/variables/open PRs passed |
+| 2026-07-28T20:53:30Z | Commit | `afa109a` | Exact PR 6 branch verification ledger committed; branch publication next |
 
 ## Errors and verification
 

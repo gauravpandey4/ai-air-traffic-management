@@ -207,3 +207,4 @@ Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been e
 - 2026-07-28T20:50:30Z — Commit `1b8349c` (`test: add accessibility offline and responsive coverage`) created after staged scope and whitespace review.
 - 2026-07-28T20:51:00Z — Commit `9e25a8b` (`docs: record learning accessibility validation`) created; only the immediate commit record is now pending.
 - 2026-07-28T20:53:00Z — Exact clean branch head `8a09250330915fd90597b15cc5a99b122554f5cd` passed format/lint/types, 176/176 tests at 91.04/88.85/88.78/92.88 coverage, production build/privacy, 12-entry app-shell precache with no injected registration/dynamic snapshot, 16/16 Chromium, production audit zero, cumulative diff/commit review, zero deployments, no release variable, and no open PRs.
+- 2026-07-28T20:53:30Z — Commit `afa109a` recorded exact PR 6 verification; branch publication is next.
