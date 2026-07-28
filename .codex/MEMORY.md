@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T18:00:00Z
+- Last updated (UTC): 2026-07-28T18:36:36Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: PR `#6` is ready for review at exact head `52b1169e96f9a81bcbd9188edc42cd476416696a` with Quality running. Incompatible Dependabot PRs `#2`–`#5` were closed without merge; PR `#6` is the repository's only open PR.
-- Exact next action: Commit/push this corrected PR ledger, then wait for Quality on the new exact head before merge.
+- Last completed action: PR-creation ledger commit `65aedbb` was pushed and PR `#7` was marked ready at exact head `65aedbb6eaa6d950ad968debb3e184d0f5a9dda7`; GitHub had not registered checks yet.
+- Exact next action: Commit/push this final readiness ledger once, then require exact-head CI and mergeability before squash merge.
 - Blockers: None.
 
 ## Fixed project facts
@@ -80,3 +80,39 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Gate rule
 
 Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been explicitly approved. Deployment is prohibited until Gate 4 has been completed and explicitly approved.
+
+## Latest execution notes
+
+- 2026-07-28T18:06:31Z — PR 2 post-merge verification passed: full quality suite, 7/7 Chromium checks, zero GitHub deployments, and no open pull requests.
+- 2026-07-28T18:06:31Z — A combined memory patch failed because the compact memory file does not contain the detailed ledger table; no content changed, and updates were split by file structure.
+- 2026-07-28T18:07:22Z — Created `feat/decision-support` from `761e1c8`; commit `1b5c27a` records the PR 2 post-merge ledger and starts PR 3.
+- 2026-07-28T18:13:29Z — First PR 3 lint run found one restricted numeric template interpolation in `collision.ts`; explicit string conversion selected.
+- 2026-07-28T18:13:56Z — PR 3 strict types rejected a nullable priority-candidate predicate whose declared weather union was broader than its mapped inference; explicit typed accumulation selected.
+- 2026-07-28T18:15:59Z — PR 3 decision-test lint rejected `expect.closeTo` values inside `objectContaining` as unsafe; direct `toBeCloseTo` assertions selected.
+- 2026-07-28T18:17:22Z — PR 3 integration suite passed 62/63; a broad runway text query matched the lead and explanation, so the assertion will explicitly accept the duplicate accessible presentations.
+- 2026-07-28T18:17:22Z — A combined memory/test patch missed a whitespace-aligned ledger row after Prettier; no content changed, and the retry uses exact file structure.
+- 2026-07-28T18:19:04Z — Full PR 3 non-browser suite and current 7/7 Playwright suite passed; in-app browser navigation succeeded, but its unsupported `networkidle` wait failed, so verification continues with the supported DOM readiness signal.
+- 2026-07-28T18:20:05Z — Manual browser review found random Normal-traffic geometry could trigger four conflict alerts and routine non-arrivals appeared in landing priority; deterministic separation and arrival-only routine queueing selected.
+- 2026-07-28T18:22:13Z — Responsive browser geometry passed at 1440/768/390 with no panel or score overflow; subsequent lint found two unreachable baseline status branches after vertical rates were stabilized at zero.
+- 2026-07-28T18:22:39Z — Full check stopped at formatting for `decision-support.test.ts`, which was outside the preceding narrow formatter target; project-wide formatting selected.
+- 2026-07-28T18:22:39Z — A combined memory patch missed another Prettier-aligned table row; no content changed, and the file-specific retry avoided aligned-row context.
+- 2026-07-28T18:23:39Z — Complete check passed format/lint/types, then one movement assertion wrapped at the north edge after deterministic scenario regeneration; center the test fixture before measuring direction.
+- 2026-07-28T18:24:30Z — PR 3 full quality suite passed; browser suite passed 7/8, with one broad alert query matching the visible title and explanation result, so exact text matching is required.
+- 2026-07-28T18:25:11Z — Expanded browser rerun passed the collision assertion and 7/8 overall; the identical low-fuel title/result duplication requires exact matching too.
+- 2026-07-28T18:26:39Z — Expanded browser suite passed 8/8. Cumulative review found projected/fuel severity and low-fuel statistics were not recomputed across every consumer; one derived aircraft view will synchronize map, list, detail, and statistics.
+- 2026-07-28T18:26:39Z — A multi-file coherence patch had an invalid hunk boundary and changed no files; implementation is split into structurally valid patches.
+- 2026-07-28T18:28:43Z — Post-review coherence rerun passed format/lint/types, 64/64 tests, 94.72/86.33/93.12/95.02 coverage, build/PWA/privacy, and 8/8 Playwright cases.
+- 2026-07-28T18:31:46Z — Final cumulative review passed: 66/66 tests, 95.69/89.7/93.12/95.79 global coverage, 98.86/95.09/100/99.2 domain coverage, build/PWA/privacy, 8/8 browser, whitespace, production audit zero, zero deployments, and no open PRs.
+- 2026-07-28T18:32:16Z — Commit `e6e17e4` (`feat: add explainable decision engines`) created after staged whitespace/scope review.
+- 2026-07-28T18:32:41Z — Commit `21ed6b3` (`feat: present recommendations and human review`) created after staged whitespace/scope review.
+- 2026-07-28T18:33:06Z — Commit `90c14ce` (`test: verify decision support scenarios`) created after staged whitespace/scope review.
+- 2026-07-28T18:33:06Z — This validation-ledger commit records the fully reviewed PR 3 branch state before the final exact branch suite and publication.
+- 2026-07-28T18:33:38Z — Commit `8c1f0c1` (`docs: record decision support validation`) created; branch clean immediately afterward.
+- 2026-07-28T18:34:38Z — Commit `2ef3b3a` (`docs: record decision support commits`) created; exact branch quality/browser suite and cumulative diff review passed afterward.
+- 2026-07-28T18:34:38Z — This branch-verification ledger will be committed before publishing `feat/decision-support`.
+- 2026-07-28T18:35:11Z — Commit `730a8f4` recorded exact branch verification; `feat/decision-support` was pushed with upstream tracking at that head.
+- 2026-07-28T18:35:11Z — This publication-ledger update will be committed and pushed before PR creation.
+- 2026-07-28T18:36:02Z — Commit `f9dd96b` recorded branch publication and was pushed; draft PR `#7` created at that exact head.
+- 2026-07-28T18:36:02Z — This PR-creation ledger will be committed/pushed before PR `#7` is marked ready.
+- 2026-07-28T18:36:36Z — Commit `65aedbb` recorded PR creation and was pushed; PR `#7` marked ready. Check registration is initially empty.
+- 2026-07-28T18:36:36Z — This final readiness ledger will be committed and pushed once before exact-head CI polling.

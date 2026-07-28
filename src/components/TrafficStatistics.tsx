@@ -5,7 +5,7 @@ import { useSimulator } from '../app/simulator-context';
 const formatNumber = new Intl.NumberFormat('en-IN');
 
 export function TrafficStatistics() {
-  const { statistics } = useSimulator();
+  const { statistics, decisionSupport } = useSimulator();
   const items = [
     {
       label: 'Aircraft',
@@ -34,8 +34,14 @@ export function TrafficStatistics() {
     {
       label: 'Fuel review',
       value: formatNumber.format(statistics.lowFuelAircraft),
-      detail: 'Scenario placeholders below 30 min',
+      detail: 'Below 30 min estimated endurance',
       icon: Waypoints,
+    },
+    {
+      label: 'Active alerts',
+      value: formatNumber.format(decisionSupport.alerts.length),
+      detail: 'Derived educational rules',
+      icon: Activity,
     },
     {
       label: 'Emergencies',

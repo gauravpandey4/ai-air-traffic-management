@@ -34,7 +34,8 @@ function DetailItem({ label, value, unit, icon: Icon }: DetailItemProps) {
 }
 
 export function AircraftDetail() {
-  const { selectedAircraft, simulationTimestamp } = useSimulator();
+  const { selectedAircraft, simulationTimestamp, decisionSupport } = useSimulator();
+  const fuel = decisionSupport.fuelByAircraftId[selectedAircraft.id];
 
   return (
     <aside className="panel aircraft-detail-panel" aria-labelledby="aircraft-detail-title">
@@ -78,7 +79,11 @@ export function AircraftDetail() {
         <DetailItem
           icon={Fuel}
           label="Fuel state"
-          value={`${selectedAircraft.simulatedFuelMinutes.toLocaleString()} min`}
+          value={
+            fuel === undefined
+              ? 'Unavailable'
+              : `${fuel.state} · ${fuel.enduranceMinutes.toFixed(1)} min`
+          }
           unit="educational estimate"
         />
         <DetailItem

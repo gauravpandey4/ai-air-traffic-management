@@ -13,7 +13,7 @@ function TrendIcon({ verticalRateFpm }: { verticalRateFpm: number }) {
 }
 
 export function AircraftList() {
-  const { state, dispatch } = useSimulator();
+  const { state, aircraft: displayedAircraft, dispatch } = useSimulator();
 
   return (
     <section className="panel aircraft-list-panel" aria-labelledby="aircraft-list-title">
@@ -22,7 +22,7 @@ export function AircraftList() {
           <p className="eyebrow">Equivalent text view</p>
           <h2 id="aircraft-list-title">Synthetic aircraft</h2>
         </div>
-        <span className="count-badge">{state.aircraft.length}</span>
+        <span className="count-badge">{displayedAircraft.length}</span>
       </div>
 
       <div className="aircraft-table-wrap">
@@ -38,7 +38,7 @@ export function AircraftList() {
             </tr>
           </thead>
           <tbody>
-            {state.aircraft.map((aircraft) => {
+            {displayedAircraft.map((aircraft) => {
               const selected = aircraft.id === state.selectedAircraftId;
               return (
                 <tr className={selected ? 'is-selected' : undefined} key={aircraft.id}>

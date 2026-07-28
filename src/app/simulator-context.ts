@@ -1,12 +1,19 @@
 import { createContext, type Dispatch, useContext } from 'react';
 
 import type { SimulationAction } from '../domain/simulation';
-import type { Aircraft, SimulationState, SimulationStatistics } from '../domain/types';
+import type {
+  Aircraft,
+  DecisionSupport,
+  SimulationState,
+  SimulationStatistics,
+} from '../domain/types';
 
 export type SimulatorContextValue = {
   state: SimulationState;
+  aircraft: Aircraft[];
   selectedAircraft: Aircraft;
   statistics: SimulationStatistics;
+  decisionSupport: DecisionSupport;
   simulationTimestamp: string;
   dispatch: Dispatch<SimulationAction>;
 };

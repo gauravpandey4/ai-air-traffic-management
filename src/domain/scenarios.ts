@@ -67,7 +67,11 @@ export const scenarios = {
 export const scenarioList = scenarioOrder.map((scenarioId) => scenarios[scenarioId]);
 
 const phases: readonly AircraftPhase[] = ['Arrival', 'Departure', 'Overflight'];
-const verticalRates = [-900, -500, 0, 0, 0, 500, 900] as const;
+const categoryProfiles = [
+  { aircraftCategory: 'Light', fuelBurnKgPerHour: 900 },
+  { aircraftCategory: 'Medium', fuelBurnKgPerHour: 1_800 },
+  { aircraftCategory: 'Heavy', fuelBurnKgPerHour: 3_600 },
+] as const;
 
 function round(value: number, places = 4): number {
   const multiplier = 10 ** places;
@@ -83,8 +87,10 @@ function createBaseAircraft(definition: ScenarioDefinition): Aircraft[] {
   return Array.from({ length: 8 }, (_, index) => {
     const phase = phases[index] ?? random.pick(phases);
     const number = String(index + 1).padStart(2, '0');
-    const verticalRateFpm = random.pick(verticalRates);
+    const verticalRateFpm = 0;
     const simulatedFuelMinutes = random.integer(38, 105);
+    const profile = random.pick(categoryProfiles);
+    const elapsedFlightMinutes = random.integer(18, 95);
 
     return {
       id: `${definition.id}-${number}`,
@@ -99,16 +105,22 @@ function createBaseAircraft(definition: ScenarioDefinition): Aircraft[] {
           longitudePadding +
           random.next() * (bounds.east - bounds.west - longitudePadding * 2),
       ),
-      altitudeFt: random.integer(45, 310) * 100,
+      altitudeFt: 7_000 + index * 5_000,
       groundSpeedKt: random.integer(210, 470),
       headingDeg: random.integer(0, 359),
       verticalRateFpm,
       phase,
       severity: 'Normal',
       simulatedFuelMinutes,
+      aircraftCategory: profile.aircraftCategory,
+      initialFuelKg: round(
+        (profile.fuelBurnKgPerHour * (elapsedFlightMinutes + simulatedFuelMinutes)) / 60,
+        1,
+      ),
+      fuelBurnKgPerHour: profile.fuelBurnKgPerHour,
+      elapsedFlightMinutes,
       simulatedEmergency: false,
-      status:
-        verticalRateFpm > 0 ? 'Climbing' : verticalRateFpm < 0 ? 'Descending' : 'Level flight',
+      status: 'Level flight',
       source: {
         mode: 'Simulated',
         generator: 'FutureATC deterministic engine',
@@ -160,6 +172,10 @@ function applyScenarioOverrides(scenarioId: ScenarioId, aircraft: Aircraft[]): A
         ? {
             ...item,
             simulatedFuelMinutes: 12,
+            initialFuelKg: round(
+              (item.fuelBurnKgPerHour * (item.elapsedFlightMinutes + 12)) / 60,
+              1,
+            ),
             severity: 'Warning',
             status: 'Critical fuel scenario',
           }
@@ -167,6 +183,10 @@ function applyScenarioOverrides(scenarioId: ScenarioId, aircraft: Aircraft[]): A
           ? {
               ...item,
               simulatedFuelMinutes: 24,
+              initialFuelKg: round(
+                (item.fuelBurnKgPerHour * (item.elapsedFlightMinutes + 24)) / 60,
+                1,
+              ),
               severity: 'Monitor',
               status: 'Low fuel scenario',
             }

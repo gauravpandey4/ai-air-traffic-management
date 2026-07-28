@@ -17,10 +17,15 @@ describe('simulation movement and reducer', () => {
     expect(base).toBeDefined();
     if (base === undefined) return;
 
-    const north = advanceAircraft({ ...base, headingDeg: 0 }, 60);
-    const east = advanceAircraft({ ...base, headingDeg: 90 }, 60);
-    expect(north.latitude).toBeGreaterThan(base.latitude);
-    expect(east.longitude).toBeGreaterThan(base.longitude);
+    const centered = {
+      ...base,
+      latitude: defaultRegion.center.latitude,
+      longitude: defaultRegion.center.longitude,
+    };
+    const north = advanceAircraft({ ...centered, headingDeg: 0 }, 60);
+    const east = advanceAircraft({ ...centered, headingDeg: 90 }, 60);
+    expect(north.latitude).toBeGreaterThan(centered.latitude);
+    expect(east.longitude).toBeGreaterThan(centered.longitude);
 
     const wrapped = advanceAircraft(
       { ...base, latitude: defaultRegion.bounds.north - 0.0001, headingDeg: 0 },
@@ -102,6 +107,26 @@ describe('simulation movement and reducer', () => {
     expect(getVerticalTrend({ ...aircraft, verticalRateFpm: 500 })).toMatch(/climbing/i);
     expect(getVerticalTrend({ ...aircraft, verticalRateFpm: -500 })).toMatch(/descending/i);
     expect(getVerticalTrend({ ...aircraft, verticalRateFpm: 0 })).toMatch(/level/i);
+    expect(
+      deriveSimulationStatistics(emergency.aircraft, {
+        [aircraft.id]: {
+          aircraftId: aircraft.id,
+          state: 'Critical',
+          remainingFuelKg: 100,
+          enduranceMinutes: 10,
+          burnKgPerHour: 1_800,
+          explanation: {
+            facts: [],
+            source: 'Test',
+            rule: 'Test',
+            result: 'Critical',
+            factors: [],
+            limitation: 'Test',
+            humanAction: 'Test',
+          },
+        },
+      }).lowFuelAircraft,
+    ).toBeGreaterThan(0);
     expect(deriveSimulationStatistics([])).toEqual({
       totalAircraft: 0,
       airborneAircraft: 0,

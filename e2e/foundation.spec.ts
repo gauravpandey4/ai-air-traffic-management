@@ -96,6 +96,47 @@ test('has no serious accessibility violations and respects keyboard and motion s
   expect(Number.parseFloat(animationDuration)).toBeLessThanOrEqual(0.00001);
 });
 
+test('explains scenario decisions and keeps human review explicitly simulated', async ({
+  page,
+}) => {
+  await page.goto('.');
+
+  await page.getByLabel('Scenario').selectOption('collision-risk');
+  const alertCenter = page.getByRole('region', { name: 'Alert center' });
+  await expect(
+    alertCenter.getByText('Critical projected separation', { exact: true }),
+  ).toBeVisible();
+  await alertCenter.getByText('Why this result?').click();
+  await expect(alertCenter.getByText(/10-minute constant-velocity CPA/i)).toBeVisible();
+  await expect(alertCenter.getByText(/Educational simplification/i)).toBeVisible();
+  await alertCenter.getByRole('button', { name: 'Acknowledge for review' }).click();
+  await expect(
+    alertCenter.getByRole('button', { name: 'Acknowledged in simulation' }),
+  ).toBeDisabled();
+
+  const humanReview = page.getByRole('region', { name: 'Human review' });
+  await humanReview.getByRole('button', { name: 'Confirm simulation' }).click();
+  await expect(humanReview.getByText('Confirmed in simulation')).toBeVisible();
+  await humanReview.getByRole('button', { name: 'Reject simulation' }).click();
+  await expect(humanReview.getByText('Rejected in simulation')).toBeVisible();
+
+  await page.getByLabel('Scenario').selectOption('low-fuel');
+  await expect(alertCenter.getByText('Critical simulated fuel', { exact: true })).toBeVisible();
+  await expect(page.getByRole('region', { name: 'Landing priority' })).toContainText(
+    'Critical simulated fuel',
+  );
+
+  await page.getByLabel('Scenario').selectOption('emergency');
+  const runwayPanel = page.getByRole('region', { name: 'Runway recommendation' });
+  await expect(runwayPanel.getByText('Suggested runway SIM-27', { exact: true })).toBeVisible();
+  await expect(runwayPanel.locator('.runway-score.is-unavailable')).toContainText(
+    'SIM-09Unavailable',
+  );
+  await humanReview.getByRole('button', { name: 'Clear simulated emergency' }).click();
+  await expect(humanReview.getByText('No simulated emergency is active.')).toBeVisible();
+  await expect(page.getByText(/Clearance issued/i)).toHaveCount(0);
+});
+
 for (const viewport of [
   { name: 'desktop', width: 1440, height: 1000 },
   { name: 'tablet', width: 768, height: 1024 },
@@ -110,5 +151,10 @@ for (const viewport of [
     );
     expect(overflow).toBe(false);
     await expect(page.getByRole('main')).toBeVisible();
+    await expect(page.getByRole('region', { name: 'Runway recommendation' })).toBeVisible();
+    const scoreOverflow = await page
+      .locator('.runway-score')
+      .evaluateAll((cards) => cards.some((card) => card.scrollWidth > card.clientWidth));
+    expect(scoreOverflow).toBe(false);
   });
 }
