@@ -3,14 +3,14 @@
 ## Control record
 
 - Current owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T18:33:06Z
+- Last updated (UTC): 2026-07-28T18:33:38Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Gate 1 status: Explicitly approved by the user
 - Gate 2 status: Explicitly approved by the user
 - Gate 3 status: Explicitly approved by the user
 - Gate 4 status: In progress
-- Last completed action: Committed the expanded scenario/browser verification and README capability notes as `90c14ce` (`test: verify decision support scenarios`).
-- Exact next action: Commit the complete PR 3 validation ledger, rerun the exact branch suite, and review the cumulative branch diff before publication.
+- Last completed action: Committed the complete PR 3 validation ledger as `8c1f0c1` (`docs: record decision support validation`); the branch was clean immediately after commit.
+- Exact next action: Rerun the exact branch suite and cumulative diff review, then publish `feat/decision-support`.
 - Current blockers: None.
 
 ## User instructions and approvals
@@ -399,6 +399,8 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 
 | 2026-07-28T18:33:06Z | Commit | `90c14ce` | `test: verify decision support scenarios`; staged whitespace and scope review passed |
 | 2026-07-28T18:33:06Z | Commit | This PR 3 validation-ledger commit | Records the fully reviewed PR 3 branch state before final exact branch verification and publication |
+
+| 2026-07-28T18:33:38Z | Commit | `8c1f0c1` | `docs: record decision support validation`; branch clean immediately after commit |
 
 ## Errors and verification
 

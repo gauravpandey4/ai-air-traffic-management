@@ -7,11 +7,11 @@ Before acting, read this file and `.codex/task-memory.md`, then follow the curre
 ## Current state
 
 - Owner: Codex primary agent
-- Last updated (UTC): 2026-07-28T18:33:06Z
+- Last updated (UTC): 2026-07-28T18:33:38Z
 - Current gate: Gate 4 — Implementation and PR Workflow
 - Approval status: Gates 1, 2, and 3 explicitly approved; Gate 4 in progress
-- Last completed action: Committed the expanded scenario/browser verification and README capability notes as `90c14ce` (`test: verify decision support scenarios`).
-- Exact next action: Commit the complete PR 3 validation ledger, rerun the exact branch suite, and review the cumulative branch diff before publication.
+- Last completed action: Committed the complete PR 3 validation ledger as `8c1f0c1` (`docs: record decision support validation`); the branch was clean immediately after commit.
+- Exact next action: Rerun the exact branch suite and cumulative diff review, then publish `feat/decision-support`.
 - Blockers: None.
 
 ## Fixed project facts
@@ -107,3 +107,4 @@ Work on exactly one gate at a time. Coding is prohibited until Gate 3 has been e
 - 2026-07-28T18:32:41Z — Commit `21ed6b3` (`feat: present recommendations and human review`) created after staged whitespace/scope review.
 - 2026-07-28T18:33:06Z — Commit `90c14ce` (`test: verify decision support scenarios`) created after staged whitespace/scope review.
 - 2026-07-28T18:33:06Z — This validation-ledger commit records the fully reviewed PR 3 branch state before the final exact branch suite and publication.
+- 2026-07-28T18:33:38Z — Commit `8c1f0c1` (`docs: record decision support validation`) created; branch clean immediately afterward.
