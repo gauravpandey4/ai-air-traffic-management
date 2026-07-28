@@ -350,6 +350,11 @@ The complete Gate 4 completion checklist and public Gate 5 smoke checklist are S
 | 2026-07-28T17:56:45Z | Commit         | This PR 2 validation-ledger commit                           | Records reviewed branch status before cumulative diff inspection and publication                                                                            |
 | 2026-07-28T17:57:28Z | Push           | `feat/simulation-dashboard`                                  | New remote PR 2 branch published with upstream tracking at head `639621e`                                                                                   |
 | 2026-07-28T17:57:28Z | Commit         | This PR 2 publication-ledger commit                          | Records branch publication before PR creation                                                                                                               |
+| 2026-07-28T17:58:51Z | Error          | PR numbering assumption                                      | Implementation PR is `#6`; ready/view targeted existing Dependabot `#2`, which was already ready, so no state changed                                       |
+| 2026-07-28T17:58:51Z | Finding        | Dependabot PRs `#2`–`#5`                                     | Node 26 types, TypeScript 7, and ESLint 10 proposals conflict with the approved Node 24/TS6/ESLint9 compatibility baseline; close without merge             |
+| 2026-07-28T18:00:00Z | PR             | `#6`                                                         | Simulation dashboard PR marked ready at `52b1169`; Quality running                                                                                          |
+| 2026-07-28T18:00:00Z | Cleanup        | Dependabot PRs `#2`–`#5`                                     | Four incompatible automated proposals closed without merge; PR `#6` is the only open PR                                                                     |
+| 2026-07-28T18:00:00Z | Commit         | This corrected PR 2 ledger commit                            | Records final PR number/state and Dependabot cleanup before exact-head CI                                                                                   |
 
 ## Errors and verification
 
